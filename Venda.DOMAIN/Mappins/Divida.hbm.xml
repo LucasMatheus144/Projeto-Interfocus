@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Venda.DOMAIN" namespace="Venda.DOMAIN.Entities">
+
+	<class name="Dividas" table="divida" lazy="false">
+
+		<id name="Id" column="id">
+			<generator class="sequence">
+				<param name="sequence">dividas_seq</param>
+			</generator>
+		</id>
+
+		<property name="Valor" column="valor" type="Decimal" not-null="true" />
+		<property name="DataCadastro" column="d_datacadastro" type="Timestamp" not-null="true" generated="insert" />
+		<property name="DataPagamento" column="d_datapagamento" type="Timestamp" not-null="false" />
+		<property name="Descricao" column="descricao" length="50" not-null="false" />
+		<property name="Situacao" column="situacao" not-null="true" />
+
+		<many-to-one name="cliente"
+					 column="id_cliente"
+					 fetch="join"
+					 foreign-key="fx_divida_cliente"/>
+
+	</class>
+
+</hibernate-mapping>
