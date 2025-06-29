@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CpfLibrary;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Venda.DOMAIN.Entities;
 
 namespace Venda.DOMAIN.Services
 {
     /// <summary>
     /// 
-    /// Classe validatora de todos os servições e atributos da aplicação.
+    /// Classe validatora de todos os services e atributos da aplicação.
     /// 
     /// </summary>
     public class ValidacaoService
@@ -59,12 +61,12 @@ namespace Venda.DOMAIN.Services
         {
             if (string.IsNullOrEmpty(msg)) return "Deu zika ai";
 
-            else if (msg.Contains("Não valido o cadastro.")) return "O valor da divida é superior a 200 reais";
+            else if(msg.Contains("clientes_nome_key")) return "O nome do cliente já existe no sistema!";
+            else if (msg.Contains("clientes_cpf_key")) return "O CPF do cliente já existe no sistema!";
+            else if (msg.Contains("Valor Superior a 200.")) return "O valor da divida é superior a 200 reais";
             else if (msg.Contains("O campo Nome é obrigatório.")) return "O nome é obrigatorio.";
-            else if (msg.Contains("uq_cpf")) return "Cpf ja existe no sistema!";
             else if (msg.Contains("could not insert")) return "Erro ao incluir o registro.";
             else if (msg.Contains("Cpf field is required")) return "O cpf é obrigatorio!";
-
 
             else return msg;
         }
@@ -73,19 +75,43 @@ namespace Venda.DOMAIN.Services
     // PROPRIEDADE da claasse CLIENTE para o atributo EMAIL
     public class ValidatorEmailAdrresAttribute : ValidationAttribute 
     { 
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        {
+            var email = value as string;
 
+            // Se for nulo , pode passar porque o email não é obrigatório
+            if (email == null) return ValidationResult.Success;
+
+            // Não pode passar se for vazio
+            if (string.IsNullOrWhiteSpace(email)) return new ValidationResult("O e-mail não pode estar vazio.", new[] { validationContext.MemberName });
+
+            //Precisa ter no minimo 4 caracteres
+            if (email.Length < 4) return new ValidationResult("O e-mail deve ter pelo menos 4 caracteres.", new[] { validationContext.MemberName });
+
+            if (email.Length > 50) return new ValidationResult("O e-mail é maior que 50", new[] { validationContext.MemberName });
+
+            //Para o email ser valido, precisa ter os campos do regex -> @  , .com  ou .br
+            var valido = new Regex(@"^[^@\s]+@[^@\s]+\.(com|br)$");
+
+            if (!valido.IsMatch(email)) return new ValidationResult("O e-mail informado não é válido.", new[] { validationContext.MemberName });
+
+            return ValidationResult.Success;
+
+        }
     }
 
     // PROPRIEDADE da claasse CLIENTE para o atributo CPF
+    // Documentação da biblioteca -https://github.com/tallesl/net-Cpf
     public class ValidatorCpfAttribute : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             var cpf = value as string;
 
-            //var isValid = Cpf.Check(cpf);
+            //Aqui valida o CPF é valido ou não
+            var isValid = Cpf.Check(cpf);
 
-            //return isValid ? ValidationResult.Success : new ValidationResult("O CPF informado não é válido", new[] { validationContext.MemberName });
+            return isValid ? ValidationResult.Success : new ValidationResult("O CPF informado não é válido", new[] { validationContext.MemberName });
 
         }
 

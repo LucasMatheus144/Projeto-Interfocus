@@ -4,13 +4,6 @@
   "Documents": [
     {
       "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.domain\\mappins\\cliente.hbm.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:mappins\\cliente.hbm.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -48,33 +41,7 @@
               "RelativeToolTip": "..\\Venda.API\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-28T18:58:50.288Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.API\\Program.cs",
-              "RelativeDocumentMoniker": "..\\Venda.API\\Program.cs",
-              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.API\\Program.cs",
-              "RelativeToolTip": "..\\Venda.API\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACsAAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-28T18:55:57.005Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Cliente.hbm.xml",
-              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Mappins\\Cliente.hbm.xml",
-              "RelativeDocumentMoniker": "Mappins\\Cliente.hbm.xml",
-              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Mappins\\Cliente.hbm.xml",
-              "RelativeToolTip": "Mappins\\Cliente.hbm.xml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2025-06-28T18:54:42.614Z",
+              "WhenOpened": "2025-06-29T02:00:24.438Z",
               "EditorCaption": ""
             }
           ]

@@ -14,7 +14,7 @@ namespace Venda.DOMAIN.Entities
         [Required]
         public decimal Valor { get; set; }
 
-        public DateTime DataCadastro { get; private set; } = DateTime.Now;
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
 
         public DateTime? DataPagamento { get; set; }
 

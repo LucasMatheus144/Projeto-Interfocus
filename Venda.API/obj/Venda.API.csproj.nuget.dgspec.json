@@ -128,6 +128,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Cpf": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "NHibernate": {
               "target": "Package",
               "version": "[5.5.2, )"

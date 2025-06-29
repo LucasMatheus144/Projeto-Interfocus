@@ -18,6 +18,15 @@
           }
         }
       },
+      "Cpf/2.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/Cpf.dll": {}
+        },
+        "runtime": {
+          "lib/Cpf.dll": {}
+        }
+      },
       "Iesi.Collections/4.0.4": {
         "type": "package",
         "dependencies": {
@@ -1665,6 +1674,20 @@
         "lib/netstandard1.1/Antlr3.Runtime.xml",
         "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Antlr3.Runtime.dll",
         "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Antlr3.Runtime.xml"
+      ]
+    },
+    "Cpf/2.1.0": {
+      "sha512": "pj7tW8tNCEYXHqBKbDXR0MPwIeB3TrF0PWX7p2o9RRugNMeP7ZzcX0LO9BmuWNS5sSjN5dK6NJDiL8wnRAZ5Iw==",
+      "type": "package",
+      "path": "cpf/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "cpf.2.1.0.nupkg.sha512",
+        "cpf.nuspec",
+        "lib/Cpf.dll",
+        "lib/Cpf.pdb",
+        "lib/Cpf.xml"
       ]
     },
     "Iesi.Collections/4.0.4": {
@@ -5533,6 +5556,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Cpf >= 2.1.0",
       "NHibernate >= 5.5.2",
       "Npgsql >= 9.0.3"
     ]
@@ -5587,6 +5611,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Cpf": {
+            "target": "Package",
+            "version": "[2.1.0, )"
+          },
           "NHibernate": {
             "target": "Package",
             "version": "[5.5.2, )"
@@ -5615,5 +5643,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'Cpf 2.1.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "Cpf",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

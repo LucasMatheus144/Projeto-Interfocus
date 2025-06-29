@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Venda.DOMAIN.Interfaces;
+using Venda.DOMAIN.Services;
 using Venda.DOMAIN.ValuesObject;
 
 namespace Venda.DOMAIN.Entities
@@ -23,12 +24,12 @@ namespace Venda.DOMAIN.Entities
         public string Nome { get; set; } = string.Empty;
 
         [Required]
+        [ValidatorCpf]
         public string Cpf { get; set; } = string.Empty;
 
         public DateTime DataNascimento { get; private set; } = DateTime.Now;
 
-        [EmailAddress]
-        [MaxLength(50, ErrorMessage = "O limite de caracteres para o e-mail é 50")]
+        [ValidatorEmailAdrres]
         public string? Email { get; set; }
 
         public SituacaoCliente Situacao { get; set; } = SituacaoCliente.Adimplente;
@@ -45,5 +46,7 @@ namespace Venda.DOMAIN.Entities
         }
 
         public IList<Dividas>? Dividas { get; set; }
+
+
     }
 }

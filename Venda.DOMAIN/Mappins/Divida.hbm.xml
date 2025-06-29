@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Venda.DOMAIN" namespace="Venda.DOMAIN.Entities">
 
-	<class name="Dividas" table="divida" lazy="false">
+	<class name="Dividas" table="dividas" lazy="false">
 
 		<id name="Id" column="id">
 			<generator class="sequence">

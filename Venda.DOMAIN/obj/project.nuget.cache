@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "0WJgAe27ybk=",
+  "dgSpecHash": "yg/1k02Hz7o=",
   "success": true,
   "projectFilePath": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lumet\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
+    "C:\\Users\\lumet\\.nuget\\packages\\cpf\\2.1.0\\cpf.2.1.0.nupkg.sha512",
     "C:\\Users\\lumet\\.nuget\\packages\\iesi.collections\\4.0.4\\iesi.collections.4.0.4.nupkg.sha512",
     "C:\\Users\\lumet\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
     "C:\\Users\\lumet\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
@@ -96,5 +97,18 @@
     "C:\\Users\\lumet\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\lumet\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "O pacote 'Cpf 2.1.0' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "projectPath": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
+      "libraryId": "Cpf",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
