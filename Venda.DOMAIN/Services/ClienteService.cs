@@ -140,10 +140,7 @@ namespace Venda.DOMAIN.Services
         public List<ClienteDtoLabel> SelecionarCliente()
         {
             var query = from c in db.Consulta<Cliente>()
-                        join d in db.Consulta<Dividas>() on c.Id equals d.ClienteId
-                        group d by new { c.Id, c.Nome } into grp
-                        let total = grp.Sum(x => x.Valor)
-                        where total < 200
+                        group c by new { c.Id, c.Nome } into grp
                         select new ClienteDtoLabel
                         {
                             Id = grp.Key.Id,

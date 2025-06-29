@@ -1,11 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -13,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 683,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,19 +26,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.API\\appsettings.json",
-              "RelativeDocumentMoniker": "..\\Venda.API\\appsettings.json",
-              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.API\\appsettings.json",
-              "RelativeToolTip": "..\\Venda.API\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-29T02:00:24.438Z",
-              "EditorCaption": ""
             }
           ]
         }

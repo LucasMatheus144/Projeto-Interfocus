@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using NHibernate.Driver;
+using System.Reflection.Metadata.Ecma335;
 using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.Repository;
 using Venda.DOMAIN.ValuesObject;
@@ -81,7 +82,11 @@ namespace Venda.DOMAIN.Services
 
             obj.cliente = cliente;
             obj.DataCadastro = procura.DataCadastro; // forçar sempre manter a Data Cadastro
-            obj.Situacao = SituacaoDivida.Pago; // fiz isso para nao pegar o new.valor na trigger 
+            
+            if (obj.DataPagamento != null)
+            {
+                obj.Situacao = SituacaoDivida.Pago; // fiz isso para nao pegar o new.valor na trigger 
+            }            
 
 
             if (!validar.ValidarEntites(obj, out erro)) return false;
@@ -150,9 +155,9 @@ namespace Venda.DOMAIN.Services
         /// 
         /// TODO: Repensar nessa logica de alteração de status.
         /// 
+        /// REGRA: 1- > Quando pagar a divida, alterar o status da divida para Pago
+        ///        2- > Após alterar o status da divida, precisa verificar se o cliente ainda possui divida, se possuir manter o status de INADIMPLENTE
         /// </summary>
-
-        //Alterar Status do cliente quando gerar alguma ação de divida para o cliente X
         private void AlterarStatusCliente(Cliente cl, Dividas obj)
         {
             //verifica se o cliente está inadimplente, caso contratio nao precisa dar update
@@ -188,9 +193,13 @@ namespace Venda.DOMAIN.Services
                 }
                 else // deixar a divida como paga
                 {
-                    using var inicia = db.IniciarTransacao();
-                    db.Incluir(obj);
-                    db.Commit();
+                    if (obj.DataPagamento != null)
+                    {
+                        using var inicia = db.IniciarTransacao();
+                        db.Incluir(obj);
+                        db.Commit();
+                    }
+                   
                 }
 
             }
