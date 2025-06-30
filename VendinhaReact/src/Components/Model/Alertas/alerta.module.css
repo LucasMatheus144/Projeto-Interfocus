@@ -1,0 +1,124 @@
+.alerta{
+    position: relative;
+    top: 55px;
+    right: 10px;
+    border-radius: 12px;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 6px 20px -5px var(--borda);
+    overflow: hidden;
+    transform: translateX(-100%);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35),  opacity 0.5s ease, transform 0.5s ease;
+    color: var(--white);
+    background-color: var(--black-700);
+    z-index: 9999;
+}
+
+.alerta.active{
+    transform: translateX(0%);
+    opacity: 1;
+}
+
+.alerta .contentAlerta{
+    display: flex;
+    align-items: center;
+}
+
+.alerta.sucess{
+    border-left: 6px solid var(--green-300);
+    border-radius: 12px;
+}
+
+.alerta.erro{
+    border-left: 6px solid var(--red-300) ;
+    border-radius: 12px;
+}
+
+.alerta .contentAlerta .iconsucess{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    min-width: 35px;
+    background-color: var(--green-300);
+    color: var(--white);
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.alerta .contentAlerta .iconerror{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    min-width: 35px;
+    background-color: var(--red-300);
+    color: var(--white);
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.contentAlerta .mensagem{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.mensagem .texto{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white);
+}
+
+.mensagem .texto.tx1{
+    font-weight: 600;
+    color: var(--white);
+;
+}
+
+.alerta .close{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    color: var(--white);
+}
+.alerta .close:hover {
+    opacity: 1;
+}
+
+.alerta .progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    overflow: hidden;
+}
+
+.alerta .progress::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    animation: progress 8s linear forwards;
+}
+
+.alerta .progress.sucess::before {
+    background-color: var(--green-300);
+}
+
+.alerta .progress.erro::before {
+    background-color: var(--red-300);
+}
+
+@keyframes progress {
+    100% {
+        right: 100%;
+    }
+}
+
+

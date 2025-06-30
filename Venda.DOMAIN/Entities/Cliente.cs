@@ -47,6 +47,7 @@ namespace Venda.DOMAIN.Entities
 
         public IList<Dividas>? Dividas { get; set; }
 
+        public decimal TotalDivida { get; set; }
 
     }
 }

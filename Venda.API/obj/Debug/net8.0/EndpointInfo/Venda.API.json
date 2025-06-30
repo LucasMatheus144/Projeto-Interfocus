@@ -274,6 +274,10 @@
               "$ref": "#/components/schemas/Dividas"
             },
             "nullable": true
+          },
+          "totalDivida": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

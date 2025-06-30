@@ -1,0 +1,21 @@
+.where{
+   position: relative;
+   width: 85%;
+}
+
+.icon{
+    position: absolute;
+    color: var(--yellow-400);
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inputss{
+    padding: 8px 20px 8px 30px;
+    width: 100%;
+    border-radius: 5px;
+    color: var(--white);
+    background-color: var(--black-900);
+    border: 1px solid var(--black-700);
+}

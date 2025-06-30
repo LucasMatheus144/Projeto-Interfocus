@@ -3,11 +3,27 @@
   "WorkspaceRootPath": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.domain\\services\\clienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\clienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.domain\\entities\\exceptionmsg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:entities\\exceptionmsg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.domain\\dto\\clientedtoexibicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:dto\\clientedtoexibicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.domain\\entities\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:entities\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.domain\\entities\\divida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:entities\\divida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.domain\\services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projetointerfocus\\projeto-interfocus\\venda.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,19 +54,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ExceptionMsg.cs",
-              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Entities\\ExceptionMsg.cs",
-              "RelativeDocumentMoniker": "Entities\\ExceptionMsg.cs",
-              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Entities\\ExceptionMsg.cs",
-              "RelativeToolTip": "Entities\\ExceptionMsg.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ClienteDtoExibicao.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\DTO\\ClienteDtoExibicao.cs",
+              "RelativeDocumentMoniker": "DTO\\ClienteDtoExibicao.cs",
+              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\DTO\\ClienteDtoExibicao.cs",
+              "RelativeToolTip": "DTO\\ClienteDtoExibicao.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAgwBkAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T14:43:03.065Z",
+              "WhenOpened": "2025-06-30T14:46:56.374Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ClienteService.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ClienteService.cs",
+              "RelativeDocumentMoniker": "Services\\ClienteService.cs",
+              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ClienteService.cs*",
+              "RelativeToolTip": "Services\\ClienteService.cs*",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAgwIEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T14:46:22.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DividaService.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
+              "RelativeDocumentMoniker": "Services\\DividaService.cs",
+              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
+              "RelativeToolTip": "Services\\DividaService.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAwwFwAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T02:55:38.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.API\\appsettings.json",
               "RelativeDocumentMoniker": "..\\Venda.API\\appsettings.json",
@@ -58,7 +100,33 @@
               "RelativeToolTip": "..\\Venda.API\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-29T02:00:24.438Z",
+              "WhenOpened": "2025-06-30T02:18:57.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Divida.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Entities\\Divida.cs",
+              "RelativeDocumentMoniker": "Entities\\Divida.cs",
+              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Entities\\Divida.cs",
+              "RelativeToolTip": "Entities\\Divida.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T23:16:00.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Cliente.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Entities\\Cliente.cs",
+              "RelativeDocumentMoniker": "Entities\\Cliente.cs",
+              "ToolTip": "C:\\Users\\lumet\\ProjetoInterfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Entities\\Cliente.cs",
+              "RelativeToolTip": "Entities\\Cliente.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwDEAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T23:15:56.955Z",
               "EditorCaption": ""
             }
           ]

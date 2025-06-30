@@ -1,0 +1,72 @@
+.container{
+    display: flex;
+    padding: 10px;
+}
+
+.pesquisa{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+.novocliente{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    background-color: var(--yellow-400);
+    color: var(--black-400);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    width: 125px;
+}
+
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    padding: 5px 5px 5px 40px;
+}
+
+.paginacao {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+    color: var(--white);
+}
+
+a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: var(--gray-300);
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.pageNumber {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid var(--black-100);
+    text-align: center;
+}
+
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.pageNumber:hover {
+    border: none;
+}

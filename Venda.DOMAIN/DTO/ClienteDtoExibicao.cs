@@ -1,4 +1,5 @@
-﻿using Venda.DOMAIN.ValuesObject;
+﻿using Venda.DOMAIN.Entities;
+using Venda.DOMAIN.ValuesObject;
 
 namespace Venda.DOMAIN.DTO
 {
@@ -20,6 +21,9 @@ namespace Venda.DOMAIN.DTO
         public string Nome { get; set; } = string.Empty;
         public string Cpf { get; set; } = string.Empty;
         public SituacaoCliente Situacao { get; set; }
+        public string Email { get; set; } = string.Empty;
         public decimal TotalDivida { get; set; }
+        public int Idade => cliente?.Idade ?? 0;
+        public Cliente cliente { get; set; }
     }
 }

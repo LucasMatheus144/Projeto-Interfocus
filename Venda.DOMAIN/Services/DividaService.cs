@@ -171,12 +171,6 @@ namespace Venda.DOMAIN.Services
                     db.Incluir(cl);
                     db.Commit();
                 }
-                else // deixar a divida como paga
-                {
-                    using var inicia = db.IniciarTransacao();
-                    db.Incluir(obj);
-                    db.Commit();
-                }
             }
             else
             {
@@ -191,17 +185,6 @@ namespace Venda.DOMAIN.Services
                     db.Incluir(cl);
                     db.Commit();
                 }
-                else // deixar a divida como paga
-                {
-                    if (obj.DataPagamento != null)
-                    {
-                        using var inicia = db.IniciarTransacao();
-                        db.Incluir(obj);
-                        db.Commit();
-                    }
-                   
-                }
-
             }
         }
     }

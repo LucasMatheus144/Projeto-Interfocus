@@ -111,13 +111,14 @@ namespace Venda.DOMAIN.Services
                             join d in db.Consulta<Dividas>() on c.Id equals d.cliente.Id into grupoDividas
                             from divida in grupoDividas.DefaultIfEmpty()
                             where string.IsNullOrEmpty(pesquisa) || c.Nome.Contains(pesquisa)
-                            group divida by new { c.Id, c.Nome, c.Cpf, c.Situacao } into grp
+                            group divida by new { c.Id, c.Nome, c.Cpf, c.Situacao, c.Email } into grp
                             select new DadosClienteDto
                             {
                                 Id = grp.Key.Id,
                                 Nome = grp.Key.Nome,
                                 Cpf = grp.Key.Cpf,
                                 Situacao = grp.Key.Situacao,
+                                Email = grp.Key.Email,
                                 TotalDivida = grp.Sum(d => d != null && (int)d.Situacao == 2 ? (decimal?)d.Valor : 0) ?? 0
                             };
 

@@ -1,0 +1,34 @@
+import styles from './temcerteza.module.css';
+import { excluirCliente } from '../../../services/clienteService'
+
+export default function TemCerteza({ isAbrir, onClose,id, attForm}) {
+    if (!isAbrir) return false;
+
+    const gerarExclusao = async() => {
+        const status = await excluirCliente(id);
+        if(status == 200){
+            onClose();
+            attForm();
+        } 
+    }
+    return (
+        <div className={styles.componente}>
+            <div className={styles.dialogo}>
+                <div className={styles.content}>
+                    <div className={styles.header}>
+                        <h5 className={styles.titulo}>Exclusão</h5>
+                    </div>
+                    <div className={styles.descricao}>
+                        Confirma a exclusão do cadastro? Todas as dividas atreladas serão excluidas tambem.
+                    </div>
+                    <div className={styles.finale}>
+                        <button type="button" onClick={onClose} >Não</button>
+                        <button type="submit" onClick={gerarExclusao}>Sim</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    );
+
+}
