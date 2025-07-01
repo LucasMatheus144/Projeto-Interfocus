@@ -21,7 +21,7 @@ namespace Venda.DOMAIN.Repository
 
         IQueryable<T> Consulta<T>();
 
-        IList<T> ExecutaQuery<T>(string query);
+        IList<T> ExecutaQuery<T>(string query) where T : class, new();
 
         IDisposable IniciarTransacao();
         void Commit();

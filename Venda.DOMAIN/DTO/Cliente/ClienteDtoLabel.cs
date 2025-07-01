@@ -1,4 +1,4 @@
-﻿namespace Venda.DOMAIN.DTO
+﻿namespace Venda.DOMAIN.DTO.Cliente
 {
     public class ClienteDtoLabel
     {

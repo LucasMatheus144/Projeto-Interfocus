@@ -1,7 +1,7 @@
 ﻿using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.ValuesObject;
 
-namespace Venda.DOMAIN.DTO
+namespace Venda.DOMAIN.DTO.Cliente
 {
     ///<sumary>
     ///Essa classe foi deita para a exibição e paginação de dados no Front-end.
@@ -18,12 +18,12 @@ namespace Venda.DOMAIN.DTO
     public class DadosClienteDto
     {
         public int Id { get; set; }
-        public string Nome { get; set; } = string.Empty;
-        public string Cpf { get; set; } = string.Empty;
+        public string Nome { get; set; } 
+        public string Cpf { get; set; } 
         public SituacaoCliente Situacao { get; set; }
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; } 
+
+        public int Idade { get; set; }
         public decimal TotalDivida { get; set; }
-        public int Idade => cliente?.Idade ?? 0;
-        public Cliente cliente { get; set; }
     }
 }

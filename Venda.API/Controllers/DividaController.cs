@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Venda.DOMAIN.Entities;
+using Venda.DOMAIN.DTO.Divida;
 using Venda.DOMAIN.Services;
 
 namespace Venda.API.Controllers
@@ -23,7 +24,7 @@ namespace Venda.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastra([FromBody] Dividas obj)
+        public IActionResult Cadastra([FromBody] DividaCreateDto obj)
         {
             var cadastra = service.CadastraDivida(obj, out List<ExceptionMsg> erro);
 
@@ -36,7 +37,7 @@ namespace Venda.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Editar([FromBody] Dividas obj)
+        public IActionResult Editar([FromBody] DividaCreateDto obj)
         {
             var editar = service.EditarDivida(obj, out List<ExceptionMsg> erro);
 

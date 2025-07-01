@@ -1,6 +1,10 @@
-﻿using Venda.DOMAIN.DTO;
+﻿using CpfLibrary;
+using NHibernate.Transform;
+using System.Text.RegularExpressions;
+using Venda.DOMAIN.DTO.Cliente;
 using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.Repository;
+using Venda.DOMAIN.ValuesObject;
 
 namespace Venda.DOMAIN.Services
 {
@@ -107,24 +111,34 @@ namespace Venda.DOMAIN.Services
         //Filtro | Ordenação e Paginação de Clientes
         public ClienteDtoExibicao ConsultaClienteFiltroePaginacao(string? pesquisa, int take, int skip)
         {
-            var queryBase = from c in ReportaTodosClientes()
-                            join d in db.Consulta<Dividas>() on c.Id equals d.cliente.Id into grupoDividas
-                            from divida in grupoDividas.DefaultIfEmpty()
-                            where string.IsNullOrEmpty(pesquisa) || c.Nome.Contains(pesquisa)
-                            group divida by new { c.Id, c.Nome, c.Cpf, c.Situacao, c.Email } into grp
-                            select new DadosClienteDto
-                            {
-                                Id = grp.Key.Id,
-                                Nome = grp.Key.Nome,
-                                Cpf = grp.Key.Cpf,
-                                Situacao = grp.Key.Situacao,
-                                Email = grp.Key.Email,
-                                TotalDivida = grp.Sum(d => d != null && (int)d.Situacao == 2 ? (decimal?)d.Valor : 0) ?? 0
-                            };
+            var query = from cl in db.Consulta<Cliente>()
+                        join d in db.Consulta<Dividas>() on cl.Id equals d.cliente.Id into grupoDividas
+                        from divida in grupoDividas.DefaultIfEmpty()
+                        where string.IsNullOrEmpty(pesquisa) || cl.Nome.Contains(pesquisa)
+                        group divida by new
+                        {
+                            cl.Id,
+                            cl.Nome,
+                            cl.Situacao,
+                            cl.Cpf,
+                            cl.Email,
+                            cl.DataNascimento
+                        } into grp
+                        select new DadosClienteDto
+                        {
+                            Id = grp.Key.Id,
+                            Nome = grp.Key.Nome,
+                            Situacao = grp.Key.Situacao,
+                            Cpf = FormatarCpf(grp.Key.Cpf),
+                            Email = grp.Key.Email,
+                            Idade = CalcularIdade(grp.Key.DataNascimento),
+                            TotalDivida = grp.Sum(d => d != null && d.Situacao == SituacaoDivida.Devendo && d.DataPagamento == null
+                                                       ? (decimal?)d.Valor : 0) ?? 0
+                        };
 
-            var totalClientes = queryBase.Count();
+            var totalClientes = query.Count();
 
-            var result = queryBase
+            var result = query
                 .OrderByDescending(x => x.TotalDivida)
                 .Skip(skip * take)
                 .Take(take)
@@ -140,19 +154,40 @@ namespace Venda.DOMAIN.Services
         //Função para preenchimento de um select label no front-end
         public List<ClienteDtoLabel> SelecionarCliente()
         {
-            var query = from c in db.Consulta<Cliente>()
-                        group c by new { c.Id, c.Nome } into grp
-                        select new ClienteDtoLabel
-                        {
-                            Id = grp.Key.Id,
-                            Nome = grp.Key.Nome,
-                        };
+            //var query = from c in db.Consulta<Cliente>()
+            //            group c by new { c.Id, c.Nome } into grp
+            //            select new ClienteDtoLabel
+            //            {
+            //                Id = grp.Key.Id,
+            //                Nome = grp.Key.Nome,
+            //            };
 
-            var resultado = query.ToList();
+            //var resultado = query.ToList();
 
-            return resultado;
+            var query = db.ExecutaQuery<ClienteDtoLabel>("select id,nome from vis_clientes");
+
+            return query.ToList();
 
         }
 
+        public Cliente RetornaClienteId(int id)
+        {
+            return db.ConsultaId<Cliente>(id);
+        }
+
+        //Formatação de valores
+        private string FormatarCpf(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+
+            return Regex.Replace(value, @"^(\d{3})\.\d{3}\.\d{3}-(\d{2})$", "$1.XXX.XXX-$2");
+        }
+
+        private int CalcularIdade(DateTime dataNascimento)
+        {
+            var idade = DateTime.Now.Year - dataNascimento.Year;
+            if (dataNascimento > DateTime.Now.AddYears(-idade)) idade--;
+            return idade;
+        }
     }
 }

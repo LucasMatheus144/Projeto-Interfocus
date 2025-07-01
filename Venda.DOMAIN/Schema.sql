@@ -1,4 +1,3 @@
-create database projetovalendointerfocus;
 
 create sequence public.clientes_seq;
 
@@ -25,8 +24,9 @@ create table dividas(
 );
 
 
-create function  public.valida_new_divida()
-RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION  public.valida_new_divida()
+RETURNS trigger AS
+$body$
 DECLARE
     total DECIMAL(8, 2);
 BEGIN
@@ -44,12 +44,18 @@ IF NEW.situacao = 1 THEN -- 1 ->  Pago = 1, Devendo = 2,
 
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+PARALLEL UNSAFE
+COST 100;
 
-CREATE TRIGGER public.trigger_valida_nova_divida
+CREATE TRIGGER  trigger_valida_nova_divida
 BEFORE INSERT OR UPDATE ON dividas
 FOR EACH ROW
-EXECUTE FUNCTION valida_new_divida();
+EXECUTE PROCEDURE  valida_new_divida();
 
 
 create view public.vis_cliente as

@@ -84,6 +84,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Venda.API.Controllers.ClienteController",
+    "Method": "RetornarUnicoCliente",
+    "RelativePath": "api/Cliente/unicidade/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Venda.API.Controllers.DividaController",
     "Method": "Get",
     "RelativePath": "api/Divida",
@@ -103,7 +119,7 @@
     "Parameters": [
       {
         "Name": "obj",
-        "Type": "Venda.DOMAIN.Entities.Dividas",
+        "Type": "Venda.DOMAIN.DTO.Divida.DividaCreateDto",
         "IsRequired": true
       }
     ],
@@ -119,7 +135,7 @@
     "Parameters": [
       {
         "Name": "obj",
-        "Type": "Venda.DOMAIN.Entities.Dividas",
+        "Type": "Venda.DOMAIN.DTO.Divida.DividaCreateDto",
         "IsRequired": true
       }
     ],

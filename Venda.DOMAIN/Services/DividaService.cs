@@ -1,5 +1,6 @@
 ﻿using NHibernate.Driver;
 using System.Reflection.Metadata.Ecma335;
+using Venda.DOMAIN.DTO.Divida;
 using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.Repository;
 using Venda.DOMAIN.ValuesObject;
@@ -25,29 +26,42 @@ namespace Venda.DOMAIN.Services
         ///     
         /// </summary>
         //Cadastrar Dívida
-        public bool CadastraDivida(Dividas obj, out List<ExceptionMsg> erro)
+        public bool CadastraDivida(DividaCreateDto obj, out List<ExceptionMsg> erro)
         {
             erro = new List<ExceptionMsg>();
-            if (!validar.ValidarEntites(obj, out erro)) return false;
 
-            var id = obj.ClienteId;
+            var procuraCliente = ListarClientePorId(obj.ClienteId);
 
-            var cliente = ListarClientePorId(obj.ClienteId);
-
-            if (cliente == null)
+            if (procuraCliente == null)
             {
                 erro.Add(new ExceptionMsg("Cliente", "Identificador", "Cliente não localizado!"));
                 return false;
             }
 
-            obj.cliente = cliente;
+            if (obj.DataPagamento != null)
+            {
+                obj.Situacao = SituacaoDivida.Pago;
+            }
+
+            var divida = new Dividas
+            {
+                cliente = procuraCliente,
+                Valor = obj.Valor,
+                DataPagamento = obj.DataPagamento,
+                Descricao = obj.Descricao,
+                Situacao = obj.Situacao,
+            };
+
+            if (!validar.ValidarEntites(divida, out erro)) return false;
+
+
             try
             {
                 using var inicia = db.IniciarTransacao();
-                db.Incluir(obj);
+                db.Incluir(divida);
                 db.Commit();
 
-                AlterarStatusCliente(cliente, obj); // Forçar troca de staus do cliente
+                AlterarStatusCliente(procuraCliente); // Forçar troca de staus do cliente
 
                 return true;
             }
@@ -60,11 +74,11 @@ namespace Venda.DOMAIN.Services
         }
 
         //Editar Dívida
-        public bool EditarDivida(Dividas obj, out List<ExceptionMsg> erro)
+        public bool EditarDivida(DividaCreateDto obj, out List<ExceptionMsg> erro)
         {
             erro = new List<ExceptionMsg>();
 
-            var procura = RetornaDividaPorId(obj.Id);
+            var procura = RetornaDividaPorId(obj.IdDivida);
 
             if (procura == null)
             {
@@ -74,30 +88,36 @@ namespace Venda.DOMAIN.Services
 
             var cliente = ListarClientePorId(obj.ClienteId);
 
-            if(cliente == null)
+            if (cliente == null)
             {
                 erro.Add(new ExceptionMsg("Cliente", "Identificador", "Cliente Não encontrada!"));
                 return false;
             }
 
-            obj.cliente = cliente;
-            obj.DataCadastro = procura.DataCadastro; // forçar sempre manter a Data Cadastro
-            
             if (obj.DataPagamento != null)
             {
-                obj.Situacao = SituacaoDivida.Pago; // fiz isso para nao pegar o new.valor na trigger 
-            }            
+                obj.Situacao = SituacaoDivida.Pago; 
+            }
+
+            var divida = new Dividas
+            {
+                cliente = cliente,
+                Valor = obj.Valor,
+                DataPagamento = obj.DataPagamento,
+                Descricao = obj.Descricao,
+                Situacao = obj.Situacao,
+            };
 
 
-            if (!validar.ValidarEntites(obj, out erro)) return false;
+            if (!validar.ValidarEntites(divida, out erro)) return false;
             try
             {
                 using var inicia = db.IniciarTransacao();
-                db.Salvar(obj);
+                db.Salvar(divida);
                 db.Commit();
 
-                AlterarStatusCliente(cliente, obj); // Forçar troca de staus do cliente
-               
+                AlterarStatusCliente(cliente); // Forçar troca de staus do cliente
+
                 return true;
             }
             catch (Exception ex)
@@ -107,7 +127,7 @@ namespace Venda.DOMAIN.Services
                 return false;
             }
         }
-        
+
         //Excluir Dívida
         public bool ExcluirDivida(int id)
         {
@@ -140,6 +160,11 @@ namespace Venda.DOMAIN.Services
             return db.ConsultaId<Dividas>(id);
         }
 
+        public List<Dividas> RetornaDividaPorCliente(int idcliente)
+        {
+            return db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).ToList();
+        }
+
         public List<Dividas> RetornaTodasDividas()
         {
             return db.Consulta<Dividas>().ToList();
@@ -153,39 +178,18 @@ namespace Venda.DOMAIN.Services
         //Regra Geral para Divida
         /// <summary>
         /// 
-        /// TODO: Repensar nessa logica de alteração de status.
-        /// 
         /// REGRA: 1- > Quando pagar a divida, alterar o status da divida para Pago
         ///        2- > Após alterar o status da divida, precisa verificar se o cliente ainda possui divida, se possuir manter o status de INADIMPLENTE
         /// </summary>
-        private void AlterarStatusCliente(Cliente cl, Dividas obj)
+        private void AlterarStatusCliente(Cliente cliente)
         {
-            //verifica se o cliente está inadimplente, caso contratio nao precisa dar update
-            if (cl.Situacao != SituacaoCliente.Inadimplente)
-            {
-                // Se a divida não tiver data de pagamento, o cliente deve ser marcado como inadimplente
-                if (obj.DataPagamento == null)
-                {
-                    using var inicia = db.IniciarTransacao();
-                    cl.Situacao = SituacaoCliente.Inadimplente;
-                    db.Incluir(cl);
-                    db.Commit();
-                }
-            }
-            else
-            {
-                // Valida se o cliente ainda possui alguma divida em aberto
-                var query = RetornaTodasDividas().Where(x => x.cliente.Id == cl.Id && x.DataPagamento != null).Count();
+            var possuiDividaAberta = RetornaDividaPorCliente(cliente.Id).Any(x => x.Situacao == SituacaoDivida.Devendo &&x.DataPagamento == null);
 
-                // se nao tiver
-                if (query == 0)
-                {
-                    using var inicia = db.IniciarTransacao();
-                    cl.Situacao = SituacaoCliente.Adimplente; //Volta a ser Adimplente
-                    db.Incluir(cl);
-                    db.Commit();
-                }
-            }
+            cliente.Situacao = possuiDividaAberta ? SituacaoCliente.Inadimplente: SituacaoCliente.Adimplente;
+
+            using var inicia = db.IniciarTransacao();
+            db.Salvar(cliente);
+            db.Commit();
         }
     }
 }

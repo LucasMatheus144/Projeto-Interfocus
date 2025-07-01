@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Venda.API",
+    "\\Venda.DOMAIN"
   ],
+  "SelectedNode": "\\Venda.DOMAIN\\Venda.DOMAIN.sln",
   "PreviewInSolutionExplorer": false
 }

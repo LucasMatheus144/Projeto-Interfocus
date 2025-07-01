@@ -21,33 +21,19 @@ namespace Venda.DOMAIN.Entities
         [Required]
         [MaxLength(25)]
         [MinLength(3)]
-        public string Nome { get; set; } = string.Empty;
+        public string Nome { get; set; }
 
         [Required]
         [ValidatorCpf]
-        public string Cpf { get; set; } = string.Empty;
+        public string Cpf { get; set; }
 
-        public DateTime DataNascimento { get; private set; } = DateTime.Now;
+        [Required]
+        public DateTime DataNascimento { get; set; }
 
         [ValidatorEmailAdrres]
         public string? Email { get; set; }
 
-        public SituacaoCliente Situacao { get; set; } = SituacaoCliente.Adimplente;
-
-        public int Idade
-        {
-            get
-            {
-                var idade = DateTime.Now.Year - DataNascimento.Year;
-                if (DataNascimento > DateTime.Now.AddYears(-idade)) idade--;
-
-                return idade;
-            }
-        }
-
-        public IList<Dividas>? Dividas { get; set; }
-
-        public decimal TotalDivida { get; set; }
+        public SituacaoCliente Situacao { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using NHibernate.Transform;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,11 +62,11 @@ namespace Venda.DOMAIN.Repository.Implemetantions
             db.GetCurrentTransaction().Commit();
         }
 
-        public IList<T> ExecutaQuery<T>(string query)
+        public IList<T> ExecutaQuery<T>(string query) where T : class, new()
         {
             return db.CreateSQLQuery(query)
-              .AddEntity(typeof(T))
-              .List<T>();
+                       .SetResultTransformer(Transformers.AliasToBean<T>())
+                       .List<T>();
         }
     }
 }

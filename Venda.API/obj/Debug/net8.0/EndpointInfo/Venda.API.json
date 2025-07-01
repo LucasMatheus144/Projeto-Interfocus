@@ -100,6 +100,29 @@
         }
       }
     },
+    "/api/Cliente/unicidade/{id}": {
+      "get": {
+        "tags": [
+          "Cliente"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Cliente/labels": {
       "get": {
         "tags": [
@@ -154,17 +177,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Dividas"
+                "$ref": "#/components/schemas/DividaCreateDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Dividas"
+                "$ref": "#/components/schemas/DividaCreateDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Dividas"
+                "$ref": "#/components/schemas/DividaCreateDto"
               }
             }
           }
@@ -183,17 +206,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Dividas"
+                "$ref": "#/components/schemas/DividaCreateDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Dividas"
+                "$ref": "#/components/schemas/DividaCreateDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Dividas"
+                "$ref": "#/components/schemas/DividaCreateDto"
               }
             }
           }
@@ -234,6 +257,7 @@
       "Cliente": {
         "required": [
           "cpf",
+          "dataNascimento",
           "nome"
         ],
         "type": "object",
@@ -253,8 +277,7 @@
           },
           "dataNascimento": {
             "type": "string",
-            "format": "date-time",
-            "readOnly": true
+            "format": "date-time"
           },
           "email": {
             "type": "string",
@@ -262,34 +285,14 @@
           },
           "situacao": {
             "$ref": "#/components/schemas/SituacaoCliente"
-          },
-          "idade": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "dividas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Dividas"
-            },
-            "nullable": true
-          },
-          "totalDivida": {
-            "type": "number",
-            "format": "double"
           }
         },
         "additionalProperties": false
       },
-      "Dividas": {
-        "required": [
-          "clienteId",
-          "valor"
-        ],
+      "DividaCreateDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "idDivida": {
             "type": "integer",
             "format": "int32"
           },
@@ -303,7 +306,8 @@
           },
           "dataCadastro": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "readOnly": true
           },
           "dataPagamento": {
             "type": "string",
@@ -316,9 +320,6 @@
           },
           "situacao": {
             "$ref": "#/components/schemas/SituacaoDivida"
-          },
-          "cliente": {
-            "$ref": "#/components/schemas/Cliente"
           }
         },
         "additionalProperties": false

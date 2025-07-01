@@ -23,6 +23,13 @@ namespace Venda.API.Controllers
         }
 
         [HttpGet]
+        [Route("unicidade/{id}")]
+        public IActionResult RetornarUnicoCliente(int id)
+        {
+            return Ok(service.RetornaClienteId(id));
+        }
+
+        [HttpGet]
         [Route("labels")]
         public IActionResult ConstruirLabel()
         {

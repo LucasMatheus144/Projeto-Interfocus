@@ -2,7 +2,7 @@
 {
     public enum SituacaoDivida
     {
-        Pago = 1,
-        Devendo = 2,
+        Devendo = 1,
+        Pago = 2,
     }
 }
