@@ -164,6 +164,39 @@ namespace Venda.DOMAIN.Services
             return db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).ToList();
         }
 
+
+        public DividaDtoExibicao ObterDividasFiltradas(string? pesquisa, int take = 10, int skip = 0)
+        {
+            var query = from d in RetornaTodasDividas()
+                        join c in db.Consulta<Cliente>() on d.cliente.Id equals c.Id
+                        where string.IsNullOrEmpty(pesquisa) || c.Nome.Contains(pesquisa)
+                        select new DadosDividaDTO
+                        {
+                            IdDivida = d.Id,
+                            Nome = c.Nome,
+                            Cadastro = d.DataCadastro,
+                            Pagamento = d.DataPagamento,
+                            Valor = d.Valor,
+                            Status = d.Situacao
+                        };
+
+            int __count = query.Count();
+
+            var result = query
+                .OrderBy(x => x.Status != SituacaoDivida.Devendo)
+                .ThenByDescending(x => x.Valor)
+                .Skip(skip * take)
+                .Take(take)
+                .ToList();
+
+            return new DividaDtoExibicao
+            {
+                TotalRegistro = __count,
+                Result = result
+            };
+        }
+
+        /*essa vai de vasco*/
         public List<Dividas> RetornaTodasDividas()
         {
             return db.Consulta<Dividas>().ToList();

@@ -22,3 +22,25 @@ export async function salvarDivida(divida) {
         data: result
     }
 }
+
+
+
+export function listarDividas(pesquisa, limit, offset) {
+    return fetch(`${URL_API}/api/divida?search=${pesquisa || ""}&limit=${limit}&offset=${offset}`, {
+        method: "GET"
+    }).then(async resultado => {
+        if (resultado.status == 200) {
+            const data = await resultado.json();
+            return {
+                status: resultado.status,
+                __count: data.totalRegistro,
+                data: data.result
+            }
+        }
+        return {
+            status: resultado.status,
+            __count: 0,
+            data: null
+        }
+    })
+}

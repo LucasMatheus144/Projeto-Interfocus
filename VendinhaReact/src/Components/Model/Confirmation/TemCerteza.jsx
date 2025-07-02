@@ -23,8 +23,8 @@ export default function TemCerteza({ isAbrir, onClose,id, attForm}) {
                         <strong>Todas as dividas atreladas serão apagadas.</strong>
                     </div>
                     <div className={styles.finale}>
-                        <button classNama={styles.nao} type="button" onClick={onClose} >Não</button>
-                        <button classNama={styles.sim} type="submit" onClick={gerarExclusao}>Sim</button>
+                        <button className={styles.nao} type="button" onClick={onClose} >Não</button>
+                        <button className={styles.sim} type="submit" onClick={gerarExclusao}>Sim</button>
                     </div>
                 </div>
             </div>

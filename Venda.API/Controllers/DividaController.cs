@@ -18,9 +18,9 @@ namespace Venda.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string? search, int limit, int offset)
         {
-            return Ok(service.RetornaTodasDividas());
+            return Ok(service.ObterDividasFiltradas(search,limit,offset));
         }
 
         [HttpPost]

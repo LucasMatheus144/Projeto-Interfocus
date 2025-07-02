@@ -5,44 +5,55 @@ import Alerta from '../Model/Alertas/Alerta';
 import { salvarDivida } from '../../services/dividaService';
 import { useEffect, useState } from 'react';
 
-
 export default function Divida({ isOpen, onClose, onAtualizar, obj }) {
-
     const [alertas, setAlertas] = useState([]);
 
+    const fecharAlerta = (index) => {
+        setAlertas(prev => {
+            const novaLista = [...prev];
+            novaLista.splice(index, 1);
+            return novaLista;
+        });
+    };
 
-    const enviarForm = async (event) => {
-        event.preventDefault();
-
-        const form = event.target;
+    const processarFormulario = async (form) => {
         const oData = new FormData(form);
 
         const divida = {
-            idDivida: oData.get("divida")|| 0,
+            idDivida: oData.get("divida") || 0,
             clienteId: oData.get("id"),
             valor: oData.get("valor"),
             dataPagamento: oData.get("pagamento") || null,
             descricao: oData.get("observacao")
-        }
+        };
 
         const resultado = await salvarDivida(divida);
-        if (resultado.status == 200) {
+        if (resultado.status === 200) {
             onAtualizar();
             onClose();
+            setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+        } else {
+            const mensagens = resultado?.data ?? resultado;
+            const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
+                ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
+                : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
+            setAlertas(listaDeErros);
         }
-    }
+    };
 
-    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        processarFormulario(event.target);
+    };
+
     useEffect(() => {
         if (alertas.length > 0) {
             const timeout = setTimeout(() => {
                 setAlertas(prev => prev.slice(1));
             }, 8000);
-
             return () => clearTimeout(timeout);
         }
     }, [alertas]);
-
 
     return (
         <>
@@ -53,17 +64,13 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj }) {
                         isAbrir={a.exibir}
                         status={a.status}
                         txtError={a.mensagem}
-                        isFechar={() => {
-                            const novaLista = [...alertas];
-                            novaLista.splice(index, 1);
-                            setAlertas(novaLista);
-                        }}
+                        isFechar={() => fecharAlerta(index)}
                     />
                 ))}
             </div>
             <Model isOpen={isOpen} onClose={onClose}>
-                <form action="POST" className={styles.formulario} onSubmit={enviarForm}>
-                    <input type="number" name="divida" className={styles.ocultar} />
+                <form action="POST" className={styles.formulario} onSubmit={handleSubmit}>
+                    <input type="number" name="divida" defaultValue={obj?.idDivida ?? 0} className={styles.ocultar} />
                     <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
 
                     <label>Nome do cliente</label>
@@ -72,7 +79,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj }) {
                     <div className={styles.row}>
                         <div className={styles.col}>
                             <label>Valor</label>
-                            <input name="valor" placeholder="0.00 (separador por .)" required />
+                            <input name="valor" type="number"  placeholder="0.00" required />
                         </div>
 
                         <div className={styles.col}>
@@ -90,9 +97,6 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj }) {
                     </div>
                 </form>
             </Model>
-
         </>
-    )
-
-    
+    );
 }

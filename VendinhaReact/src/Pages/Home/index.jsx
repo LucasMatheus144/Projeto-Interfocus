@@ -4,6 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import Search from '../../Components/InputSearch/Search';
 import Cards from '../../Components/Cards/Cards';
 import FormCliente from "../../Components/FormCliente/FormCliente";
+import Paginacao from "../../Components/Paginacao/Paginacao";
 import styles from './home.module.css';
 
 export default function HomePage() {
@@ -18,7 +19,6 @@ export default function HomePage() {
     /*Paginação*/
     const [page, setPage] = useState(0);
     const limit = 10;
-    const pageTotal = Math.ceil(totalClientes / limit);
 
     // Efeitos para atualização de componentes
     useEffect(() => {
@@ -45,10 +45,10 @@ export default function HomePage() {
     }
 
     const goNext = () => {
-        if ( page < totalClientes - 1){
+        if (page < totalClientes - 1) {
             setPage(prev => prev + 1)
         }
-    };   
+    };
     const goVoltar = () => {
         if (page > 0) {
             setPage(prev => prev - 1);
@@ -71,16 +71,8 @@ export default function HomePage() {
                     <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} />
                 )}
             </section>
-             <div className={styles.paginacao}>
-                <div className={styles.paginationInfo}> Itens {page * limit + 1} - {(page * limit) + clientes.length} de {totalClientes}</div>
-                <div className={styles.paginationControls}>
-                    <span>Página </span>
-                    <a className={`${styles.previous} ${page === 0 ? styles.disabled : ''}`} onClick={goVoltar} disabled={page === 0} >&lt;</a>
-                    <input value={page + 1} className={styles.pageNumber} readOnly />
-                    <a onClick={goNext} disabled={page >= totalClientes - 1} className={`${styles.next} ${(page >= totalClientes - 1) ? styles.disabled : ''}`}>&gt;</a>
-                    <span> de {pageTotal}</span>
-                </div>
-            </div>
+            <Paginacao page={page} limit={limit} total={totalClientes} onPrev={goVoltar} onNext={goNext} />
+
 
         </>
     )

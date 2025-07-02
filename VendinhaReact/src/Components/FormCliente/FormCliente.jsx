@@ -1,30 +1,40 @@
-import { useEffect, useState } from "react";
-import styles from './form.module.css'
-import Model from '../Model/Modal';
+import { useState, useReducer, useMemo, useEffect } from "react";
 import { salvarCliente } from '../../services/clienteService';
+
+import styles from './form.module.css';
+import Model from '../Model/Modal';
 import Alerta from '../Model/Alertas/Alerta';
 import user from '../../assets/user.png';
-
 
 export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar, obj }) {
     const [alertas, setAlertas] = useState([]);
 
-    const verificaView = visualizar;
+    const mascaraCpf = (valor) => {
+        const somenteNumeros = valor.replace(/\D/g, '').slice(0, 11);
+        return somenteNumeros
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d)/, '$1.$2')
+            .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    };
+
+    const [cpf, setCpf] = useReducer((_, novoValor) => mascaraCpf(novoValor), mascaraCpf(obj?.cpf ?? ""));
+
+    const verificaView = useMemo(() => visualizar, [visualizar]);
+
+    const criarCliente = (oData) => ({
+        id: oData.get("id") || 0,
+        nome: oData.get("nome"),
+        cpf: oData.get("cpf"),
+        email: oData.get("email") || null,
+        dataNascimento: oData.get("data-nascimento"),
+        situacao: 1
+    });
 
     const enviarForm = async (event) => {
         event.preventDefault();
-
         const form = event.target;
         const oData = new FormData(form);
-
-        const cliente = {
-            id: oData.get("id") || 0,
-            nome: oData.get("nome"),
-            cpf: oData.get("cpf"),
-            email: oData.get("email") || null,
-            dataNascimento: oData.get("data-nascimento"),
-            situacao: Number(1)
-        }
+        const cliente = criarCliente(oData);
 
         const resultado = await salvarCliente(cliente);
         if (resultado.status === 200) {
@@ -33,32 +43,28 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
             setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
         } else {
             const mensagens = resultado?.data ?? resultado;
-
             const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
-                ? mensagens.map(msg => ({
-                    exibir: true,
-                    status: false,
-                    mensagem: msg.mensagem
-                }))
-                : [{
-                    exibir: true,
-                    status: false,
-                    mensagem: "Erro desconhecido."
-                }];
-
+                ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
+                : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
             setAlertas(listaDeErros);
         }
-    }
+    };
+
+    useEffect(() => {
+        if (obj?.cpf) {
+            setCpf(obj.cpf);
+        }
+    }, [obj?.cpf]);
 
     useEffect(() => {
         if (alertas.length > 0) {
             const timeout = setTimeout(() => {
                 setAlertas(prev => prev.slice(1));
             }, 8000);
-
             return () => clearTimeout(timeout);
         }
     }, [alertas]);
+
     return (
         <>
             <div className={styles.agrupamento}>
@@ -89,24 +95,13 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                                 </div>
                                 <div className={styles.grupo}>
                                     <label htmlFor="nome">Nome do Cliente</label>
-                                    <input
-                                        type="text"
-                                        name="nome"
-                                        required
-                                        maxLength={25}
-                                        defaultValue={obj?.nome ?? ""}
-                                        disabled={verificaView}
-                                    />
+                                    <input type="text" name="nome" required maxLength={25} defaultValue={obj?.nome ?? ""} disabled={verificaView} />
                                 </div>
                             </>
-                           
-                            
                         ) : (
                             <>
                                 <label htmlFor="file" className={styles.upload}>
-                                    <div className={styles.icon}>
-                                        {/* SVG aqui */}
-                                    </div>
+                                    <div className={styles.icon}></div>
                                     <div className="text">
                                         <span>Salvar Arquivo</span>
                                     </div>
@@ -114,27 +109,20 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                                 </label>
                                 <div className={styles.grupo}>
                                     <label htmlFor="nome">Nome do Cliente</label>
-                                    <input
-                                        type="text"
-                                        name="nome"
-                                        required
-                                        maxLength={25}
-                                        defaultValue={obj?.nome ?? ""}
-                                        disabled={verificaView}
-                                    />
+                                    <input type="text" name="nome" required maxLength={25} defaultValue={obj?.nome ?? ""} disabled={verificaView} />
                                 </div>
                             </>
                         )}
-
                     </div>
                     <div className={styles.row}>
                         <div className={styles.col}>
                             <label htmlFor="cpf">CPF</label>
-                            <input type="text" name="cpf" placeholder="000.000.000-00" maxLength={14} required defaultValue={obj?.cpf ?? ""} disabled={verificaView} />
+                            <input type="text" name="cpf" placeholder="000.000.000-00" maxLength={14} required value={cpf} onChange={(e) => setCpf(e.target.value)} disabled={verificaView} />
                         </div>
                         <div className={styles.col}>
                             <label htmlFor="data-nascimento">Data de Nascimento</label>
-                            <input type="date" name="data-nascimento" required defaultValue={obj?.dataNascimento?.split('T')[0] ?? ""} disabled={verificaView} />
+                            <input type="date" name="data-nascimento" required defaultValue={obj?.dataNascimento?.split('T')[0] ?? ""} disabled={verificaView}
+                            />
                         </div>
                     </div>
                     <div className={styles.grupo}>
@@ -143,14 +131,10 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                     </div>
                     <div className={styles.buttoes}>
                         <button className={styles.cancelar} type="button" onClick={onClose}>Cancelar</button>
-                        {!verificaView && (
-                            <button className={styles.cadastrar} type="submit">Cadastrar</button>
-                        )}
+                        {!verificaView && (<button className={styles.cadastrar} type="submit">Cadastrar</button>)}
                     </div>
                 </form>
-            </Model >
-
+            </Model>
         </>
-    )
-
+    );
 }

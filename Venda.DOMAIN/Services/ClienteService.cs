@@ -121,7 +121,7 @@ namespace Venda.DOMAIN.Services
         }
 
         //Filtro | Ordenação e Paginação de Clientes
-        public ClienteDtoExibicao ConsultaClienteFiltroePaginacao(string? pesquisa, int take, int skip)
+        public ClienteDtoExibicao ConsultaClienteFiltroePaginacao(string? pesquisa, int take= 10, int skip= 0)
         {
             var query = from cl in db.Consulta<Cliente>()
                         join d in db.Consulta<Dividas>() on cl.Id equals d.cliente.Id into grupoDividas
@@ -148,7 +148,7 @@ namespace Venda.DOMAIN.Services
                                                        ? (decimal?)d.Valor : 0) ?? 0
                         };
 
-            var totalClientes = query.Count();
+            int totalClientes = query.Count();
 
             var result = query
                 .OrderByDescending(x => x.TotalDivida)
