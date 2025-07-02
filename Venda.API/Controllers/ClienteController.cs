@@ -37,7 +37,7 @@ namespace Venda.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Cliente model)
+        public IActionResult Post([FromBody]Cliente model)
         {
             var cadastra = service.CadastraCliente(model, out List<ExceptionMsg> erro);
 

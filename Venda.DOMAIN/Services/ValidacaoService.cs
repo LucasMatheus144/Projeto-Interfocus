@@ -15,13 +15,16 @@ namespace Venda.DOMAIN.Services
         // Validação das propriedades das classes Existentes
         public bool ValidarEntites<AllObj>(AllObj obj, out List<ExceptionMsg> msgErro)
         {
+            msgErro = new List<ExceptionMsg>();
+
             var valida = new List<ValidationResult>();
+
+            if (obj == null) return false;
 
             // Se os atributos das classes forem satisfeitos, é valido
 
             var isValid = Validator.TryValidateObject(obj, new ValidationContext(obj), valida, true);
 
-            msgErro = new List<ExceptionMsg>();
 
             if (!isValid)
             {

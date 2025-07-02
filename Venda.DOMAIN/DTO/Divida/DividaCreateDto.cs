@@ -15,6 +15,6 @@ namespace Venda.DOMAIN.DTO.Divida
 
         public string Descricao { get; set; }
 
-        public SituacaoDivida Situacao { get; set; }
+        public SituacaoDivida Situacao { get; set; } = SituacaoDivida.Devendo;
     }
 }

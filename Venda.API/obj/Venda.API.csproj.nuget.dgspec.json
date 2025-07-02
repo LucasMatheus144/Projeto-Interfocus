@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj": {}
+    "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj": {
+    "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj",
+        "projectUniqueName": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj",
         "projectName": "Venda.API",
-        "projectPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj",
-        "packagesPath": "C:\\Users\\Interfocus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\obj\\",
+        "projectPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Venda.API.csproj",
+        "packagesPath": "C:\\Users\\lumet\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Interfocus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lumet\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj": {
-                "projectPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj"
+              "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj": {
+                "projectPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj"
               }
             }
           }
@@ -48,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -78,24 +78,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj": {
+    "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
+        "projectUniqueName": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
         "projectName": "Venda.DOMAIN",
-        "projectPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
-        "packagesPath": "C:\\Users\\Interfocus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\obj\\",
+        "projectPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
+        "packagesPath": "C:\\Users\\lumet\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Interfocus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lumet\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -122,7 +122,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -157,7 +157,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

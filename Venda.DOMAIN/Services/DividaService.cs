@@ -105,7 +105,6 @@ namespace Venda.DOMAIN.Services
                 Valor = obj.Valor,
                 DataPagamento = obj.DataPagamento,
                 Descricao = obj.Descricao,
-                Situacao = obj.Situacao,
             };
 
 

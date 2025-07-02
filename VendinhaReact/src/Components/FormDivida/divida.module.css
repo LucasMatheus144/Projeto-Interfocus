@@ -2,3 +2,91 @@
 .ocultar{
     display: none;
 }
+
+
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form label{
+    color: var(--gray-300);
+    font-size: 15px;
+}
+
+form-container {
+  background-color: var(--black-400);
+  padding: 2rem;
+  border-radius: 10px;
+  color: var(---white);
+  position: relative;
+  width: 400px;
+}
+
+
+
+input , select{
+  background-color: var(--black-400);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: var(--white);
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttoes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.buttoes .cancelar {
+    background-color: var(--black-400);
+    color: var(--yellow-400);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.2s ease;
+}
+
+.buttoes .cadastrar {
+    background-color: var(--yellow-400);
+    color: var(--black-400);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.2s ease;
+
+}
+
+.buttoes .cancelar:hover{
+    background-color: var(--black-100);
+}
+
+.buttoes .cadastrar:hover {
+    background-color: var(--black-400);
+    color: var(--yellow-400);
+}

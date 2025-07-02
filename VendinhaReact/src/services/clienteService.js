@@ -42,3 +42,22 @@ export async function excluirCliente(id) {
     })
     return response.status;
 }
+
+export async function listarPorId(id) {
+    const response = await fetch(`${URL_API}/api/cliente/unicidade/${id}`, {
+        method: "GET",
+    });
+
+    if (response.status === 200) {
+        const data = await response.json();
+        return {
+            status: response.status,
+            data: data
+        };
+    }
+
+    return {
+        status: response.status,
+        data: null
+    };
+}

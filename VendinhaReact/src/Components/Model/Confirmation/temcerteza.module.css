@@ -1,13 +1,15 @@
 .componente {
-    position: absolute;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 464px;
     border-radius: 10px;
-    background-color: #FFFFFF;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: var(--black-700);
+    box-shadow: 0 4px 4px var(--black-400);
     transition: opacity 0.5s ease, transform 0.5s ease;
-    right: 80px;
+    z-index: 9999;
 }
-
 .dialogo {
     opacity: 1;
 }
@@ -32,10 +34,14 @@
 .descricao {
     padding: 16px 24px;
     font-size: 16px;
-    color: #333;
+    color: var(--gray-300);
     width: 416px;
     gap: 16px;
     opacity: 1;
+}
+
+.descricao strong{
+   color: var(--white);
 }
 
 .finale {
@@ -47,3 +53,4 @@
     border-radius: 10px 0 0 0;
     opacity: 1;
 }
+

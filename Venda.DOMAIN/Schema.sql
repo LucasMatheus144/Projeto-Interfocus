@@ -30,13 +30,13 @@ $body$
 DECLARE
     total DECIMAL(8, 2);
 BEGIN
-IF NEW.situacao = 1 THEN -- 1 ->  Pago = 1, Devendo = 2,
+IF NEW.situacao = 2 THEN -- 1 ->  Pago = 2, Devendo = 1,
         RETURN NEW;
     END IF;
 
     SELECT COALESCE(SUM(valor), 0) INTO total
     FROM dividas
-    WHERE id_cliente = NEW.id_cliente AND situacao = 2;
+    WHERE id_cliente = NEW.id_cliente AND situacao = 1;
 
     IF total + NEW.valor > 200 THEN
         RAISE EXCEPTION 'Valor Superior a 200.';

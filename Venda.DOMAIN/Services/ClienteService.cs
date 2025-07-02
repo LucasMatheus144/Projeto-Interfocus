@@ -26,6 +26,12 @@ namespace Venda.DOMAIN.Services
 
             if (!validar.ValidarEntites(obj, out erro)) return false;
 
+            if(CalcularIdade(obj.DataNascimento) < 18)
+            {
+                erro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a idade minima."));
+                return false;
+            }
+
             try
             {
                 using var inicia = db.IniciarTransacao();
@@ -53,6 +59,12 @@ namespace Venda.DOMAIN.Services
             if (procura == null)
             {
                 erro.Add(new ExceptionMsg("Cliente", "Identificador", "Cliente não encontrado."));
+                return false;
+            }
+
+            if (CalcularIdade(obj.DataNascimento) < 18)
+            {
+                erro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a idade minima."));
                 return false;
             }
 
