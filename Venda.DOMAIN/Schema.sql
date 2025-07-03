@@ -7,7 +7,8 @@ create table public.clientes(
     cpf varchar(14) not null unique,
     d_datanascimento date not null,
     email varchar(50),
-    situacao integer not null
+    situacao integer not null,
+    url_foto text
 );
 
 create index idx_clientes_nome on public.clientes(nome);

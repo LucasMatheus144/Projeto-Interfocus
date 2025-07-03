@@ -1,5 +1,5 @@
 import { useState, useReducer, useMemo, useEffect } from "react";
-import { salvarCliente } from '../../services/clienteService';
+import { salvarCliente, enviarImagem } from '../../services/clienteService';
 
 import styles from './form.module.css';
 import Model from '../Model/Modal';
@@ -22,6 +22,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
 
     const verificaView = useMemo(() => visualizar, [visualizar]);
 
+
     const criarCliente = (oData) => ({
         id: oData.get("id") || 0,
         nome: oData.get("nome"),
@@ -36,9 +37,15 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
         const form = event.target;
         const oData = new FormData(form);
         const cliente = criarCliente(oData);
+        const arquivo = oData.get("foto");
 
         const resultado = await salvarCliente(cliente);
         if (resultado.status === 200) {
+            const idCliente = resultado.data.id ?? obj?.id;
+            if (arquivo && arquivo.size > 0) {
+                await enviarImagem(idCliente, arquivo);
+            }
+
             setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
             onClose();
             onAttHomePage();
@@ -86,7 +93,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
             </div>
 
             <Model isOpen={isOpen} onClose={onClose}>
-                <form method='POST' onSubmit={enviarForm} className={styles.cadastraCliente}>
+                <form method='POST' encType="multipart/form-data" onSubmit={enviarForm} className={styles.cadastraCliente} >
                     <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
 
                     <div className={styles.row}>
@@ -107,7 +114,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                                     <div className="text">
                                         <span>Salvar Arquivo</span>
                                     </div>
-                                    <input id="file" type="file" accept="image/jpeg, image/png" disabled={verificaView} />
+                                    <input id="file" name="foto" type="file" accept="image/jpeg, image/png" disabled={verificaView} />
                                 </label>
                                 <div className={styles.grupo}>
                                     <label htmlFor="nome">Nome do Cliente</label>

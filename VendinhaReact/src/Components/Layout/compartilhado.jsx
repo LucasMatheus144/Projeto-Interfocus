@@ -2,13 +2,12 @@ import { Link, Outlet } from 'react-router-dom';
 import { LiaUserSolid } from "react-icons/lia";
 import { CiCreditCard1 } from "react-icons/ci";
 import styles from './compartilhado.module.css';
-import logo from '../../assets/icon.png';
 
 export function Menu() {
     return (
         <nav className={styles.lateral}>
             <div className={styles.logo}>
-                <img src={logo} alt="Foto icone" />
+                <img loading="lazy" src="https://bagimgs.s3.us-east-1.amazonaws.com/icon.png" alt="Foto icone" />
             </div>
             <div className={styles.navegacao}>
                 <ul>

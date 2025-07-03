@@ -15,7 +15,7 @@ export default function Cards({ cliente, onAtualizar }) {
         <div className={styles.wrapper}>
             <div className={styles.info}>
                 <div className={styles.imagem}>
-                    <img src={user} alt="imagem" loading="lazy" />
+                    <img src={cliente.stringFoto?? user} alt="imagem" loading="lazy" />
                 </div>
                 <div className={styles.adicional}>
                     <h3 className={styles.principal}>{cliente.nome}</h3>

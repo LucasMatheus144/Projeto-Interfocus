@@ -1,10 +1,12 @@
 ﻿using CpfLibrary;
 using NHibernate.Transform;
+using Microsoft.AspNetCore.Http;
 using System.Text.RegularExpressions;
 using Venda.DOMAIN.DTO.Cliente;
 using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.Repository;
 using Venda.DOMAIN.ValuesObject;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Venda.DOMAIN.Services
 {
@@ -20,32 +22,43 @@ namespace Venda.DOMAIN.Services
         }
 
         //Cadastrar Cliente
-        public bool CadastraCliente(Cliente obj, out List<ExceptionMsg> erro)
+        public Cliente CadastraCliente(ClienteDtoCreateUpdate obj, out List<ExceptionMsg> erro)
         {
             erro = new List<ExceptionMsg>();
 
-            if (!validar.ValidarEntites(obj, out erro)) return false;
+            if (!validar.ValidarEntites(obj, out erro)) return null;
 
             if(CalcularIdade(obj.DataNascimento) < 18)
             {
                 erro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a idade minima."));
-                return false;
+                return null;
             }
 
             try
             {
+                var cliente = new Cliente
+                {
+                    Nome = obj.Nome,
+                    Cpf = obj.Cpf,
+                    DataNascimento = obj.DataNascimento,
+                    Email = obj.Email,
+                    Situacao = obj.Situacao,
+                    UrlFoto = null
+                };
+
+
                 using var inicia = db.IniciarTransacao();
 
-                db.Incluir(obj);
+                db.Incluir(cliente);
                 db.Commit();
-                return true;
+                return cliente;
             }
             catch (Exception ex)
             {
 
                 db.Rollback();
                 validar.TratarExceptionDB(ex, out erro);
-                return false;
+                return null;
             }
         }
 
@@ -136,7 +149,8 @@ namespace Venda.DOMAIN.Services
                             cl.Situacao,
                             cl.Cpf,
                             cl.Email,
-                            cl.DataNascimento
+                            cl.DataNascimento,
+                            cl.UrlFoto
                         } into grp
                         select new DadosClienteDto
                         {
@@ -145,6 +159,7 @@ namespace Venda.DOMAIN.Services
                             Situacao = grp.Key.Situacao,
                             Cpf = FormatarCpf(grp.Key.Cpf),
                             Email = grp.Key.Email,
+                            stringFoto = grp.Key.UrlFoto,
                             Idade = CalcularIdade(grp.Key.DataNascimento),
                             TotalDivida = grp.Sum(d => d != null && d.Situacao == SituacaoDivida.Devendo && d.DataPagamento == null
                                                        ? (decimal?)d.Valor : 0) ?? 0
@@ -202,6 +217,60 @@ namespace Venda.DOMAIN.Services
             var idade = DateTime.Now.Year - dataNascimento.Year;
             if (dataNascimento > DateTime.Now.AddYears(-idade)) idade--;
             return idade;
+        }
+
+        // upload images
+        public async Task<string> UploadImagemAsync(IFormFile imagem)
+        {
+            if (imagem == null || imagem.Length == 0)
+                return null;
+
+            var nomeArquivo = Guid.NewGuid().ToString("N") + Path.GetExtension(imagem.FileName); 
+            var urlS3 = $"https://bagimgs.s3.us-east-1.amazonaws.com/{nomeArquivo}";
+
+            using var httpClient = new HttpClient();
+            using var stream = imagem.OpenReadStream();
+            using var content = new StreamContent(stream);
+
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(imagem.ContentType);
+
+            var response = await httpClient.PutAsync(urlS3, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var erro = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Erro ao fazer upload para o S3: {erro}");
+            }
+
+            return urlS3;
+        }
+
+        public bool AlterarESalvarFoto(int id, IFormFile imagem)
+        {
+            var obj = RetornaClienteId(id);
+
+
+            string string_url = null;
+            if (imagem != null && imagem.Length > 0)
+            {
+                string_url = UploadImagemAsync(imagem).GetAwaiter().GetResult();
+            }
+
+            obj.UrlFoto = string_url;
+
+            try
+            {
+                using var inicia = db.IniciarTransacao();
+                db.Incluir(obj);
+                db.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                db.Rollback();
+                return false;
+            }
         }
     }
 }

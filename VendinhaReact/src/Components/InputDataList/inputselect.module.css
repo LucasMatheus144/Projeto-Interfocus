@@ -1,0 +1,25 @@
+.todo {
+    position: relative;
+    width: 100%;
+}
+
+.todo input {
+    width: 100%;
+    padding: 8px;
+}
+
+.todo ul {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.todo ul li {
+    padding: 8px;
+    cursor: pointer;
+}

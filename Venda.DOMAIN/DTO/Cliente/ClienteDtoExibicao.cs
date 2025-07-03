@@ -23,6 +23,8 @@ namespace Venda.DOMAIN.DTO.Cliente
         public SituacaoCliente Situacao { get; set; }
         public string Email { get; set; } 
 
+        public string stringFoto { get; set; }
+
         public int Idade { get; set; }
         public decimal TotalDivida { get; set; }
     }

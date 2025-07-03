@@ -1,7 +1,6 @@
 const URL_API = "http://localhost:5200"
 
 export async function salvarCliente(cliente) {
-    console.log(cliente.id ? "PUT" : "POST");
     const response = await fetch(`${URL_API}/api/cliente`, {
         method: cliente.id ? "PUT" : "POST",
         body: JSON.stringify(cliente),
@@ -60,5 +59,34 @@ export async function listarPorId(id) {
     return {
         status: response.status,
         data: null
+    };
+}
+
+export async function preencheSelectList(){
+    const response = await fetch(`${URL_API}/api/cliente/labels`,{
+        method:"GET",
+    });
+
+    const data = await response.json();
+
+    return{
+        status: response.status,
+        data: data
+    };
+}
+
+export async function enviarImagem(idCliente, file) {
+    const formData = new FormData();
+    formData.append("file", file); 
+
+    const response = await fetch(`${URL_API}/api/cliente/upload/${idCliente}`, {
+        method: "POST",
+        body: formData
+    });
+
+    const result = await response.json();
+    return {
+        status: response.status,
+        data: result
     };
 }

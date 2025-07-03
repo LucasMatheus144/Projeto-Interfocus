@@ -112,3 +112,6 @@ C:\Users\lumet\Projeto-Interfocus\Venda.DOMAIN\obj\Debug\net8.0\refint\Venda.DOM
 C:\Users\lumet\Projeto-Interfocus\Venda.DOMAIN\obj\Debug\net8.0\Venda.DOMAIN.pdb
 C:\Users\lumet\Projeto-Interfocus\Venda.DOMAIN\obj\Debug\net8.0\Venda.DOMAIN.genruntimeconfig.cache
 C:\Users\lumet\Projeto-Interfocus\Venda.DOMAIN\obj\Debug\net8.0\ref\Venda.DOMAIN.dll
+C:\Users\Interfocus\Projeto-Interfocus\Venda.DOMAIN\bin\Debug\net8.0\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\Interfocus\Projeto-Interfocus\Venda.DOMAIN\bin\Debug\net8.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\Interfocus\Projeto-Interfocus\Venda.DOMAIN\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll

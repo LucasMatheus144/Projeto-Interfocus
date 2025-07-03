@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "Venda.DOMAIN.Entities.Cliente",
+        "Type": "Venda.DOMAIN.DTO.Cliente.ClienteDtoCreateUpdate",
         "IsRequired": true
       }
     ],
@@ -93,6 +93,22 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Venda.API.Controllers.ClienteController",
+    "Method": "UploadProfilePic",
+    "RelativePath": "api/Cliente/upload/{id_cliente}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id_cliente",
         "Type": "System.Int32",
         "IsRequired": true
       }

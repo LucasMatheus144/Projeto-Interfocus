@@ -35,5 +35,7 @@ namespace Venda.DOMAIN.Entities
 
         public SituacaoCliente Situacao { get; set; }
 
+        public string? UrlFoto { get; set; }
+
     }
 }

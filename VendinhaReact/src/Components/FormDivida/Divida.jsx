@@ -1,6 +1,7 @@
 import Model from '../Model/Modal';
 import styles from './divida.module.css';
 import Alerta from '../Model/Alertas/Alerta';
+import InputSelect from '../InputDataList/InputSelect';
 
 import { salvarDivida, listarPorId } from '../../services/dividaService';
 import { useEffect, useState } from 'react';
@@ -8,6 +9,7 @@ import { useEffect, useState } from 'react';
 export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     const [dados, setDados] = useState(null);
     const [alertas, setAlertas] = useState([]);
+    const [clienteIdSelecionado, setClienteIdSelecionado] = useState(0);
     const idDivida = obj?.idDivida ?? null; // evitar disparar toda vevz que o componente é renderizado
 
     const fecharAlerta = (index) => {
@@ -29,7 +31,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
             descricao: oData.get("observacao")
         };
 
-        console.table(divida);
+        console.log(clienteIdSelecionado);
         const resultado = await salvarDivida(divida);
 
         if (resultado.status === 200) {
@@ -87,20 +89,20 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
             </div>
             <Model isOpen={isOpen} onClose={onClose}>
                 <form action="POST" className={styles.formulario} onSubmit={handleSubmit}>
-                    <input type="number" name="clienteid" value={dados?.cliente?.id ?? obj?.id ?? 0} readOnly className={styles.ocultar} />
+                    <input type="number" name="clienteid" value={dados?.cliente?.id ?? obj?.id ?? clienteIdSelecionado} readOnly className={styles.ocultar} />
                     <input type="number" name="dividaid" value={dados?.id ?? 0} readOnly className={styles.ocultar} />
 
                     {/*qUANDO NAO FOR DA CADASTRAR DIVIDA PELA HOME PAGE E NEM EDITAR A DIVIDA
                          */}
                     {dados?.cliente?.nome ?? obj?.nome ? (
                         <>
-                            
-                        </>
-                       
-                    ) : (
-                        <>
                             <label>Nome do cliente</label>
                             <input type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
+                        </>
+
+                    ) : (
+                        <>
+                            <InputSelect setClienteIdSelecionado={setClienteIdSelecionado} />      
                         </>
                     )}
 
@@ -128,3 +130,4 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
         </>
     );
 }
+

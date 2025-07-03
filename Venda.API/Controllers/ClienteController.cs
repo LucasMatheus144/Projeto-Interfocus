@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Venda.DOMAIN.DTO.Cliente;
 using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.Services;
 
@@ -8,6 +9,7 @@ namespace Venda.API.Controllers
     public class ClienteController : Controller
     {
         private readonly ClienteService service;
+        private readonly IWebHostEnvironment env;
 
         public ClienteController(ClienteService service)
         {
@@ -37,11 +39,11 @@ namespace Venda.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]Cliente model)
+        public IActionResult Post([FromBody]ClienteDtoCreateUpdate model)
         {
             var cadastra = service.CadastraCliente(model, out List<ExceptionMsg> erro);
 
-            if (!cadastra)
+            if (cadastra == null)
             {
                 return UnprocessableEntity(erro);
             }
@@ -69,6 +71,22 @@ namespace Venda.API.Controllers
                 return NotFound(exclui);
             }
             return Ok(exclui);
+        }
+
+        [HttpPost("upload/{id_cliente}")]
+        [Consumes("multipart/form-data")]
+        public IActionResult UploadProfilePic(int id_cliente)
+        {
+
+            var imagem = Request.Form.Files.FirstOrDefault();
+            if (imagem == null || imagem.Length == 0)
+            {
+                return BadRequest("Nenhuma imagem foi enviada.");
+            }
+
+            var upload = service.AlterarESalvarFoto(id_cliente, imagem);
+          
+            return Ok(upload);
         }
     }
 }
