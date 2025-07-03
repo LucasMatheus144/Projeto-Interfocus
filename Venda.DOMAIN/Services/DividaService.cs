@@ -38,10 +38,7 @@ namespace Venda.DOMAIN.Services
                 return false;
             }
 
-            if (obj.DataPagamento != null)
-            {
-                obj.Situacao = SituacaoDivida.Pago;
-            }
+            obj.Situacao = obj.DataPagamento != null ? SituacaoDivida.Pago : SituacaoDivida.Devendo;
 
             var divida = new Dividas
             {
@@ -78,9 +75,9 @@ namespace Venda.DOMAIN.Services
         {
             erro = new List<ExceptionMsg>();
 
-            var procura = RetornaDividaPorId(obj.IdDivida);
+            var divida = RetornaDividaPorId(obj.IdDivida);
 
-            if (procura == null)
+            if (divida == null)
             {
                 erro.Add(new ExceptionMsg("Divida", "Identificador", "Divida Não encontrada!"));
                 return false;
@@ -94,18 +91,14 @@ namespace Venda.DOMAIN.Services
                 return false;
             }
 
-            if (obj.DataPagamento != null)
-            {
-                obj.Situacao = SituacaoDivida.Pago; 
-            }
+            obj.Situacao = obj.DataPagamento != null ? SituacaoDivida.Pago : SituacaoDivida.Devendo;
 
-            var divida = new Dividas
-            {
-                cliente = cliente,
-                Valor = obj.Valor,
-                DataPagamento = obj.DataPagamento,
-                Descricao = obj.Descricao,
-            };
+
+            divida.cliente = cliente;
+            divida.Valor = obj.Valor;
+            divida.DataPagamento = obj.DataPagamento;
+            divida.Descricao = obj.Descricao;
+            divida.Situacao = obj.Situacao;
 
 
             if (!validar.ValidarEntites(divida, out erro)) return false;

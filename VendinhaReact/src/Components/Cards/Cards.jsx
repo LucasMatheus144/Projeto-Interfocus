@@ -41,7 +41,7 @@ export default function Cards({ cliente, onAtualizar }) {
                 </div>
                 <div className={styles.nova}>
                     <button onClick={() => setDivida(true)}>Adicionar Divida</button>
-                    <Divida isOpen={newdivida} onClose={() => setDivida(false)} onAtualizar={onAtualizar} obj={cliente} />
+                    <Divida isOpen={newdivida} onClose={() => setDivida(false)} onAtualizar={onAtualizar} obj={cliente} view={false} />
                 </div>
 
 

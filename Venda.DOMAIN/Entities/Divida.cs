@@ -15,10 +15,13 @@ namespace Venda.DOMAIN.Entities
 
         public DateTime? DataPagamento { get; set; }
 
+        [Required]
         public string Descricao { get; set; }
 
+        [Required]
         public SituacaoDivida Situacao { get; set; }
 
+        [Required]
         public Cliente cliente { get; set; }
     }
 }

@@ -10,6 +10,9 @@ create table public.clientes(
     situacao integer not null
 );
 
+create index idx_clientes_nome on public.clientes(nome);
+create index idx_clientes_situacao on public.clientes(situacao);
+
 create sequence public.dividas_seq;
 
 create table dividas(
@@ -22,6 +25,9 @@ create table dividas(
     id_cliente integer,
     CONSTRAINT fx_divida_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id) ON DELETE CASCADE
 );
+
+create index idx_dividas_idcliente on public.dividas(id_cliente);
+
 
 
 CREATE OR REPLACE FUNCTION  public.valida_new_divida()
@@ -58,7 +64,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE  valida_new_divida();
 
 
-create view public.vis_cliente as
+create view public.vis_clientes as
     select cl.id,cl.nome,SUM(d.valor) from clientes cl
           join dividas d on cl.id = d.id_cliente
           group by cl.id, cl.nome

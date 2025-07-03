@@ -3,13 +3,33 @@ const URL_API = "http://localhost:5200"
 
 export async function listarPorId(id) {
 
-    const response = await fetch(`${URL_API}/api/divida/`)
-    
+    const response = await fetch(`${URL_API}/api/divida/unicidade/${id}`, {
+        method: "GET"
+    });
+
+   
+    if (response.status == 200) {
+        var result = await response.json();
+        return {
+            status: response.status,
+            data: result
+        }
+    }
+    return {
+        status: response.status,
+        data: null
+    }
+
+
 }
 
 export async function salvarDivida(divida) {
+    console.log(divida.idDivida ? "PUT" : "POST");
+        console.log(divida);
+
+
     const response = await fetch(`${URL_API}/api/divida`, {
-        method: divida.id ? "PUT" : "POST",
+        method: divida.idDivida > 0 ? "PUT" : "POST",
         body: JSON.stringify(divida),
         headers: {
             "Content-type": "application/json"

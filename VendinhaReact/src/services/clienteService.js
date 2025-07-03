@@ -1,6 +1,7 @@
 const URL_API = "http://localhost:5200"
 
 export async function salvarCliente(cliente) {
+    console.log(cliente.id ? "PUT" : "POST");
     const response = await fetch(`${URL_API}/api/cliente`, {
         method: cliente.id ? "PUT" : "POST",
         body: JSON.stringify(cliente),

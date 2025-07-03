@@ -10,6 +10,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
     const [alertas, setAlertas] = useState([]);
 
     const mascaraCpf = (valor) => {
+        if (!valor) return "";
         const somenteNumeros = valor.replace(/\D/g, '').slice(0, 11);
         return somenteNumeros
             .replace(/(\d{3})(\d)/, '$1.$2')
@@ -38,6 +39,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
 
         const resultado = await salvarCliente(cliente);
         if (resultado.status === 200) {
+            setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
             onClose();
             onAttHomePage();
             setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);

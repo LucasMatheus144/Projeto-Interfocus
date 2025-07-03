@@ -12,15 +12,24 @@ import { MdDeleteOutline } from "react-icons/md";
 import styles from './divida.module.css';
 import Search from '../../Components/InputSearch/Search';
 import Paginacao from "../../Components/Paginacao/Paginacao";
+import Divida from "../../Components/FormDivida/Divida";
 
 export default function Dividas() {
+    const [modalOpen, setModalOpen] = useState(false);
     const [divida, serDivida] = useState([]);
     const [pesquisa, setPesquisa] = useState("");
-    const [totalDivida, setTotal] = useState(0);
+    const [dividaSelecionada, setDividaSelecionada] = useState(null);
+    const [viewMode, setViewMode] = useState(false);
 
     /*Paginação*/
     const [page, setPage] = useState(0);
+    const [totalDivida, setTotal] = useState(0);
     const limit = 10;
+
+    const abrirFormulario = (divida = null) => {
+        setDividaSelecionada(divida);
+        setModalOpen(true);
+    };
 
     const chamaListagem = async () => {
         const result = await listarDividas(pesquisa, limit, page);
@@ -64,10 +73,13 @@ export default function Dividas() {
                 <div className={styles.pesquisa}>
                     <Search observavdorPesquisa={disparaPesquisa}></Search>
                     <div>
-                        <button className={styles.novadivida} ><FaPlus /> Novo Divida</button>
+                        <button className={styles.novadivida} onClick={() => abrirFormulario(null) } ><FaPlus /> Novo Divida</button>
                     </div>
                 </div>
             </header>
+            {modalOpen && (
+                <Divida isOpen={modalOpen} onClose={() => setModalOpen(false)} onAtualizar={chamaListagem} obj={dividaSelecionada} view={viewMode} />
+            )}
             <section className={styles.datatable}>
                 <table className={styles.tabela} id="tabela">
                     <thead>
@@ -89,8 +101,8 @@ export default function Dividas() {
                                 <td>{c.status === 1 ? 'Não Pago' : 'Pago'}</td>
                                 <td>R$:{c.valor}</td>
                                 <td>
-                                    <span><GrFormView /></span>
-                                    <span><AiOutlineEdit /></span>
+                                    <span onClick={() => { setDividaSelecionada(c); setViewMode(true) ;setModalOpen(true);}}><GrFormView /></span>
+                                    <span onClick={() => { abrirFormulario(c); setViewMode(false) }}><AiOutlineEdit /></span>
                                     <span><MdDeleteOutline /></span>
                                 </td>
                             </tr>
@@ -99,6 +111,7 @@ export default function Dividas() {
                 </table>
             </section>
             <Paginacao page={page} limit={limit} total={totalDivida} onPrev={goVoltar} onNext={goNext} />
+
         </>
     )
 }

@@ -23,6 +23,13 @@ namespace Venda.API.Controllers
             return Ok(service.ObterDividasFiltradas(search,limit,offset));
         }
 
+        [HttpGet]
+        [Route("unicidade/{id}")]
+        public IActionResult TrazerPorId(int id)
+        {
+            return Ok(service.RetornaDividaPorId(id));
+        }
+
         [HttpPost]
         public IActionResult Cadastra([FromBody] DividaCreateDto obj)
         {

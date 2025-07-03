@@ -70,6 +70,8 @@ namespace Venda.DOMAIN.Services
 
             if (!validar.ValidarEntites(obj, out erro)) return false;
 
+            obj.Situacao = procura.Situacao;// sempre manter o status 
+
             try
             {
                 using var inicia = db.IniciarTransacao();
