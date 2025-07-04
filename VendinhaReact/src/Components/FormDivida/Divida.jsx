@@ -31,7 +31,6 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
             descricao: oData.get("observacao")
         };
 
-        console.log(clienteIdSelecionado);
         const resultado = await salvarDivida(divida);
 
         if (resultado.status === 200) {
@@ -114,7 +113,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
 
                         <div className={styles.col}>
                             <label>Data de pagamento</label>
-                            <input name="pagamento" type="date" defaultValue={dados?.dataPagamento?.split("T")[0] ?? ""} disabled={view} />
+                            <input name="pagamento" type="datetime-local" defaultValue={dados?.dataPagamento?.split("T")[0] ?? ""} disabled={view} />
                         </div>
                     </div>
 

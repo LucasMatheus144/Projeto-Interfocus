@@ -1,28 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import { listarPorId } from '../../../services/clienteService';
 import styles from './more.module.css';
-import FormCliente from '../../FormCliente/FormCliente'
+import FormCliente from '../../FormCliente/FormCliente';
 import TemCerteza from "../Confirmation/TemCerteza";
 
 export default function Mais({ isOpen, onClose, attform, cliente }) {
-    const [active, activeButton] = useState(false);
-    const [editarModel, editarAciveModule] = useState(false);
-    const [excluir, excluirSet] = useState(false);
-    const [get, setApi] = useState();
+    const [formAberto, setFormAberto] = useState(false);
+    const [modoVisualizacao, setModoVisualizacao] = useState(true);
+    const [excluir, setExcluir] = useState(false);
+    const [clienteData, setClienteData] = useState();
     const ref = useRef(null);
 
-   useEffect(() => {
-    if (editarModel || active) {
-        (async () => {
-            try {
-               const result =  await listarPorId(cliente.id);
-               setApi(result.data)
-            } catch (err) {
-                console.error("Erro ao buscar dados:", err);
-            }
-        })();
-    }
-}, [editarModel, active]);
+    useEffect(() => {
+        if (formAberto) {
+            (async () => {
+                try {
+                    const result = await listarPorId(cliente.id);
+                    setClienteData(result.data);
+                } catch (err) {
+                    console.error("Erro ao buscar dados:", err);
+                }
+            })();
+        }
+    }, [formAberto]);
 
     useEffect(() => {
         function clicarForaEvento(event) {
@@ -33,30 +33,28 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
         if (isOpen) {
             document.addEventListener("mousedown", clicarForaEvento);
         }
-
         return () => {
             document.removeEventListener("mousedown", clicarForaEvento);
         };
     }, [isOpen]);
 
     if (!isOpen) return null;
+
     return (
         <div ref={ref} className={styles.addmais}>
             <ul>
                 <li>
-                    <button onClick={() => activeButton(true)}>Visualizar</button>
-                    <FormCliente isOpen={active} onClose={() => activeButton(false)} onAttHomePage={attform} visualizar={true} obj={get} />
+                    <button onClick={() => { setModoVisualizacao(true); setFormAberto(true); }}>Visualizar</button>
                 </li>
                 <li>
-                    <button onClick={() => editarAciveModule(true)}>Editar</button>
-                    <FormCliente isOpen={editarModel} onClose={() => editarAciveModule(false)} onAttHomePage={attform} visualizar={false} obj={get} />
+                    <button onClick={() => { setModoVisualizacao(false); setFormAberto(true); }}>Editar</button>
                 </li>
                 <li>
-                    <button onClick={() => excluirSet(true)}>Excluir</button>
-                    <TemCerteza isAbrir={excluir} onClose={() => excluirSet(false)} id={cliente.id} attForm={attform}/>
+                    <button onClick={() => setExcluir(true)}>Excluir</button>
                 </li>
-
             </ul>
+            <FormCliente isOpen={formAberto} onClose={() => setFormAberto(false)} onAttHomePage={attform} visualizar={modoVisualizacao} obj={clienteData} />
+            <TemCerteza isAbrir={excluir} onClose={() => setExcluir(false)} id={cliente.id} attForm={attform}  obj={false} />
         </div>
     );
 }

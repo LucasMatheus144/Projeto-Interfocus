@@ -13,7 +13,7 @@
 		<property name="DataNascimento" column="d_datanascimento" type="Date" not-null="true"/>
 		<property name="Email" column="email" length="50" not-null="false"/>
 		<property name="Situacao" column="situacao" type="integer" not-null="true"/>
-		<property name="UrlFoto" column="url_foto" not-null="false"/>
-
+		<property name="UrlFoto" column="url_foto" type="string" length="5000"/>
+		
 	</class>
 </hibernate-mapping>

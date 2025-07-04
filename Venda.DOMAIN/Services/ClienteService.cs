@@ -28,12 +28,6 @@ namespace Venda.DOMAIN.Services
 
             if (!validar.ValidarEntites(obj, out erro)) return null;
 
-            if(CalcularIdade(obj.DataNascimento) < 18)
-            {
-                erro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a idade minima."));
-                return null;
-            }
-
             try
             {
                 var cliente = new Cliente
@@ -72,12 +66,6 @@ namespace Venda.DOMAIN.Services
             if (procura == null)
             {
                 erro.Add(new ExceptionMsg("Cliente", "Identificador", "Cliente não encontrado."));
-                return false;
-            }
-
-            if (CalcularIdade(obj.DataNascimento) < 18)
-            {
-                erro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a idade minima."));
                 return false;
             }
 
@@ -128,12 +116,6 @@ namespace Venda.DOMAIN.Services
         }
 
         //Consultas
-
-        // todos os clientes
-        public List<Cliente> ReportaTodosClientes()
-        {
-            return db.Consulta<Cliente>().ToList();
-        }
 
         //Filtro | Ordenação e Paginação de Clientes
         public ClienteDtoExibicao ConsultaClienteFiltroePaginacao(string? pesquisa, int take= 10, int skip= 0)
@@ -248,7 +230,6 @@ namespace Venda.DOMAIN.Services
         public bool AlterarESalvarFoto(int id, IFormFile imagem)
         {
             var obj = RetornaClienteId(id);
-
 
             string string_url = null;
             if (imagem != null && imagem.Length > 0)

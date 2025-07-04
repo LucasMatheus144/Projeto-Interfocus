@@ -100,7 +100,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                         {verificaView ? (
                             <>
                                 <div className={styles.imagem}>
-                                    <img src={user} alt="imagem" loading="lazy" />
+                                    <img src={obj?.urlFoto ??user} alt="imagem" loading="lazy" />
                                 </div>
                                 <div className={styles.grupo}>
                                     <label htmlFor="nome">Nome do Cliente</label>

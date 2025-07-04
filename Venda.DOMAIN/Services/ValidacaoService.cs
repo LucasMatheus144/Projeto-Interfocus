@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Venda.DOMAIN.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Venda.DOMAIN.Services
 {
@@ -21,10 +22,17 @@ namespace Venda.DOMAIN.Services
 
             if (obj == null) return false;
 
+
+
             // Se os atributos das classes forem satisfeitos, é valido
 
             var isValid = Validator.TryValidateObject(obj, new ValidationContext(obj), valida, true);
 
+
+            if (obj is Cliente cl)
+            {
+                isValid = ValidaCliente(cl, out msgErro);
+            }
 
             if (!isValid)
             {
@@ -40,6 +48,28 @@ namespace Venda.DOMAIN.Services
             return isValid;
         }
 
+        //validar todas as regras de ngc do CLIENTE
+
+        private bool ValidaCliente(Cliente cliente, out List<ExceptionMsg> msgErro)
+        {
+            msgErro = new List<ExceptionMsg>();
+            var idade = DateTime.Now.Year - cliente.DataNascimento.Year;
+            if (cliente.DataNascimento > DateTime.Now.AddYears(-idade)) idade--;
+
+            if (idade < 18 && idade > 90)
+            {
+                msgErro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a aquedada."));
+                return false;
+            }
+            else if (cliente.Nome.Contains("Jorge"))
+            {
+                msgErro.Add(new ExceptionMsg("Cliente", "Nome", "PROIBIDO ter alguem chamado JORGE."));
+                return false;
+            }
+
+                return true;
+        }
+
         // Tratar os erros gerados de fora das Estidades, tratar erros do gerados pelo banco de dados
         public bool TratarExceptionDB(Exception ex, out List<ExceptionMsg> msgErro)
         {
@@ -50,8 +80,7 @@ namespace Venda.DOMAIN.Services
                 ExceptionMsg(
                     ex.GetType().Name,
                     ex.Source,
-                    TratarMensagemErro(ex.InnerException.ToString()
-                    )
+                    TratarMensagemErro(ex.InnerException?.Message ?? ex.Message)
                 )
             );
 

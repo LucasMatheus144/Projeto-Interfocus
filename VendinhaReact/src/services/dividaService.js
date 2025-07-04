@@ -24,10 +24,6 @@ export async function listarPorId(id) {
 }
 
 export async function salvarDivida(divida) {
-    console.log(divida.idDivida ? "PUT" : "POST");
-        console.log(divida);
-
-
     const response = await fetch(`${URL_API}/api/divida`, {
         method: divida.idDivida > 0 ? "PUT" : "POST",
         body: JSON.stringify(divida),
@@ -42,8 +38,6 @@ export async function salvarDivida(divida) {
         data: result
     }
 }
-
-
 
 export function listarDividas(pesquisa, limit, offset) {
     return fetch(`${URL_API}/api/divida?search=${pesquisa || ""}&limit=${limit}&offset=${offset}`, {
@@ -63,4 +57,11 @@ export function listarDividas(pesquisa, limit, offset) {
             data: null
         }
     })
+}
+
+export async function deletarDivida(id) {
+    const response = await fetch(`${URL_API}/api/divida/${id}`, {
+        method: "DELETE",
+    })
+    return response.status;
 }

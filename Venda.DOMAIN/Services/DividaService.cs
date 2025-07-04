@@ -125,7 +125,7 @@ namespace Venda.DOMAIN.Services
         {
             var valida = RetornaDividaPorId(id);
 
-            if (valida != null)
+            if (valida == null)
             {
                 return false;
             }
@@ -136,6 +136,8 @@ namespace Venda.DOMAIN.Services
                 using var inicia = db.IniciarTransacao();
                 db.Excluir(valida);
                 db.Commit();
+
+                AlterarStatusCliente(valida.cliente);
                 return true;
             }
             catch (Exception)
@@ -201,13 +203,14 @@ namespace Venda.DOMAIN.Services
         }
 
         //Regra Geral para Divida
-        /// <summary>
-        /// 
-        /// REGRA: 1- > Quando pagar a divida, alterar o status da divida para Pago
-        ///        2- > Após alterar o status da divida, precisa verificar se o cliente ainda possui divida, se possuir manter o status de INADIMPLENTE
-        /// </summary>
+
         private void AlterarStatusCliente(Cliente cliente)
         {
+            /// <summary>
+            /// 
+            /// REGRA: 1- > Quando pagar a divida, alterar o status da divida para Pago
+            ///        2- > Após alterar o status da divida, precisa verificar se o cliente ainda possui divida, se possuir manter o status de INADIMPLENTE
+            /// </summary>
             var possuiDividaAberta = RetornaDividaPorCliente(cliente.Id).Any(x => x.Situacao == SituacaoDivida.Devendo &&x.DataPagamento == null);
 
             cliente.Situacao = possuiDividaAberta ? SituacaoCliente.Inadimplente: SituacaoCliente.Adimplente;

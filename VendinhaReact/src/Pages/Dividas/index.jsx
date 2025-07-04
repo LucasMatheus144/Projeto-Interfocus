@@ -13,6 +13,7 @@ import styles from './divida.module.css';
 import Search from '../../Components/InputSearch/Search';
 import Paginacao from "../../Components/Paginacao/Paginacao";
 import Divida from "../../Components/FormDivida/Divida";
+import TemCerteza from "../../Components/Model/Confirmation/TemCerteza";
 
 export default function Dividas() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -20,6 +21,8 @@ export default function Dividas() {
     const [pesquisa, setPesquisa] = useState("");
     const [dividaSelecionada, setDividaSelecionada] = useState(null);
     const [viewMode, setViewMode] = useState(false);
+    const [excluirAberto, setExcluirAberto] = useState(false);
+    const [dividaParaExcluir, setDividaParaExcluir] = useState(null);
 
     /*Paginação*/
     const [page, setPage] = useState(0);
@@ -43,6 +46,11 @@ export default function Dividas() {
         setPage(0);
         setPesquisa(valor);
     }
+
+    const confirmarExclusao = (c) => {
+        setDividaParaExcluir(c);
+        setExcluirAberto(true);
+    };
 
     useEffect(() => {
         var timeout = setTimeout(() => {
@@ -73,7 +81,7 @@ export default function Dividas() {
                 <div className={styles.pesquisa}>
                     <Search observavdorPesquisa={disparaPesquisa}></Search>
                     <div>
-                        <button className={styles.novadivida} onClick={() => abrirFormulario(null) } ><FaPlus /> Novo Divida</button>
+                        <button className={styles.novadivida} onClick={() => abrirFormulario(null)} ><FaPlus /> Novo Divida</button>
                     </div>
                 </div>
             </header>
@@ -101,9 +109,9 @@ export default function Dividas() {
                                 <td>{c.status === 1 ? 'Não Pago' : 'Pago'}</td>
                                 <td>R$:{c.valor}</td>
                                 <td>
-                                    <span onClick={() => { setDividaSelecionada(c); setViewMode(true) ;setModalOpen(true);}}><GrFormView /></span>
+                                    <span onClick={() => { setDividaSelecionada(c); setViewMode(true); setModalOpen(true); }}><GrFormView /></span>
                                     <span onClick={() => { abrirFormulario(c); setViewMode(false) }}><AiOutlineEdit /></span>
-                                    <span><MdDeleteOutline /></span>
+                                    <span onClick={() => confirmarExclusao(c.idDivida)}><MdDeleteOutline /></span>
                                 </td>
                             </tr>
                         ))}
@@ -111,6 +119,8 @@ export default function Dividas() {
                 </table>
             </section>
             <Paginacao page={page} limit={limit} total={totalDivida} onPrev={goVoltar} onNext={goNext} />
+
+            <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={chamaListagem} obj={true} />
 
         </>
     )

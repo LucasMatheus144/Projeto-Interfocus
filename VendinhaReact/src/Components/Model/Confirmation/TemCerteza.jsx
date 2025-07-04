@@ -1,15 +1,19 @@
 import styles from './temcerteza.module.css';
-import { excluirCliente } from '../../../services/clienteService'
+import { excluirCliente } from '../../../services/clienteService';
+import { deletarDivida } from '../../../services/dividaService';
 
-export default function TemCerteza({ isAbrir, onClose,id, attForm}) {
+
+export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
     if (!isAbrir) return false;
 
-    const gerarExclusao = async() => {
-        const status = await excluirCliente(id);
-        if(status == 200){
+    const gerarExclusao = async () => {
+        console.log(id);
+        const status = await (obj === true ? deletarDivida(id) : excluirCliente(id) );
+
+        if (status == 200) {
             onClose();
             attForm();
-        } 
+        }
     }
     return (
         <div className={styles.componente}>
