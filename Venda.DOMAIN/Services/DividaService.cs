@@ -40,6 +40,8 @@ namespace Venda.DOMAIN.Services
 
             obj.Situacao = obj.DataPagamento != null ? SituacaoDivida.Pago : SituacaoDivida.Devendo;
 
+
+
             var divida = new Dividas
             {
                 cliente = procuraCliente,

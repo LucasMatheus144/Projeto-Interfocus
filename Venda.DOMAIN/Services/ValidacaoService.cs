@@ -33,6 +33,10 @@ namespace Venda.DOMAIN.Services
             {
                 isValid = ValidaCliente(cl, out msgErro);
             }
+            else if( obj is Dividas dv)
+            {
+                isValid = ValidaDivida(dv, out msgErro);
+            }
 
             if (!isValid)
             {
@@ -68,6 +72,19 @@ namespace Venda.DOMAIN.Services
             }
 
                 return true;
+        }
+
+        private bool ValidaDivida(Dividas divida, out List<ExceptionMsg> msgErro)
+        {
+            msgErro = new List<ExceptionMsg>();
+
+            if(divida.Valor < 0)
+            {
+                msgErro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a aquedada."));
+                return false;
+            }
+
+            return true;
         }
 
         // Tratar os erros gerados de fora das Estidades, tratar erros do gerados pelo banco de dados

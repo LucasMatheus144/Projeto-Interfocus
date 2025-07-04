@@ -1,6 +1,6 @@
 import Model from '../Model/Modal';
 import styles from './divida.module.css';
-import Alerta from '../Model/Alertas/Alerta';
+import Alerta from '../Alertas/Alerta';
 import InputSelect from '../InputDataList/InputSelect';
 
 import { salvarDivida, listarPorId } from '../../services/dividaService';
@@ -91,7 +91,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
                     <input type="number" name="clienteid" value={dados?.cliente?.id ?? obj?.id ?? clienteIdSelecionado} readOnly className={styles.ocultar} />
                     <input type="number" name="dividaid" value={dados?.id ?? 0} readOnly className={styles.ocultar} />
 
-                    {/*qUANDO NAO FOR DA CADASTRAR DIVIDA PELA HOME PAGE E NEM EDITAR A DIVIDA
+                    {/*qUANDO NAO FOR CADASTRAR DIVIDA PELA HOME PAGE E NEM EDITAR A DIVIDA
                          */}
                     {dados?.cliente?.nome ?? obj?.nome ? (
                         <>
@@ -108,7 +108,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
                     <div className={styles.row}>
                         <div className={styles.col}>
                             <label>Valor</label>
-                            <input name="valor" type="number" step="0.01" placeholder="0.00" defaultValue={dados?.valor ?? ""} required disabled={view} />
+                            <input name="valor" className={styles.spinner} type="number" step="0.01" placeholder="0.00" defaultValue={dados?.valor ?? ""} required disabled={view} />
                         </div>
 
                         <div className={styles.col}>

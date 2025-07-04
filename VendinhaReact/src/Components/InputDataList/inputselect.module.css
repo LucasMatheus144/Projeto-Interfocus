@@ -1,25 +1,63 @@
 .todo {
     position: relative;
     width: 100%;
+    flex: 0 1 100%;
 }
 
-.todo input {
-    width: 100%;
-    padding: 8px;
+.listagem{
+    display: none;
+    opacity:  0;
 }
 
-.todo ul {
+.listagem.active{
+    display: block;
+    opacity: 1;
     position: absolute;
-    top: 60px;
     width: 100%;
-    background: #fff;
-    border: 1px solid #ccc;
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 999;
+    top: 60px;
+    background-color: red;
+    border-radius: 2px 2px 10px 10px;
+    height: 160px;
+    z-index: 1;
 }
 
-.todo ul li {
+.filter{
+    display: flex;
+    position: relative;
+    padding: 4px;
+}
+
+.icon{
+    position: absolute;
+    color: var(--yellow-400);
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inputss{
+    padding: 5px 30px 8px 12px;
+}
+
+
+.listagem ul {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: 90%;
+    background-color: red;
+    border-radius: 6px 6px 10px 10px;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.listagem ul li {
     padding: 8px;
     cursor: pointer;
 }
+
+.listagem ul li:hover {
+    background-color: blueviolet;
+    border-radius: 8px;
+}
+

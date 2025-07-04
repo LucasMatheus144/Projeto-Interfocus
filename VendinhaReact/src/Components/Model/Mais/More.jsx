@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { listarPorId } from '../../../services/clienteService';
 import styles from './more.module.css';
 import FormCliente from '../../FormCliente/FormCliente';
-import TemCerteza from "../Confirmation/TemCerteza";
+import TemCerteza from "../../Confirmation/TemCerteza";
 
 export default function Mais({ isOpen, onClose, attform, cliente }) {
     const [formAberto, setFormAberto] = useState(false);

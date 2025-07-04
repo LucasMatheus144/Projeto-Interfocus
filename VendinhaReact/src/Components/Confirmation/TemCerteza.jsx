@@ -1,6 +1,6 @@
 import styles from './temcerteza.module.css';
-import { excluirCliente } from '../../../services/clienteService';
-import { deletarDivida } from '../../../services/dividaService';
+import { excluirCliente } from '../../services/clienteService';
+import { deletarDivida } from '../../services/dividaService';
 
 
 export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {

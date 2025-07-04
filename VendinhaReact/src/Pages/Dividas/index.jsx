@@ -13,7 +13,7 @@ import styles from './divida.module.css';
 import Search from '../../Components/InputSearch/Search';
 import Paginacao from "../../Components/Paginacao/Paginacao";
 import Divida from "../../Components/FormDivida/Divida";
-import TemCerteza from "../../Components/Model/Confirmation/TemCerteza";
+import TemCerteza from "../../Components/Confirmation/TemCerteza";
 
 export default function Dividas() {
     const [modalOpen, setModalOpen] = useState(false);

@@ -1,12 +1,15 @@
 import { useState, useReducer, useMemo, useEffect } from "react";
 import { salvarCliente, enviarImagem } from '../../services/clienteService';
+import { useImagemCliente } from "../../Hooks/cacheImages";
+
 
 import styles from './form.module.css';
 import Model from '../Model/Modal';
-import Alerta from '../Model/Alertas/Alerta';
+import Alerta from '../Alertas/Alerta';
 import user from '../../assets/user.png';
 
 export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar, obj }) {
+    const { fotoUrl, salvarImagemNoCache } = useImagemCliente(obj?.id, obj?.urlFoto, user);
     const [alertas, setAlertas] = useState([]);
 
     const mascaraCpf = (valor) => {
@@ -32,6 +35,13 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
         situacao: 1
     });
 
+    const fluxoTela = () => {
+        setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
+        onClose();
+        onAttHomePage();
+        setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+    };
+
     const enviarForm = async (event) => {
         event.preventDefault();
         const form = event.target;
@@ -42,14 +52,16 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
         const resultado = await salvarCliente(cliente);
         if (resultado.status === 200) {
             const idCliente = resultado.data.id ?? obj?.id;
-            if (arquivo && arquivo.size > 0) {
-                await enviarImagem(idCliente, arquivo);
-            }
 
-            setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
-            onClose();
-            onAttHomePage();
-            setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+            if (arquivo && arquivo.size > 0) {
+                const cache = salvarImagemNoCache(idCliente, arquivo);
+                const envio = enviarImagem(idCliente, arquivo);
+                await Promise.all([cache, envio]);
+                // await enviarImagem(idCliente, arquivo);
+                // await salvarImagemNoCache(idCliente, arquivo);
+                fluxoTela();
+            } 
+
         } else {
             const mensagens = resultado?.data ?? resultado;
             const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
@@ -100,7 +112,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                         {verificaView ? (
                             <>
                                 <div className={styles.imagem}>
-                                    <img src={obj?.urlFoto ??user} alt="imagem" loading="lazy" />
+                                    <img src={fotoUrl ?? obj?.urlFoto ?? user} alt="imagem" loading="lazy" />
                                 </div>
                                 <div className={styles.grupo}>
                                     <label htmlFor="nome">Nome do Cliente</label>

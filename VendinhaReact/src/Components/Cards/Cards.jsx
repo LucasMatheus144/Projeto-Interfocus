@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { IoMdMore } from "react-icons/io";
+import { useImagemCliente } from "../../Hooks/cacheImages";
+
 import styles from './cards.module.css';
 import user from '../../assets/user.png';
 import Mais from '../Model/Mais/More';
@@ -9,13 +11,14 @@ import Divida from "../FormDivida/Divida";
 export default function Cards({ cliente, onAtualizar }) {
     const [maisAberto, setMaisAberto] = useState(false);
     const [dividaAberto, setDividaAberto] = useState(false);
+    const { fotoUrl } = useImagemCliente(cliente.id, cliente.stringFoto, user);
 
     return (
         <>
             <div className={styles.wrapper}>
                 <div className={styles.info}>
                     <div className={styles.imagem}>
-                        <img src={cliente.stringFoto ?? user} alt="imagem" loading="lazy" />
+                        <img src={fotoUrl ??cliente.stringFoto ?? user} alt="imagem" loading="lazy" />
                     </div>
                     <div className={styles.adicional}>
                         <h3 className={styles.principal}>{cliente.nome}</h3>

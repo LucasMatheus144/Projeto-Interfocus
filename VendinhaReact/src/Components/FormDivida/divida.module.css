@@ -3,7 +3,10 @@
     display: none;
 }
 
-
+.spinner {
+  appearance: textfield;
+  -webkit-appearance: textfield;  
+}
 
 
 form {

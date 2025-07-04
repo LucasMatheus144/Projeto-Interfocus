@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { listarClientes } from '../../services/clienteService';
 import { FaPlus } from "react-icons/fa";
+
 import Search from '../../Components/InputSearch/Search';
 import Cards from '../../Components/Cards/Cards';
 import FormCliente from "../../Components/FormCliente/FormCliente";

@@ -57,6 +57,16 @@ app.UseCors(
         .AllowAnyMethod()
         .AllowAnyOrigin()
     );
+//builder.Services.AddCors(options =>
+//    options.AddPolicy(name: "allowedOrigins",
+//        policy =>
+//        {
+//            policy.WithOrigins("http://localhost:5173")
+//                .WithMethods("GET", "POST")
+//                .AllowAnyHeader();
+//        })
+//);
+
 
 app.UseHttpsRedirection();
 

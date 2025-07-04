@@ -1,3 +1,4 @@
+create database
 
 create sequence public.clientes_seq;
 
@@ -30,14 +31,13 @@ create table dividas(
 create index idx_dividas_idcliente on public.dividas(id_cliente);
 
 
-
-CREATE OR REPLACE FUNCTION  public.valida_new_divida()
+CREATE OR REPLACE FUNCTION public.valida_new_divida()
 RETURNS trigger AS
 $body$
 DECLARE
     total DECIMAL(8, 2);
 BEGIN
-IF NEW.situacao = 2 THEN -- 1 ->  Pago = 2, Devendo = 1,
+IF NEW.situacao = 2 THEN -- Pago = 2, Devendo = 1,
         RETURN NEW;
     END IF;
 
