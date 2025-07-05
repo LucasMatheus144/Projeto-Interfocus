@@ -76,7 +76,7 @@
 
 <div align="center">
     
-###### Tecnologias utilizadas para o teste de desenvolvimento a baixo
+###### Tecnologias utilizadas para a proposta de desenvolvimento a baixo!
 
 ![My Skills](https://skillicons.dev/icons?i=html,css,js,react,vite,cs,dotnet,postgres,aws)
 
