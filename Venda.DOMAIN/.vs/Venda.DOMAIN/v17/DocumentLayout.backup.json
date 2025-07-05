@@ -1,21 +1,16 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\",
+  "WorkspaceRootPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\services\\validacaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\validacaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.domain\\schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
       "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.domain\\schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
       "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:schema.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
@@ -47,39 +42,26 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ValidacaoService.cs",
-              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ValidacaoService.cs",
-              "RelativeDocumentMoniker": "Services\\ValidacaoService.cs",
-              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ValidacaoService.cs",
-              "RelativeToolTip": "Services\\ValidacaoService.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwCQAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T17:41:10.056Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\appsettings.json",
+              "RelativeDocumentMoniker": "..\\Venda.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\appsettings.json",
+              "RelativeToolTip": "..\\Venda.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-04T21:33:45.002Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DividaService.cs",
-              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
-              "RelativeDocumentMoniker": "Services\\DividaService.cs",
-              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs*",
-              "RelativeToolTip": "Services\\DividaService.cs*",
-              "ViewState": "AgIAABkAAAAAAAAAAAAgwCoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T17:40:35.282Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "Schema.sql ",
-              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Schema.sql",
+              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Schema.sql",
               "RelativeDocumentMoniker": "Schema.sql",
-              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Schema.sql*",
-              "RelativeToolTip": "Schema.sql*",
+              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Schema.sql",
+              "RelativeToolTip": "Schema.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-07-04T14:53:38.24Z",
+              "WhenOpened": "2025-07-04T21:03:47.842Z",
               "EditorCaption": ""
             }
           ]

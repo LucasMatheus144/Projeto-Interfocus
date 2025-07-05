@@ -1,4 +1,4 @@
-create database
+create database projetovalendointerfocus;
 
 create sequence public.clientes_seq;
 

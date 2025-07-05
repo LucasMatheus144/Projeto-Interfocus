@@ -34,8 +34,8 @@ export default function Dividas() {
         setModalOpen(true);
     };
 
-    const chamaListagem = async () => {
-        const result = await listarDividas(pesquisa, limit, page);
+    const chamaListagem = async (paginaAtual) => {
+        const result = await listarDividas(pesquisa, limit, paginaAtual);
         if (result.status == 200) {
             setTotal(result.__count);
             serDivida(result.data);
@@ -54,26 +54,13 @@ export default function Dividas() {
 
     useEffect(() => {
         var timeout = setTimeout(() => {
-            chamaListagem();
+            chamaListagem(page);
         }, 700);
 
         return () => {
             clearTimeout(timeout);
         }
-    }, [page, pesquisa])
-
-
-    const goNext = () => {
-        if (page < totalDivida - 1) {
-            setPage(prev => prev + 1)
-        }
-    };
-    const goVoltar = () => {
-        if (page > 0) {
-            setPage(prev => prev - 1);
-        }
-    };
-
+    }, [pesquisa])
 
     return (
         <>
@@ -118,7 +105,7 @@ export default function Dividas() {
                     </tbody>
                 </table>
             </section>
-            <Paginacao page={page} limit={limit} total={totalDivida} onPrev={goVoltar} onNext={goNext} />
+            <Paginacao limit={limit} total={totalDivida} attPage={(paginaAtual) => chamaListagem(paginaAtual)}/>
 
             <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={chamaListagem} obj={true} />
 

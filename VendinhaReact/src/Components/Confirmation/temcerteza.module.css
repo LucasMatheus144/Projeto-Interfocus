@@ -54,3 +54,32 @@
     opacity: 1;
 }
 
+.finale button{
+   
+    padding: 5px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.2s ease;
+}
+
+.finale .sim{
+    background-color: var(--yellow-400);
+    color: var(--black-400);
+}
+
+.finale .nao{
+    background-color: var(--black-400);
+    color: var(--yellow-400);
+}
+
+
+.finale .sim:hover{
+    background-color: var(--black-400);
+    color: var(--yellow-400);
+}
+
+.finale .nao:hover{
+    background-color: var(--black-100);
+}

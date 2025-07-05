@@ -11,6 +11,7 @@ import styles from './home.module.css';
 export default function HomePage() {
     /*FormCliente*/
     const [abrir, setOpen] = useState(false);
+    const [clienteComDividaAberta, setClienteComDividaAberta] = useState(null);
 
     /* Chamada API */
     const [clientes, setClientes] = useState([]);
@@ -24,18 +25,18 @@ export default function HomePage() {
     // Efeitos para atualização de componentes
     useEffect(() => {
         var timeout = setTimeout(() => {
-            chamaListagem();
+            chamaListagem(page);
         }, 600);
 
         return () => {
             clearTimeout(timeout);
         }
-    }, [page, pesquisa])
+    }, [pesquisa])
 
     // Dispara ação
-    const chamaListagem = async () => {
-        const result = await listarClientes(pesquisa, limit, page);
-        if (result.status == 200) {
+    const chamaListagem = async (pageAtual) => {
+        const result = await listarClientes(pesquisa, limit, pageAtual);
+        if (result.status === 200) {
             setTotal(result.__count);
             setClientes(result.data);
         }
@@ -45,15 +46,8 @@ export default function HomePage() {
         setPesquisa(valor);
     }
 
-    const goNext = () => {
-        if (page < totalClientes - 1) {
-            setPage(prev => prev + 1)
-        }
-    };
-    const goVoltar = () => {
-        if (page > 0) {
-            setPage(prev => prev - 1);
-        }
+    const alternarFormularioDivida = (clienteId) => {
+        setClienteComDividaAberta(prev => prev === clienteId ? null : clienteId);
     };
 
     return (
@@ -69,10 +63,10 @@ export default function HomePage() {
             <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={chamaListagem} ></FormCliente>
             <section className={styles.grid}>
                 {clientes.map(c =>
-                    <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} />
+                    <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} aberto={clienteComDividaAberta === c.id} onAbrir={() => alternarFormularioDivida(c.id)} />
                 )}
             </section>
-            <Paginacao page={page} limit={limit} total={totalClientes} onPrev={goVoltar} onNext={goNext} />
+            <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
 
 
         </>
