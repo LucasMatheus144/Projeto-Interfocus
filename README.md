@@ -35,14 +35,14 @@
 
  ### 📌 Funcionalidades Exigidas
 
-  - [x] Ordenar clientes pelo o que mais deo para o que menos deve
-  - [x] Exibir o campo idade calculada pela data nascimento
-  - [x] Carregar a lista de 10 em 10
-  - [x] Deve haver um campo de busca por nome, onde digita um texto e exibe os clientes
-  - [x] No final da listagem, exibir a soma do total de dividas dos clientes
-  - [ ] Deve ser possivel marcar uma divida como paga
-  - [ ] Deve aparecer a soma das dividas de um cliente
-  - [x] A somatoria das dividas do cliente não podem ultrapassar R$ 200,00
+  - [x] Ordenar os clientes do que mais deve para o que menos deve
+  - [x] Exibir o campo idade, calculada com base na data de nascimento
+  - [x] Carregar a lista em lotes de 10 em 10
+  - [x] Deve haver um campo de busca por nome, onde ao digitar um texto, os clientes correspondentes são exibidos
+  - [x] No final da listagem, exibir a soma total das dívidas dos clientes
+  - [ ] Deve ser possível marcar uma dívida como paga
+  - [ ] Deve aparecer a soma das dívidas de cada cliente
+  - [x] A somatória das dívidas de um cliente não pode ultrapassar R$ 200,00
 
 </details>
 
