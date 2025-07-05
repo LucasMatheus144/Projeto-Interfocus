@@ -7,16 +7,31 @@
 </div>
 
 
+
+<details>
+
+<summary align="center">🧾 Resumo do Projeto</summary>
+
+
+
+</details>
+
 ---
 
+<details>
 
+<summary align="center">📊 Prints</summary>
+
+
+
+</details>
 
 ---
 
 
 <details>
 
-<summary align="center">📋  Features</summary>
+<summary align="center">📋 Features</summary>
 
  ### 📌 Funcionalidades Exigidas
 
@@ -35,7 +50,7 @@
 
 <details>
 
-<summary align="center">📅 To do</summary>
+<summary align="center">📅 To do list</summary>
 
 ###### Board de desenvolvimento https://github.com/users/LucasMatheus144/projects/2
 [![image](https://github.com/user-attachments/assets/cb8e5d9e-3f68-467a-9d77-844b1bdff81b)](https://github.com/users/LucasMatheus144/projects/2)
@@ -45,9 +60,25 @@
 ![image](https://github.com/user-attachments/assets/8eb2b325-5269-4ef1-980e-b405d2ed20fc)
 
 
+</details>
+
+---
+
+<details>
+
+<summary align="center">🛠️ Intruções de Execução</summary>
+
+
 
 </details>
 
 ---
 
+<div align="center">
+    
+##### # Tecnologias utilizadas para o teste de desenvolvimento a baixo
+
+[![My Skills](https://skillicons.dev/icons?i=html,css,js,react,cs,dotnet,postgres)]
+
+</div>
 
