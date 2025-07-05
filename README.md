@@ -56,6 +56,7 @@
   - [x] Hooks de imagem em cache do navegador
   - [ ] Nota Fiscal do pagamento em pdf
   - [x] Criação de Trigger | View
+  - [ ] Deploy
 
 </details>
 
