@@ -43,34 +43,23 @@ namespace Venda.API.Controllers
         {
             var cadastra = service.CadastraCliente(model, out List<ExceptionMsg> erro);
 
-            if (cadastra == null)
-            {
-                return UnprocessableEntity(erro);
-            }
-
-            return Ok(cadastra);
+            return (cadastra != null) ? Ok(cadastra) : UnprocessableEntity(erro);
         }
 
         [HttpPut]
         public IActionResult Put([FromBody] Cliente model)
         {
             var atualiza = service.EditarCliente(model, out List<ExceptionMsg> erro);
-            if (!atualiza)
-            {
-                return UnprocessableEntity(erro);
-            }
-            return Ok(atualiza);
+
+            return atualiza ? Ok(atualiza) : UnprocessableEntity(erro);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var exclui = service.DeleteCliente(id);
-            if (!exclui)
-            {
-                return NotFound(exclui);
-            }
-            return Ok(exclui);
+            
+            return exclui ? Ok(exclui) : NotFound(exclui);
         }
 
         [HttpPost("upload/{id_cliente}")]

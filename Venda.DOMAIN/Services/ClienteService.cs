@@ -14,6 +14,7 @@ namespace Venda.DOMAIN.Services
     {
         private readonly IRepository db;
         private readonly ValidacaoService validar;
+        private string url_aws = "https://bagimgs.s3.us-east-1.amazonaws.com/";
 
         public ClienteService(IRepository db, ValidacaoService validar)
         {
@@ -71,7 +72,7 @@ namespace Venda.DOMAIN.Services
 
             if (!validar.ValidarEntites(obj, out erro)) return false;
 
-            obj.Situacao = procura.Situacao;// sempre manter o status 
+            obj.Situacao = procura.Situacao;// sempre manter o status PORQUE quem controla essa ação é o pagamento da divida
 
             try
             {
@@ -208,7 +209,7 @@ namespace Venda.DOMAIN.Services
                 return null;
 
             var nomeArquivo = Guid.NewGuid().ToString("N") + Path.GetExtension(imagem.FileName); 
-            var urlS3 = $"https://bagimgs.s3.us-east-1.amazonaws.com/{nomeArquivo}";
+            var urlS3 = url_aws + nomeArquivo;
 
             using var httpClient = new HttpClient();
             using var stream = imagem.OpenReadStream();

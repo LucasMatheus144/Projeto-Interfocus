@@ -5,14 +5,14 @@ import { deletarDivida } from '../../services/dividaService';
 
 export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
     if (!isAbrir) return false;
+    var valida = obj === false;
 
     const gerarExclusao = async () => {
-        console.log(id);
-        const status = await (obj === true ? deletarDivida(id) : excluirCliente(id) );
+        const status = await (valida ? excluirCliente(id): deletarDivida(id) );
 
         if (status == 200) {
             onClose();
-            attForm();
+            attForm(0);      
         }
     }
     return (
@@ -22,9 +22,14 @@ export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
                     <div className={styles.header}>
                         <h5 className={styles.titulo}>Exclusão</h5>
                     </div>
-                    <div className={styles.descricao}>
-                        Confirma a exclusão do cadastro? <br />
-                        <strong>Todas as dividas atreladas serão apagadas.</strong>
+                    <div className={styles.descricao}> Confirma a exclusão do cadastro?
+                        {valida &&
+                            <>
+                                <br />
+                                <strong>Todas as dividas atreladas serão apagadas.</strong>
+                            </>
+                        }
+
                     </div>
                     <div className={styles.finale}>
                         <button className={styles.nao} type="button" onClick={onClose} >Não</button>

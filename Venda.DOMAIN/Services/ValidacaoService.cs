@@ -65,9 +65,9 @@ namespace Venda.DOMAIN.Services
                 msgErro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a aquedada."));
                 return false;
             }
-            else if (cliente.Nome.Contains("Jorge"))
+            else if (cliente.Nome.ToLower().Contains("mateus dias"))
             {
-                msgErro.Add(new ExceptionMsg("Cliente", "Nome", "PROIBIDO ter alguem chamado JORGE."));
+                msgErro.Add(new ExceptionMsg("Cliente", "Nome", "PROIBIDO ter alguem chamado mateus dias."));
                 return false;
             }
 
@@ -80,7 +80,7 @@ namespace Venda.DOMAIN.Services
 
             if(divida.Valor < 0)
             {
-                msgErro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a aquedada."));
+                msgErro.Add(new ExceptionMsg("Divida", "Valor", "A divida não pode ser zerada."));
                 return false;
             }
 

@@ -35,12 +35,7 @@ namespace Venda.API.Controllers
         {
             var cadastra = service.CadastraDivida(obj, out List<ExceptionMsg> erro);
 
-            if (!cadastra)
-            {
-                return UnprocessableEntity(erro);
-            }
-
-            return Ok(cadastra);
+            return cadastra ? Ok(cadastra) : UnprocessableEntity(erro);
         }
 
         [HttpPut]
@@ -48,12 +43,7 @@ namespace Venda.API.Controllers
         {
             var editar = service.EditarDivida(obj, out List<ExceptionMsg> erro);
 
-            if (!editar)
-            {
-                return UnprocessableEntity(erro);
-            }
-
-            return Ok(editar);
+            return editar ? Ok(editar) : UnprocessableEntity(erro);
         }
 
         [HttpDelete("{id}")]
@@ -61,12 +51,7 @@ namespace Venda.API.Controllers
         {
             var deletar = service.ExcluirDivida(id);
 
-            if (!deletar)
-            {
-                return NotFound(deletar);
-            }
-
-            return Ok(deletar);
+            return deletar ? Ok(deletar) : NotFound(deletar);
         }
     }
 }

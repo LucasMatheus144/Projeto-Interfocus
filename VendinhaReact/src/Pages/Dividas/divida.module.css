@@ -10,19 +10,28 @@
     width: 100%;
 }
 
-.novadivida {
+.novadivida, .pagardivida {
     display: flex;
     align-items: center;
     gap: 4px;
-
     background-color: var(--yellow-400);
     color: var(--black-400);
     border: none;
     padding: 10px;
     border-radius: 10px;
     width: 125px;
+    opacity: 1;
+    transition: opacity 0.4s ease;
 }
 
+.grupobtn{
+    display: flex;
+    gap: 10px;
+}
+
+.pagardivida.botaoDesativado{
+    opacity: 0;
+}
 
 
 .datatable {

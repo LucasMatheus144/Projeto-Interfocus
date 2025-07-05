@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { listarDividas } from '../../services/dividaService';
+import { listarDividas, salvarDivida, listarPorId } from '../../services/dividaService';
 import { formatarData } from '../../services/validarService';
 
 import { FaPlus } from "react-icons/fa";
@@ -28,6 +28,43 @@ export default function Dividas() {
     const [page, setPage] = useState(0);
     const [totalDivida, setTotal] = useState(0);
     const limit = 10;
+
+    //CheckBox
+    const [selecionado, setSelecionado] = useState(null);
+    const [pagar , setPagar] = useState(false);
+
+    const dividaSelecionadaInfo = divida.find(c => c.idDivida === selecionado);
+    const podePagar = dividaSelecionadaInfo && dividaSelecionadaInfo.status === 1;
+
+    const executaPagarDivida = async () => {
+        const res = await listarPorId(selecionado);
+        if (res.status === 200) {
+            var x = res.data;
+
+            const divida = {
+                idDivida: x.id,
+                clienteId: x.cliente.id,
+                valor: x.valor,
+                dataCadastro: x.dataCadastro,
+                dataPagamento: new Date(),
+                descricao: x.descricao,
+                situacao: x.situacao
+            };
+
+            const resultado = await salvarDivida(divida);
+            console.log(resultado);
+            if (resultado.status === 200) {
+                chamaListagem(0);               
+            } 
+        }
+    };
+
+    useEffect(() => {
+        if (!podePagar) return;
+
+        executaPagarDivida();
+    }, [pagar]);
+
 
     const abrirFormulario = (divida = null) => {
         setDividaSelecionada(divida);
@@ -67,7 +104,8 @@ export default function Dividas() {
             <header className={styles.container}>
                 <div className={styles.pesquisa}>
                     <Search observavdorPesquisa={disparaPesquisa}></Search>
-                    <div>
+                    <div className={styles.grupobtn}>
+                        <button className={`${styles.pagardivida} ${!podePagar ? styles.botaoDesativado : ''}`} onClick={ () => setPagar(true)} disabled={!podePagar} ><FaPlus /> Pagar Divida</button>
                         <button className={styles.novadivida} onClick={() => abrirFormulario(null)} ><FaPlus /> Novo Divida</button>
                     </div>
                 </div>
@@ -79,6 +117,7 @@ export default function Dividas() {
                 <table className={styles.tabela} id="tabela">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Cliente</th>
                             <th>Cadastro</th>
                             <th>Pagamento</th>
@@ -90,6 +129,7 @@ export default function Dividas() {
                     <tbody>
                         {divida.map((c, index) => (
                             <tr key={index} className={styles.frame}>
+                                <td><input type="checkbox" checked={selecionado === c.idDivida} onChange={() => setSelecionado(c.idDivida)} /></td>
                                 <td>{c.nome}</td>
                                 <td>{formatarData(c.cadastro)}</td>
                                 <td>{formatarData(c.pagamento)}</td>
@@ -105,9 +145,9 @@ export default function Dividas() {
                     </tbody>
                 </table>
             </section>
-            <Paginacao limit={limit} total={totalDivida} attPage={(paginaAtual) => chamaListagem(paginaAtual)}/>
+            <Paginacao limit={limit} total={totalDivida} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
 
-            <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={chamaListagem} obj={true} />
+            <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={(paginaAtual) => chamaListagem(paginaAtual)} obj={true} />
 
         </>
     )
