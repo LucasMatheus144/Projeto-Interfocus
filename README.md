@@ -41,7 +41,7 @@
   - [x] Deve haver um campo de busca por nome, onde ao digitar um texto, os clientes correspondentes são exibidos
   - [x] No final da listagem, exibir a soma total das dívidas dos clientes
   - [ ] Deve ser possível marcar uma dívida como paga
-  - [ ] Deve aparecer a soma das dívidas de cada cliente
+  - [x] Deve aparecer a soma das dívidas de cada cliente
   - [x] A somatória das dívidas de um cliente não pode ultrapassar R$ 200,00
 
 
