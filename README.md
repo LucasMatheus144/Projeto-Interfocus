@@ -44,6 +44,18 @@
   - [ ] Deve aparecer a soma das dívidas de cada cliente
   - [x] A somatória das dívidas de um cliente não pode ultrapassar R$ 200,00
 
+
+ ### 🔧 Funcionalidades Extras
+
+  - [x]  Restringir o cadastro de clientes menores de 18 anos ou maiores de 90 anos
+  - [x] Não permitir o cadastro com o nome "Mateus Dias"
+  - [x]  e-mail deve atender aos seguintes requisitos: 
+    1- Não pode ser vazio
+    2- Deve conter entre 4 e 50 caracteres
+    3- Deve conter "@" e terminar com ".com" ou ".br"
+  - [x] O CPF deve ser válido conforme o padrão nacional (Brasil) 
+ 
+
 </details>
 
 ---
