@@ -78,7 +78,7 @@
     
 ##### # Tecnologias utilizadas para o teste de desenvolvimento a baixo
 
-[![My Skills](https://skillicons.dev/icons?i=html,css,js,react,cs,dotnet,postgres)]
+![My Skills](https://skillicons.dev/icons?i=html,css,js,react,cs,dotnet,postgres,aws)
 
 </div>
 
