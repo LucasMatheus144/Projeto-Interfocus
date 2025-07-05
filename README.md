@@ -50,6 +50,19 @@
 
 <details>
 
+<summary align="center">🧩 Funcionalidades Extras</summary>
+
+  - [x] Criação de um serviço <strong>AWS<strong/> S3 para armazenamento de imagem na nuvem
+  - [x] Hooks de imagem em cache do navegador
+  - [ ] Nota Fiscal do pagamento em pdf
+  - [x] Criação de Trigger | View
+
+</details>
+
+---
+
+<details>
+
 <summary align="center">📅 To do list</summary>
 
 ###### Board de desenvolvimento https://github.com/users/LucasMatheus144/projects/2
