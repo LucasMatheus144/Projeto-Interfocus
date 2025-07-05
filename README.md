@@ -1,7 +1,7 @@
 
 <div align="center">
     
-##### # Projeto-Interfocus administração de Clientes e suas Dívidas💵
+###### Projeto-Interfocus administração de Clientes e suas Dívidas💵
 # Vendinha
 
 </div>
@@ -76,7 +76,7 @@
 
 <div align="center">
     
-##### # Tecnologias utilizadas para o teste de desenvolvimento a baixo
+###### Tecnologias utilizadas para o teste de desenvolvimento a baixo
 
 ![My Skills](https://skillicons.dev/icons?i=html,css,js,react,vite,cs,dotnet,postgres,aws)
 
