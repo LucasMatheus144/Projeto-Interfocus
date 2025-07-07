@@ -16,14 +16,14 @@ namespace Venda.DOMAIN.Entities
         public DateTime? DataPagamento { get; set; }
 
         [Required]
-        public string Descricao { get; set; }
+        public string Descricao { get; set; } = string.Empty;
 
-        public string Url_Pdf { get; set; }
+        public string? Url_Pdf { get; set; }
 
         [Required]
         public SituacaoDivida Situacao { get; set; }
 
         [Required]
-        public Cliente cliente { get; set; }
+        public Cliente cliente { get; set; } = new Cliente();   
     }
 }

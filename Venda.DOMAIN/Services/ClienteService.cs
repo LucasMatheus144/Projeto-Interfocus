@@ -23,7 +23,7 @@ namespace Venda.DOMAIN.Services
         }
 
         //Cadastrar Cliente
-        public Cliente CadastraCliente(ClienteDtoCreateUpdate obj, out List<ExceptionMsg> erro)
+        public Cliente? CadastraCliente(ClienteDtoCreateUpdate obj, out List<ExceptionMsg> erro)
         {
             erro = new List<ExceptionMsg>();
 
@@ -206,7 +206,7 @@ namespace Venda.DOMAIN.Services
         public async Task<string> UploadImagemAsync(IFormFile imagem)
         {
             if (imagem == null || imagem.Length == 0)
-                return null;
+                return "";
 
             var nomeArquivo = Guid.NewGuid().ToString("N") + Path.GetExtension(imagem.FileName); 
             var urlS3 = url_aws + nomeArquivo;
@@ -232,7 +232,7 @@ namespace Venda.DOMAIN.Services
         {
             var obj = RetornaClienteId(id);
 
-            string string_url = null;
+            string string_url = "";
             if (imagem != null && imagem.Length > 0)
             {
                 string_url = UploadImagemAsync(imagem).GetAwaiter().GetResult();

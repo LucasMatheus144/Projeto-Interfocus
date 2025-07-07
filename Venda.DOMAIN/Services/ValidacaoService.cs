@@ -31,8 +31,8 @@ namespace Venda.DOMAIN.Services
                 msgErro = valida
                     .Select(x => new ExceptionMsg(
                         "Atributo classe",
-                        x.MemberNames.FirstOrDefault(),
-                        TratarMensagemErro(x.ErrorMessage)
+                        x.MemberNames.Any() ? x.MemberNames.First() : "desconhecido",
+                        TratarMensagemErro(x.ErrorMessage ?? "zikou")
                         ))
                     .ToList();
             }
@@ -97,7 +97,7 @@ namespace Venda.DOMAIN.Services
             msgErro.Add(new
                 ExceptionMsg(
                     ex.GetType().Name,
-                    ex.Source,
+                    ex.Source ?? "nao sei",
                     TratarMensagemErro(ex.InnerException?.Message ?? ex.Message)
                 )
             );
@@ -134,17 +134,17 @@ namespace Venda.DOMAIN.Services
             if (email == null) return ValidationResult.Success;
 
             // Não pode passar se for vazio
-            if (string.IsNullOrWhiteSpace(email)) return new ValidationResult("O e-mail não pode estar vazio.", new[] { validationContext.MemberName });
+            if (string.IsNullOrWhiteSpace(email)) return new ValidationResult("Email está vazio", new[] { validationContext.MemberName! });
 
             //Precisa ter no minimo 4 caracteres
-            if (email.Length < 4) return new ValidationResult("O e-mail deve ter pelo menos 4 caracteres.", new[] { validationContext.MemberName });
+            if (email.Length < 4) return new ValidationResult("Deve ter no minimo 4 caracteres", new[] { validationContext.MemberName! });
 
-            if (email.Length > 50) return new ValidationResult("O e-mail é maior que 50", new[] { validationContext.MemberName });
+            if (email.Length > 50) return new ValidationResult("Deve ter no maximo 50 caracteres", new[] { validationContext.MemberName! });
 
             //Para o email ser valido, precisa ter os campos do regex -> @  , .com  ou .br
             var valido = new Regex(@"^[^@\s]+@[^@\s]+\.(com|br)$");
 
-            if (!valido.IsMatch(email)) return new ValidationResult("O e-mail informado não é válido.", new[] { validationContext.MemberName });
+            if (!valido.IsMatch(email)) return new ValidationResult("Email Invalido", new[] { validationContext.MemberName! });
 
             return ValidationResult.Success;
 
@@ -162,7 +162,7 @@ namespace Venda.DOMAIN.Services
             //Aqui valida o CPF é valido ou não
             var isValid = Cpf.Check(cpf);
 
-            return isValid ? ValidationResult.Success : new ValidationResult("O CPF informado não é válido", new[] { validationContext.MemberName });
+            return isValid ? ValidationResult.Success : new ValidationResult("Cpf Invalido", new[] { validationContext.MemberName! });
 
         }
 

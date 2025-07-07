@@ -11,19 +11,19 @@ namespace Venda.DOMAIN.DTO.Cliente
     public class ClienteDtoExibicao
     {
         public int TotalClientes { get; set; }
-        public List<DadosClienteDto> Result { get; set; }
+        public List<DadosClienteDto> Result { get; set; } = [];
     }
 
 
     public class DadosClienteDto
     {
         public int Id { get; set; }
-        public string Nome { get; set; } 
-        public string Cpf { get; set; } 
+        public required string Nome { get; set; } 
+        public  required string Cpf { get; set; } 
         public SituacaoCliente Situacao { get; set; }
-        public string Email { get; set; } 
+        public string? Email { get; set; } 
 
-        public string stringFoto { get; set; }
+        public string? stringFoto { get; set; }
 
         public int Idade { get; set; }
         public decimal TotalDivida { get; set; }

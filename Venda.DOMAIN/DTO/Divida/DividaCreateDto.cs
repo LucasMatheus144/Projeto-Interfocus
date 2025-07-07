@@ -13,7 +13,7 @@ namespace Venda.DOMAIN.DTO.Divida
 
         public DateTime? DataPagamento { get; set; }
 
-        public string Descricao { get; set; }
+        public string Descricao { get; set; } = string.Empty;
 
         public SituacaoDivida Situacao { get; set; }
     }

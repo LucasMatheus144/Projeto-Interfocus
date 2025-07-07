@@ -21,11 +21,11 @@ namespace Venda.DOMAIN.Entities
         [Required]
         [MaxLength(25)]
         [MinLength(3)]
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         [Required]
         [ValidatorCpf]
-        public string Cpf { get; set; }
+        public string Cpf { get; set; } = string.Empty;
 
         [Required]
         public DateTime DataNascimento { get; set; }

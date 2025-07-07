@@ -199,8 +199,8 @@ namespace Venda.DOMAIN.Services
                 })
                 .FirstOrDefault();
 
-            decimal aReceber = relatorioDados.AReceber;
-            decimal recebido = relatorioDados.Recebido;
+            decimal aReceber = relatorioDados?.AReceber ?? 0;
+            decimal recebido = relatorioDados?.Recebido ?? 0;
 
             return new RelatorioDto
             {

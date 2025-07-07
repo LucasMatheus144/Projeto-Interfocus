@@ -8,13 +8,13 @@ namespace Venda.DOMAIN.Entities
 {
     public class NotaFiscal
     {
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         public decimal Valor { get; set; }
 
         public DateTime Pagamento { get; set; }
 
-        public string Descricao { get; set; }
+        public string Descricao { get; set; } = string.Empty;  
 
         public string RazaoSocial { get; set; } = "VENDA INTERFOCUS LTDA";
     }
