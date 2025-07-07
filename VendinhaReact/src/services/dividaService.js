@@ -19,12 +19,9 @@ export async function listarPorId(id) {
         status: response.status,
         data: null
     }
-
-
 }
 
 export async function salvarDivida(divida) {
-    console.log(divida.idDivida > 0 ? "PUT" : "POST");
     const response = await fetch(`${URL_API}/api/divida`, {
         method: divida.idDivida > 0 ? "PUT" : "POST",
         body: JSON.stringify(divida),
@@ -41,7 +38,6 @@ export async function salvarDivida(divida) {
 }
 
 export function listarDividas(pesquisa, limit, offset) {
-    console.log()
     return fetch(`${URL_API}/api/divida?search=${pesquisa || ""}&limit=${limit}&offset=${offset}`, {
         method: "GET"
     }).then(async resultado => {
@@ -66,4 +62,23 @@ export async function deletarDivida(id) {
         method: "DELETE",
     })
     return response.status;
+}
+
+export async function gerarPersonalizado(){
+     const response = await fetch(`${URL_API}/api/divida/personalizado`, {
+        method: "GET"
+    });
+   
+    if (response.status == 200) {
+        var result = await response.json();
+        return {
+            status: response.status,
+            data: result
+        }
+    }
+    return {
+        status: response.status,
+        data: null
+    }
+
 }

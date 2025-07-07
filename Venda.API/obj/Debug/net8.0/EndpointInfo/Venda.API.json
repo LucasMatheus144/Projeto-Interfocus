@@ -299,6 +299,18 @@
         }
       }
     },
+    "/api/Divida/personalizado": {
+      "get": {
+        "tags": [
+          "Divida"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Divida/{id}": {
       "delete": {
         "tags": [

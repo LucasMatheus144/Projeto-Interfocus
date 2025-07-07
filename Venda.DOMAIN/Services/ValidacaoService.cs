@@ -22,21 +22,9 @@ namespace Venda.DOMAIN.Services
 
             if (obj == null) return false;
 
-
-
             // Se os atributos das classes forem satisfeitos, é valido
 
             var isValid = Validator.TryValidateObject(obj, new ValidationContext(obj), valida, true);
-
-
-            if (obj is Cliente cl)
-            {
-                isValid = ValidaCliente(cl, out msgErro);
-            }
-            else if( obj is Dividas dv)
-            {
-                isValid = ValidaDivida(dv, out msgErro);
-            }
 
             if (!isValid)
             {
@@ -47,6 +35,17 @@ namespace Venda.DOMAIN.Services
                         TratarMensagemErro(x.ErrorMessage)
                         ))
                     .ToList();
+            }
+            else
+            {
+                if (obj is Cliente cl)
+                {
+                    isValid = ValidaCliente(cl, out msgErro);
+                }
+                else if (obj is Dividas dv)
+                {
+                    isValid = ValidaDivida(dv, out msgErro);
+                }
             }
 
             return isValid;
@@ -80,9 +79,11 @@ namespace Venda.DOMAIN.Services
 
             if(divida.Valor < 0)
             {
-                msgErro.Add(new ExceptionMsg("Divida", "Valor", "A divida não pode ser zerada."));
+                msgErro.Add(new ExceptionMsg("Divida", "Valor", "Valor negativo"));
                 return false;
             }
+
+           
 
             return true;
         }
@@ -110,12 +111,13 @@ namespace Venda.DOMAIN.Services
         {
             if (string.IsNullOrEmpty(msg)) return "Deu zika ai";
 
-            else if(msg.Contains("clientes_nome_key")) return "O nome do cliente já existe no sistema!";
+            else if (msg.Contains("clientes_nome_key")) return "O nome do cliente já existe no sistema!";
             else if (msg.Contains("clientes_cpf_key")) return "O CPF do cliente já existe no sistema!";
             else if (msg.Contains("Valor Superior a 200.")) return "O valor da divida é superior a 200 reais";
             else if (msg.Contains("O campo Nome é obrigatório.")) return "O nome é obrigatorio.";
             else if (msg.Contains("could not insert")) return "Erro ao incluir o registro.";
             else if (msg.Contains("Cpf field is required")) return "O cpf é obrigatorio!";
+            else if (msg.Contains("valor negativo")) return "O valor da divida está invalido!";
 
             else return msg;
         }

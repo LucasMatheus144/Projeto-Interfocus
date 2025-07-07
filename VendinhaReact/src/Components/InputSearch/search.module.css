@@ -1,11 +1,11 @@
 .where{
    position: relative;
-   width: 55%;
+   width: 35%;
 }
 
 .icon{
     position: absolute;
-    color: var(--yellow-400);
+    color: var(--risco-blue);
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
@@ -14,8 +14,8 @@
 .inputss{
     padding: 8px 20px 8px 30px;
     width: 100%;
-    border-radius: 5px;
-    color: var(--white);
-    background-color: var(--black-900);
-    border: 1px solid var(--black-700);
+    border-radius: 10px;
+    color: var(--gray-secundario);
+    background-color: var(--fundo-side-white);
+    border: 1px solid var(--borda-extensao-gray);
 }

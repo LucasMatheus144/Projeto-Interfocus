@@ -1,34 +1,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-:root{
-    --black-900: #0F0F0F;   /* Fundo principal */
-    --black-800: #1A1A1A;   /* Sidebar e fundo dos cards */
-    --black-700: #232323;   /* Borda dos cards / campos */
-    --black-400: #2F2F2F;   /* Hover ou contraste sutil */
-    --black-100: #3A3A3A;   /* Linhas divisórias suaves */
-    --gray-300: #B0B0B0;    /* Labels e status inativo */
-    --gray-100: #E0E0E0;    /* Texto neutro claro */
-    --yellow-300: #FDD835;   /* Status "adimplente" */
-    --red-500:  #bd8b8b;     /* Status "inadimplente" */
-    --yellow-400:  #f5c451;  
-    --white: #FFFFFF;
-    --green-300: #00c037;/* Alerta sucesso */
-    --red-300:rgb(242 74 65);  /* Alerta erro */
+:root {
+  --primario-blue: #0078FF;
+  --fundo-side-white: #FFFFFF;
+  --risco-blue: #368AE8;
+  --azul-meio-forte: #0079FF;
+  --blue-mt-forte: #0064d5;
+  --fundo-size-blue: #C9E4F0;
+  --gray-secundario: #626262;
+  --borda-extensao-gray: #DAD9DE;
+  --fundo-side-outlet: #FBFBFB;
+  --gray-fundo-card: #EEEEEE;
+  --gray-100: #E0E0E0;
+  --green-v4: #E7F7EF;
+  --green-v5: #72CE9D;
+  --red-v6: #FAEAEA;
+  --red-v4: #E70000;
+  --gray-300: #B0B0B0;
+  --black-900: #0F0F0F;
+  --blue-v7: #CCE0F7;
+  --font-small: 13px;
+  --font-lista: 14px;
+  --font-ul-sub: 16px;
+  --font-titulo: 20px;
+  --shadow-black: 4px 4px 8px rgba(0, 0, 0, 0.25);
+
+
+
+
+  /* Fundo principal */
+  --black-800: #1A1A1A;
+  /* Sidebar e fundo dos cards */
+  --black-700: #232323;
+  /* Borda dos cards / campos */
+  --black-400: #2F2F2F;
+  /* Hover ou contraste sutil */
+  --black-100: #3A3A3A;
+  /* Linhas divisórias suaves */
+
+  /* Labels e status inativo */
+  /* Texto neutro claro */
+  --yellow-300: #FDD835;
+  /* Status "adimplente" */
+  --red-500: #bd8b8b;
+  /* Status "inadimplente" */
+  --yellow-400: #f5c451;
+  --white: #FFFFFF;
+  --green-300: #00c037;
+  /* Alerta sucesso */
+  --red-300: rgb(242 74 65);
+  /* Alerta erro */
+
+
+
+  --rids-extended-blue-v4: #F2F7FD;
+  --rids-extended-blue-v5: #14CEF6;
+  --rids-extended-blue-v6: #E7FAFE;
+  --rids-extended-gray-v6: #CCCCCC;
+  --rids-extended-green-v1: #14AE5C;
+  --rids-extended-green-v2: #00CF61;
+  --rids-extended-green-v3: #26E860;
+  --rids-extended-yellow-v1: #F29E00;
+  --rids-extended-yellow-v2: #FFB800;
+  --rids-extended-yellow-v3: #EABF28;
+  --rids-extended-yellow-v4: #FFDF6E;
+  --rids-extended-yellow-v5: #FCF6E1;
+  --rids-extended-orange-sunset: #FF990D;
+  --rids-extended-orange-v1: #FF6B00;
+  --rids-extended-orange-v2: #FF8024;
+  --rids-extended-orange-v3: #FF9533;
+  --rids-extended-orange-v4: #FF905C;
+  --rids-extended-orange-v5: #F0B075;
+  --rids-extended-orange-v6: #FED2A9;
+  --rids-extended-orange-v7: #FFE7D4;
+  --rids-extended-orange-v8: #FFF2E8;
+  --rids-extended-red-v1: #AE2424;
+  --rids-extended-red-v2: #CE2929;
+  --rids-extended-red-v3: #E61D00;
+  --rids-extended-red-v5: #FFC2C2;
+  --rids-status-success: #14AE5C;
+  --rids-status-alert: #EABF28;
+  --rids-status-error: #E70000;
+  --rids-status-neutral: #14CEF7;
+  --rids-font-size-xsmall: 12px;
+  --rids-font-size-large: 24px;
+  --rids-font-size-xlarge: 32px;
+  --rids-button-border-radius: 8px;
 }
 
 
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: "Poppins", sans-serif;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 /*isso aqui é pra deixar todos os OUTLETS(pages) serem carregados a direita do layout compartilhado*/
-#root{
+#root {
   display: flex;
 }
 
-input:focus {
+input[type="text"]:focus,
+input[type="text"]:-webkit-autofill,
+input[type="text"]:-webkit-autofill:active,
+input[type="number"]:focus,
+input[type="number"]:-webkit-autofill,
+input[type="number"]:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
   outline: none;
 }

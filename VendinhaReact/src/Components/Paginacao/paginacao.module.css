@@ -1,17 +1,17 @@
 .paginacao {
     display: flex;
     justify-content: space-between;
-    padding: 50px;
-    color: var(--white);
+    padding: 10px 50px 0 0;
+    color: var(--gray-secundario);
 }
 
-a {
+.paginacao a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 30px;
     height: 30px;
-    color: var(--yellow-300);
+    color: var(--blue-mt-forte);
     text-decoration: none;
     border-radius: 8px;
     border: none;
@@ -22,10 +22,11 @@ a {
     display: inline-flex;
     width: 40px;
     height: 40px;
-    text-decoration: none;
+    border: none;
     border-radius: 8px;
-    border: 1px solid var(--black-100);
     text-align: center;
+    background-color: var(--blue-mt-forte);
+    color: var(--white);
 }
 
 
@@ -35,6 +36,3 @@ a {
 }
 
 
-.pageNumber:hover {
-    border: none;
-}

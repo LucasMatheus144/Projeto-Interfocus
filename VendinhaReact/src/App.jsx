@@ -3,6 +3,7 @@ import NotFound from './pages/Error/index';
 import HomePage from './pages/Home/index';
 import Dividas from './pages/Dividas/index';
 import Layout from './Components/Layout/compartilhado';
+import Relatorio from './Pages/Relatorio/relatorio';
 
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="dividas" element={<Dividas />} />
+           <Route path="relatorios" element={<Relatorio />} />
         </Route>
 
         {/* 404 sem layout */}

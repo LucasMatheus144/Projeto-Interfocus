@@ -13,4 +13,8 @@
     <SourceRoot Include="C:\Users\lumet\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)sixlabors.imagesharp\3.1.8\build\SixLabors.ImageSharp.props" Condition="Exists('$(NuGetPackageRoot)sixlabors.imagesharp\3.1.8\build\SixLabors.ImageSharp.props')" />
+    <Import Project="$(NuGetPackageRoot)ironpdf.slim\2025.6.8\build\IronPdf.Slim.props" Condition="Exists('$(NuGetPackageRoot)ironpdf.slim\2025.6.8\build\IronPdf.Slim.props')" />
+  </ImportGroup>
 </Project>

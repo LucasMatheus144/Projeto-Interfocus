@@ -30,6 +30,13 @@ namespace Venda.API.Controllers
             return Ok(service.RetornaDividaPorId(id));
         }
 
+        [HttpGet]
+        [Route("personalizado")]
+        public IActionResult Personalizado()
+        {
+            return Ok(service.RetornarRelatorio());
+        }
+
         [HttpPost]
         public IActionResult Cadastra([FromBody] DividaCreateDto obj)
         {

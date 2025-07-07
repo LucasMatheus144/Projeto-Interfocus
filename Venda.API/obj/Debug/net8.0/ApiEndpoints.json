@@ -191,6 +191,16 @@
   },
   {
     "ContainingType": "Venda.API.Controllers.DividaController",
+    "Method": "Personalizado",
+    "RelativePath": "api/Divida/personalizado",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Venda.API.Controllers.DividaController",
     "Method": "TrazerPorId",
     "RelativePath": "api/Divida/unicidade/{id}",
     "HttpMethod": "GET",

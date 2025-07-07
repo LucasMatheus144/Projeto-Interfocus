@@ -1,6 +1,7 @@
-﻿using NHibernate.Driver;
-using System.Reflection.Metadata.Ecma335;
+﻿using IronPdf;
+
 using Venda.DOMAIN.DTO.Divida;
+using Venda.DOMAIN.DTO.Relatorio;
 using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.Repository;
 using Venda.DOMAIN.ValuesObject;
@@ -11,6 +12,7 @@ namespace Venda.DOMAIN.Services
     {
         private readonly IRepository db;
         private readonly ValidacaoService validar;
+        private string url_aws = "https://arquivopdfsbucks.s3.us-east-1.amazonaws.com";
 
         public DividaService(IRepository db, ValidacaoService validar)
         {
@@ -49,13 +51,20 @@ namespace Venda.DOMAIN.Services
                 DataPagamento = obj.DataPagamento,
                 Descricao = obj.Descricao,
                 Situacao = obj.Situacao,
+                Url_Pdf = null
             };
 
             if (!validar.ValidarEntites(divida, out erro)) return false;
 
 
+
             try
             {
+                if (divida.DataPagamento != null)
+                {
+                    divida.Url_Pdf = RetornaUrlPdf(divida);
+                }
+
                 using var inicia = db.IniciarTransacao();
                 db.Incluir(divida);
                 db.Commit();
@@ -85,6 +94,13 @@ namespace Venda.DOMAIN.Services
                 return false;
             }
 
+            // Não pode alterar uma divida que ja foi paga
+            if (divida.Situacao == SituacaoDivida.Pago)
+            {
+                erro.Add(new ExceptionMsg("Divida", "data Pagamento", "Não pode alterar uma divida já paga!"));
+                return false;
+            }
+
             var cliente = ListarClientePorId(obj.ClienteId);
 
             if (cliente == null)
@@ -94,6 +110,7 @@ namespace Venda.DOMAIN.Services
             }
 
             obj.Situacao = obj.DataPagamento != null ? SituacaoDivida.Pago : SituacaoDivida.Devendo;
+
 
 
             divida.cliente = cliente;
@@ -106,6 +123,11 @@ namespace Venda.DOMAIN.Services
             if (!validar.ValidarEntites(divida, out erro)) return false;
             try
             {
+                if (divida.DataPagamento != null)
+                {
+                    divida.Url_Pdf = RetornaUrlPdf(divida);
+                }
+
                 using var inicia = db.IniciarTransacao();
                 db.Salvar(divida);
                 db.Commit();
@@ -161,6 +183,31 @@ namespace Venda.DOMAIN.Services
             return db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).ToList();
         }
 
+        public RelatorioDto RetornarRelatorio()
+        {
+            /*
+               select sum(case when d.situacao = 1 then d.valor else 0 end) as AReceber,
+                      sum(case when d.situacao = 2 and d.d_datapagamento is not null then d.valor else 0 end) as Recebido
+                      from dividas d;
+             */
+            var relatorioDados = db.Consulta<Dividas>()
+                .GroupBy(d => 1)
+                .Select(g => new
+                {
+                    AReceber = g.Where(x => x.Situacao == SituacaoDivida.Devendo && x.DataPagamento == null).Sum(x => (decimal?)x.Valor) ?? 0m,
+                    Recebido = g.Where(x => x.Situacao == SituacaoDivida.Pago && x.DataPagamento != null).Sum(x => (decimal?)x.Valor) ?? 0m
+                })
+                .FirstOrDefault();
+
+            decimal aReceber = relatorioDados.AReceber;
+            decimal recebido = relatorioDados.Recebido;
+
+            return new RelatorioDto
+            {
+                AReceber = aReceber,
+                Recebido = recebido,
+            };
+        }
 
         public DividaDtoExibicao ObterDividasFiltradas(string? pesquisa, int take = 10, int skip = 0)
         {
@@ -174,7 +221,8 @@ namespace Venda.DOMAIN.Services
                             Cadastro = d.DataCadastro,
                             Pagamento = d.DataPagamento,
                             Valor = d.Valor,
-                            Status = d.Situacao
+                            Status = d.Situacao,
+                            Url_pdf = d.Url_Pdf
                         };
 
             int __count = query.Count();
@@ -213,13 +261,85 @@ namespace Venda.DOMAIN.Services
             /// REGRA: 1- > Quando pagar a divida, alterar o status da divida para Pago
             ///        2- > Após alterar o status da divida, precisa verificar se o cliente ainda possui divida, se possuir manter o status de INADIMPLENTE
             /// </summary>
-            var possuiDividaAberta = RetornaDividaPorCliente(cliente.Id).Any(x => x.Situacao == SituacaoDivida.Devendo &&x.DataPagamento == null);
+            var possuiDividaAberta = RetornaDividaPorCliente(cliente.Id).Any(x => x.Situacao == SituacaoDivida.Devendo && x.DataPagamento == null);
 
-            cliente.Situacao = possuiDividaAberta ? SituacaoCliente.Inadimplente: SituacaoCliente.Adimplente;
+            cliente.Situacao = possuiDividaAberta ? SituacaoCliente.Inadimplente : SituacaoCliente.Adimplente;
 
             using var inicia = db.IniciarTransacao();
             db.Salvar(cliente);
             db.Commit();
+        }
+
+        // documentaçao https://apitemplate.io/blog/how-to-convert-html-to-pdf-using-c-sharp/
+        public async Task<string> GerarNotaFiscalAsync(Dividas d)
+        {
+            if (d == null || d.cliente == null)
+                throw new ArgumentException("Dados da dívida incompletos.");
+
+            var c = ListarClientePorId(d.cliente.Id);
+
+            var nf = new NotaFiscal
+            {
+                Nome = c.Nome,
+                Descricao = d.Descricao,
+                Valor = d.Valor,
+                Pagamento = d.DataPagamento ?? DateTime.Now
+            };
+
+            // Carrega template HTML embedado
+            var assembly = typeof(Dividas).Assembly;
+            var resourceName = assembly.GetManifestResourceNames()
+                                       .FirstOrDefault(r => r.EndsWith("notaFiscal.html"));
+
+            if (string.IsNullOrEmpty(resourceName))
+                throw new Exception("Template HTML não encontrado.");
+
+            using var streamHtml = assembly.GetManifestResourceStream(resourceName);
+            if (streamHtml == null)
+                throw new Exception("Erro ao carregar o template HTML.");
+
+            using var reader = new StreamReader(streamHtml);
+            string html = await reader.ReadToEndAsync();
+
+            // Substituição de placeholders
+            html = html.Replace("{{NOME}}", nf.Nome)
+                       .Replace("{{VALOR}}", nf.Valor.ToString("C"))
+                       .Replace("{{DATA}}", nf.Pagamento.ToString("dd/MM/yyyy"))
+                       .Replace("{{RAZAOSOCIAL}}", nf.RazaoSocial ?? "")
+                       .Replace("{{DESCRICAO}}", nf.Descricao ?? "");
+
+            // Geração de PDF
+            var nomeArquivo = Guid.NewGuid().ToString("N") + ".pdf";
+            string urlS3 = url_aws.TrimEnd('/') + "/" + nomeArquivo;
+
+            var renderer = new ChromePdfRenderer();
+            var pdfDocument = renderer.RenderHtmlAsPdf(html);
+
+            // Exporta o PDF para um array de bytes (sem salvar local)
+            var pdfBytes = pdfDocument.BinaryData;
+
+            using var httpClient = new HttpClient();
+            using var content = new ByteArrayContent(pdfBytes);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+
+            var response = await httpClient.PutAsync(urlS3, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var erro = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Erro ao fazer upload para o S3: {erro}");
+            }
+
+            return urlS3;
+
+        }
+
+        public string RetornaUrlPdf(Dividas d)
+        {
+
+            var url = GerarNotaFiscalAsync(d).GetAwaiter().GetResult();
+            return url;
+
         }
     }
 }

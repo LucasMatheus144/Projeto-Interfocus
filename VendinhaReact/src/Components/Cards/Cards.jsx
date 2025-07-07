@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { IoMdMore } from "react-icons/io";
 import { useImagemCliente } from "../../Hooks/cacheImages";
+import { formatarValor } from "../../services/validarService";
 
 import styles from './cards.module.css';
 import user from '../../assets/user.png';
@@ -14,37 +15,31 @@ export default function Cards({ cliente, onAtualizar, aberto, onAbrir }) {
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.info}>
-                <div className={styles.imagem}>
-                    <img src={fotoUrl ?? cliente.stringFoto ?? user} alt="imagem" loading="lazy" />
-                </div>
+            <div className={styles.exibefoto}>
+                <img src={fotoUrl ?? cliente.stringFoto ?? user} alt="imagem" loading="lazy" />
+            </div>
+            <div className={styles.dados}>
+                <h3 className={styles.principal}>{cliente.nome}</h3>
                 <div className={styles.adicional}>
-                    <h3 className={styles.principal}>{cliente.nome}</h3>
                     <h3 className={styles.secundario}>{cliente.cpf}</h3>
-                </div>
-                <IoMdMore className={styles.dore} onClick={() => setMaisAberto(true)} />
-            </div>
-
-            <div className={styles.restante}>
-                <div className={styles.email}>
-                    <h3 className={styles.txtprincipal}>Email: <strong className={styles.secundario}>{cliente.email}</strong></h3>
-                </div>
-                <div className={styles.valor}>
-                    <h3 className={styles.txtprincipal}>Idade: <strong className={styles.secundario}>{cliente.idade} anos</strong></h3>
-                    {cliente.situacao === 1 ? (
-                        <span className={styles.adimplente}>Adimplente</span>
-                    ) : (
-                        <span className={styles.inadimplente}>Inadimplente</span>
-                    )}
-                </div>
-                <div className={styles.status}>
-                    <h3 className={styles.txtprincipal}>R$: {cliente.totalDivida}</h3>
-                </div>
-                <div className={styles.nova}>
-                    <button onClick={onAbrir}>Adicionar Dívida</button>
+                    <h3 className={styles.txtprincipal}>{cliente.email}</h3>
                 </div>
             </div>
+            <div className={styles.extras}>
+                <h3 className={styles.txtprincipal}>Idade: {cliente.idade} anos</h3>
+                {cliente.situacao === 1 ? (
+                    <span className={styles.adimplente}>Adimplente</span>
+                ) : (
+                    <span className={styles.inadimplente}>Inadimplente</span>
+                )}
+            </div>
 
+            <div className={styles.infodivida}>
+                <h3 className={styles.txtprincipal}>R$: {formatarValor(cliente.totalDivida)}</h3>
+                <button onClick={onAbrir}>Adicionar Dívida</button>
+            </div>
+
+            <IoMdMore className={styles.dore} onClick={() => setMaisAberto(true)} />
             <Mais isOpen={maisAberto} onClose={() => setMaisAberto(false)} cliente={cliente} attform={onAtualizar} />
 
             {aberto && (

@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
+            "IronPdf": {
+              "target": "Package",
+              "version": "[2025.6.8, )"
+            },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
               "version": "[2.3.0, )"

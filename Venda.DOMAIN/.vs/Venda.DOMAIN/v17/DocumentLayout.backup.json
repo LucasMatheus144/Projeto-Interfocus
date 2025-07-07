@@ -3,10 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.api\\controllers\\dividacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.domain\\services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.api\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.domain\\services\\clienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\clienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -16,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 683,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -36,28 +38,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DividaController.cs",
-              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Controllers\\DividaController.cs",
-              "RelativeDocumentMoniker": "..\\Venda.API\\Controllers\\DividaController.cs",
-              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Controllers\\DividaController.cs",
-              "RelativeToolTip": "..\\Venda.API\\Controllers\\DividaController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAlwDkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ClienteService.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ClienteService.cs",
+              "RelativeDocumentMoniker": "Services\\ClienteService.cs",
+              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ClienteService.cs",
+              "RelativeToolTip": "Services\\ClienteService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-05T08:17:05.492Z",
+              "WhenOpened": "2025-07-07T19:44:10.403Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ClienteController.cs",
-              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Controllers\\ClienteController.cs",
-              "RelativeDocumentMoniker": "..\\Venda.API\\Controllers\\ClienteController.cs",
-              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Controllers\\ClienteController.cs*",
-              "RelativeToolTip": "..\\Venda.API\\Controllers\\ClienteController.cs*",
-              "ViewState": "AgIAABkAAAAAAAAAAAAowCEAAAARAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "DividaService.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
+              "RelativeDocumentMoniker": "Services\\DividaService.cs",
+              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs*",
+              "RelativeToolTip": "Services\\DividaService.cs*",
+              "ViewState": "AgIAACkBAAAAAAAAAAAqwE4BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-05T08:12:50.12Z",
+              "WhenOpened": "2025-07-07T19:36:41.389Z",
               "EditorCaption": ""
             }
           ]

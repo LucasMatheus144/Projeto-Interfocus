@@ -5,20 +5,13 @@ import InputSelect from '../InputDataList/InputSelect';
 
 import { salvarDivida, listarPorId } from '../../services/dividaService';
 import { useEffect, useState } from 'react';
+import { formataImput } from '../../services/validarService';
 
 export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     const [dados, setDados] = useState(null);
-    const [alertas, setAlertas] = useState([]);
+    const [popup, setPopup] = useState([]);
     const [clienteIdSelecionado, setClienteIdSelecionado] = useState(0);
     const idDivida = obj?.idDivida ?? null; // evitar disparar toda vevz que o componente é renderizado
-
-    const fecharAlerta = (index) => {
-        setAlertas(prev => {
-            const novaLista = [...prev];
-            novaLista.splice(index, 1);
-            return novaLista;
-        });
-    };
 
     const processarFormulario = async (form) => {
         const oData = new FormData(form);
@@ -34,15 +27,16 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
         const resultado = await salvarDivida(divida);
 
         if (resultado.status === 200) {
-            onAtualizar();
+            setPopup([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+            onAtualizar(0);
             onClose();
-            setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+
         } else {
             const mensagens = resultado?.data ?? resultado;
             const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
                 ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
                 : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
-            setAlertas(listaDeErros);
+            setPopup(listaDeErros);
         }
     };
 
@@ -50,6 +44,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
         event.preventDefault();
         processarFormulario(event.target);
     };
+
 
     useEffect(() => {
         if (!isOpen || !idDivida) return;
@@ -65,43 +60,38 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     }, [isOpen, idDivida]);
 
     useEffect(() => {
-        if (alertas.length > 0) {
+        if (popup.length > 0) {
             const timeout = setTimeout(() => {
-                setAlertas(prev => prev.slice(1));
+                setAlertas(prev => prev.slice(1))
             }, 8000);
             return () => clearTimeout(timeout);
         }
-    }, [alertas]);
+    }, [popup]);
 
     return (
         <>
-            <div className={styles.agrupamento}>
-                {alertas.map((a, index) => (
-                    <Alerta
-                        key={index}
-                        isAbrir={a.exibir}
-                        status={a.status}
-                        txtError={a.mensagem}
-                        isFechar={() => fecharAlerta(index)}
-                    />
-                ))}
-            </div>
+            {popup.map((a, index) => (
+                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}  isFechar={() => {
+                            const novaLista = [...popup];
+                            novaLista.splice(index, 1);
+                            setPopup(novaLista);
+                        }} />
+            ))}
             <Model isOpen={isOpen} onClose={onClose}>
                 <form action="POST" className={styles.formulario} onSubmit={handleSubmit}>
                     <input type="number" name="clienteid" value={dados?.cliente?.id ?? obj?.id ?? clienteIdSelecionado} readOnly className={styles.ocultar} />
                     <input type="number" name="dividaid" value={dados?.id ?? 0} readOnly className={styles.ocultar} />
 
-                    {/*qUANDO NAO FOR CADASTRAR DIVIDA PELA HOME PAGE E NEM EDITAR A DIVIDA
-                         */}
+                    {/*qUANDO NAO FOR CADASTRAR DIVIDA PELA HOME PAGE E NEM EDITAR A DIVIDA*/}
                     {dados?.cliente?.nome ?? obj?.nome ? (
                         <>
                             <label>Nome do cliente</label>
-                            <input type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
+                            <input type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled/>
                         </>
 
                     ) : (
                         <>
-                            <InputSelect setClienteIdSelecionado={setClienteIdSelecionado} />      
+                            <InputSelect setClienteIdSelecionado={setClienteIdSelecionado} />
                         </>
                     )}
 
@@ -113,7 +103,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
 
                         <div className={styles.col}>
                             <label>Data de pagamento</label>
-                            <input name="pagamento" type="datetime-local" defaultValue={dados?.dataPagamento?.split("T")[0] ?? ""} disabled={view} />
+                            <input name="pagamento" type="datetime-local" defaultValue={formataImput(dados?.dataPagamento)} disabled={view} />
                         </div>
                     </div>
 

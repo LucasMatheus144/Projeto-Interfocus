@@ -11,6 +11,7 @@ import user from '../../assets/user.png';
 export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar, obj }) {
     const { fotoUrl, salvarImagemNoCache } = useImagemCliente(obj?.id, obj?.urlFoto, user);
     const [alertas, setAlertas] = useState([]);
+    const [imagemPreview, setImagemPreview] = useState(null); // exibir a imagem antes de salvar
 
     const mascaraCpf = (valor) => {
         if (!valor) return "";
@@ -37,7 +38,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
 
     const fluxoTela = () => {
         setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
-        onClose();
+        gatilhoClosePop();
         onAttHomePage();
         setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
     };
@@ -56,11 +57,11 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
             if (arquivo && arquivo.size > 0) {
                 const cache = salvarImagemNoCache(idCliente, arquivo);
                 const envio = enviarImagem(idCliente, arquivo);
-                await Promise.all([cache, envio]);
+                Promise.all([cache, envio]);
                 // await enviarImagem(idCliente, arquivo);
                 // await salvarImagemNoCache(idCliente, arquivo);
                 fluxoTela();
-            } 
+            }
 
         } else {
             const mensagens = resultado?.data ?? resultado;
@@ -86,9 +87,24 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
         }
     }, [alertas]);
 
+    const qndAlterarImagem = (e) => {
+        const file = e.target.files[0];
+        if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagemPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const gatilhoClosePop = () => {
+        setImagemPreview(null);
+        onClose();
+    };
+
     return (
         <>
-            <div className={styles.agrupamento}>
                 {alertas.map((a, index) => (
                     <Alerta
                         key={index}
@@ -102,9 +118,8 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                         }}
                     />
                 ))}
-            </div>
 
-            <Model isOpen={isOpen} onClose={onClose}>
+            <Model isOpen={isOpen} onClose={gatilhoClosePop}>
                 <form method='POST' encType="multipart/form-data" onSubmit={enviarForm} className={styles.cadastraCliente} >
                     <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
 
@@ -121,13 +136,20 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                             </>
                         ) : (
                             <>
-                                <label htmlFor="file" className={styles.upload}>
-                                    <div className={styles.icon}></div>
-                                    <div className="text">
-                                        <span>Salvar Arquivo</span>
+                                {(!imagemPreview && !obj?.urlFoto) ? (
+                                    <label htmlFor="file" className={styles.upload}>
+                                        <div className={styles.icon}></div>
+                                        <div className="text">
+                                            <span>Salvar Arquivo</span>
+                                        </div>
+                                        <input id="file" name="foto" type="file" accept="image/jpeg, image/png" disabled={verificaView} onChange={qndAlterarImagem} />
+                                    </label>
+                                ) : (
+                                    <div className={styles.imagem}>
+                                        <img src={imagemPreview ?? obj?.urlFoto} alt="imagem" loading="lazy" />
                                     </div>
-                                    <input id="file" name="foto" type="file" accept="image/jpeg, image/png" disabled={verificaView} />
-                                </label>
+                                )}
+
                                 <div className={styles.grupo}>
                                     <label htmlFor="nome">Nome do Cliente</label>
                                     <input type="text" name="nome" required maxLength={25} defaultValue={obj?.nome ?? ""} disabled={verificaView} />
@@ -148,10 +170,10 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, visualizar
                     </div>
                     <div className={styles.grupo}>
                         <label htmlFor="email">E-mail</label>
-                        <input type="email" name="email" maxLength={50} defaultValue={obj?.email ?? ""} disabled={verificaView} />
+                        <input type="text" name="email" maxLength={50} defaultValue={obj?.email ?? ""} disabled={verificaView} />
                     </div>
                     <div className={styles.buttoes}>
-                        <button className={styles.cancelar} type="button" onClick={onClose}>Cancelar</button>
+                        <button className={styles.cancelar} type="button" onClick={gatilhoClosePop}>Cancelar</button>
                         {!verificaView && (<button className={styles.cadastrar} type="submit">Cadastrar</button>)}
                     </div>
                 </form>

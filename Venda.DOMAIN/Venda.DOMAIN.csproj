@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,10 +22,14 @@
   <ItemGroup>
     <EmbeddedResource Include="Mappins\Cliente.hbm.xml" />
     <EmbeddedResource Include="Mappins\Divida.hbm.xml" />
+    <EmbeddedResource Include="Templates\notaFiscal.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Cpf" Version="2.1.0" />
+    <PackageReference Include="IronPdf" Version="2025.6.8" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
     <PackageReference Include="NHibernate" Version="5.5.2" />
     <PackageReference Include="Npgsql" Version="9.0.3" />

@@ -1,6 +1,10 @@
+.container, .grid, .lowerpage{
+    max-width: 70%;
+}
+
 .container{
     display: flex;
-    padding: 10px;
+    padding-bottom: 10px;
 }
 
 .pesquisa{
@@ -13,9 +17,8 @@
     display: flex;
     align-items: center;
     gap: 4px;
-
-    background-color: var(--yellow-400);
-    color: var(--black-400);
+    background-color: var(--primario-blue);
+    color: var(--fundo-side-white);
     border: none;
     padding: 10px;
     border-radius: 10px;
@@ -25,8 +28,8 @@
 
 .grid{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
     padding: 5px 5px 5px 10px;
+    max-height: 800px;
+    height: 750px;
 }
 

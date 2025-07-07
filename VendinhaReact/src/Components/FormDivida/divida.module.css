@@ -1,43 +1,35 @@
-
-.ocultar{
-    display: none;
+.ocultar {
+  display: none;
 }
 
 .spinner {
   appearance: textfield;
-  -webkit-appearance: textfield;  
+  -webkit-appearance: textfield;
 }
 
 
-form {
+.formulario {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-form label{
-    color: var(--gray-300);
-    font-size: 15px;
+
+.formulario label {
+  color: var(--gray-secundario);
+  font-size: var(--font-ul-sub);
+  font-size: 15px;
 }
 
-form-container {
-  background-color: var(--black-400);
-  padding: 2rem;
-  border-radius: 10px;
-  color: var(---white);
-  position: relative;
-  width: 400px;
-}
-
-
-
-input , select{
-  background-color: var(--black-400);
-  border: 1px solid var(--borda);
+.formulario input,
+.formulario select {
+  background-color: var(--fundo-side-white);
+  border: 1px solid var(--gray-300);
   border-radius: 8px;
-  padding: 0.75rem;
-  color: var(--white);
+   padding: 0.6em 1em;
+  color: var(--gray-secundario);
   width: 100%;
+   transition: border-color 0.3s;
 }
 
 .row {
@@ -52,44 +44,46 @@ input , select{
 }
 
 .buttoes {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+  padding: 3px 6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .buttoes .cancelar {
-    background-color: var(--black-400);
-    color: var(--yellow-400);
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    transition: 0.2s ease;
+  background-color: var(--gray-300);
+  color: var(--black-900);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s ease;
+  
 }
 
 .buttoes .cadastrar {
-    background-color: var(--yellow-400);
-    color: var(--black-400);
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    transition: 0.2s ease;
+  background-color: var(--azul-meio-forte);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s ease;
 
 }
 
-.buttoes .cancelar:hover{
-    background-color: var(--black-100);
+.buttoes .cancelar:hover {
+  background-color: var(--gray-secundario);
 }
 
 .buttoes .cadastrar:hover {
-    background-color: var(--black-400);
-    color: var(--yellow-400);
+  background-color: var(--blue-mt-forte);
 }
+

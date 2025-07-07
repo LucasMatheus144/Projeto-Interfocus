@@ -1,3 +1,13 @@
+.topo{
+    padding: 10px;
+}
+
+.topo h3{
+     color: var(--primario-blue);
+    font-size: var(--font-titulo);
+    font-weight: 700;
+}
+
 .container {
     display: flex;
     padding: 10px;
@@ -14,8 +24,8 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    background-color: var(--yellow-400);
-    color: var(--black-400);
+    background-color: var(--primario-blue);
+    color: var(--fundo-side-white);
     border: none;
     padding: 10px;
     border-radius: 10px;
@@ -35,27 +45,27 @@
 
 
 .datatable {
-    padding: 20px;
+    padding: 10px;
 }
 
 .tabela {
     display: table;
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--black-400);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .tabela thead tr {
-    color: var(--gray-100);
+    color: var(--gray-secundario);
+    background-color: var(--gray-fundo-card);
     font-size: 16px;
     height: 50px;
 }
 
 .tabela tbody tr:hover {
-    background-color: var(--black-100);
-    transition: background-color 0.3s;
+    background-color: var(--gray-100);
+    transition: background-color 0.4s ease;
 }
 
 .tabela td,
@@ -66,7 +76,7 @@
 }
 
 .tabela tbody td {
-    color: var(--yellow-300);
+    color: var(--gray-secundario);
     font-size: 14px;
     height: 40px;
     border-bottom: 1px solid var(--gray-100);
@@ -74,7 +84,6 @@
 
 tbody td input[type="checkbox"] {
     cursor: pointer;
-    accent-color: var(--yellow-300);
     width: 18px;
     height: 18px;
 }
@@ -90,9 +99,24 @@ tbody td span svg:hover{
     color: var(--white);
 }
 
+.pago{
+    background-color: var(--green-v4);
+    border-radius: 10px;
+    padding: 5px;
+    max-width: 45px;
+    color: var(--green-v5);
+}
+
+.devendo{
+    background-color: var(--red-v6);
+    padding: 5px;
+    max-width: 80px;
+    border-radius: 10px;
+    color: var(--red-v4);
+}
 
 tbody .frame {
-    animation: fadeInMove 0.7s ease-in;
+    animation: fadeInMove 0.1s ease-in;
 }
 
 @keyframes fadeInMove {
@@ -108,44 +132,8 @@ tbody .frame {
 }
 
 
-.paginacao {
-    display: flex;
-    justify-content: space-between;
-    padding: 50px;
-    color: var(--white);
-}
-
-a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    color: var(--yellow-300);
-    text-decoration: none;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-}
-
-.pageNumber {
-    display: inline-flex;
-    width: 40px;
-    height: 40px;
-    text-decoration: none;
-    border-radius: 8px;
-    border: 1px solid var(--black-100);
-    text-align: center;
-}
 
 
-.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
 
 
-.pageNumber:hover {
-    border: none;
-}
 

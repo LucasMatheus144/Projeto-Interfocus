@@ -3,11 +3,11 @@
     top: 20%;
     left: 40%;
     width: 500px;
-    height: 390px;
-    background-color:var( --black-700);
+    height: 350px;
+    background-color:var(--gray-fundo-card);
     padding: 12px;
     border-radius: 20px;
-    border: 1px solid var(--black-100);
+    border: var(--shadow-black);
     opacity: 1;
     z-index: 1;
     transition: opacity 0.1 ease-out;
@@ -25,12 +25,12 @@
     justify-content: flex-end;
     margin-left: auto;
     font-size: 24px;
-    color: var(--texto-secundario);
+    color: var(--gray-300);
     cursor: pointer;
     transition: color 0.5s ease;
 }
 
 
 .close:hover{
-    color: var(--white);
+    color: var(--black-900);
 }

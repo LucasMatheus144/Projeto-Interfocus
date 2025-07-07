@@ -9,7 +9,6 @@ namespace Venda.API.Controllers
     public class ClienteController : Controller
     {
         private readonly ClienteService service;
-        private readonly IWebHostEnvironment env;
 
         public ClienteController(ClienteService service)
         {

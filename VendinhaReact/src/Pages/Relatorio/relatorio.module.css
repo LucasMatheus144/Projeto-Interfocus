@@ -1,0 +1,52 @@
+.container {
+    position: relative;
+    width: 100wh;
+    top: -330px;
+    padding-left: 20px;    
+}
+
+.container h3{
+    color: var(--primario-blue);
+    font-size: var(--font-titulo);
+    font-weight: 700;
+}
+
+.grupo {
+    display: flex;
+    width: 100wh;
+    height: 140px;
+    align-items: center;
+    gap: 20px;
+}
+
+.sessao {
+    background-color: var(--gray-fundo-card);
+    width: 180px;
+    height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: var(--shadow-black);
+}
+
+.gptexto {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.gptexto h3 {
+    color: var(--gray-secundario);
+    font-size: var(--font-titulo);
+    font-weight: 700;
+}
+
+.result {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.result h3 {
+    color: var(--azul-meio-forte);
+    font-size: var(--font-ul-sub);
+    font-weight: 600;
+}

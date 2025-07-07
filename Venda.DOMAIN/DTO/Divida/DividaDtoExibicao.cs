@@ -22,5 +22,7 @@ namespace Venda.DOMAIN.DTO.Divida
         public decimal Valor { get; set; }
 
         public SituacaoDivida Status { get; set; }
+
+        public string Url_pdf { get; set; }
     }
 }

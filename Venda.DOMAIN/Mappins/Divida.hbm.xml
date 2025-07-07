@@ -14,6 +14,7 @@
 		<property name="DataPagamento" column="d_datapagamento" type="Timestamp" not-null="false" />
 		<property name="Descricao" column="descricao" length="50" not-null="false" />
 		<property name="Situacao" column="situacao" not-null="true" />
+		<property name="Url_Pdf" column="url_pdf" type="string" length="5000"/>
 
 		<many-to-one name="cliente"
 					 column="id_cliente"

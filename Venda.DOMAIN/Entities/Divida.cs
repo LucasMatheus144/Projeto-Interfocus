@@ -18,6 +18,8 @@ namespace Venda.DOMAIN.Entities
         [Required]
         public string Descricao { get; set; }
 
+        public string Url_Pdf { get; set; }
+
         [Required]
         public SituacaoDivida Situacao { get; set; }
 

@@ -1,12 +1,12 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { listarDividas, salvarDivida, listarPorId } from '../../services/dividaService';
-import { formatarData } from '../../services/validarService';
-
+import { formatarData, formatarValor } from '../../services/validarService';
 import { FaPlus } from "react-icons/fa";
 import { AiOutlineEdit } from "react-icons/ai";
 import { GrFormView } from "react-icons/gr";
 import { MdDeleteOutline } from "react-icons/md";
+import { BsDownload } from "react-icons/bs";
 
 
 import styles from './divida.module.css';
@@ -14,6 +14,12 @@ import Search from '../../Components/InputSearch/Search';
 import Paginacao from "../../Components/Paginacao/Paginacao";
 import Divida from "../../Components/FormDivida/Divida";
 import TemCerteza from "../../Components/Confirmation/TemCerteza";
+import Alerta from "../../Components/Alertas/Alerta";
+
+const StatusDivida = {
+    NAO_PAGO: 1,
+    PAGO: 2
+};
 
 export default function Dividas() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -23,6 +29,16 @@ export default function Dividas() {
     const [viewMode, setViewMode] = useState(false);
     const [excluirAberto, setExcluirAberto] = useState(false);
     const [dividaParaExcluir, setDividaParaExcluir] = useState(null);
+    const [pop, setPop] = useState([]);
+
+    useEffect(() => {
+        if (pop.length > 0) {
+            const timeout = setTimeout(() => {
+                setPop(prev => prev.slice(1));
+            }, 8000);
+            return () => clearTimeout(timeout);
+        }
+    }, [pop]);
 
     /*Paginação*/
     const [page, setPage] = useState(0);
@@ -31,10 +47,13 @@ export default function Dividas() {
 
     //CheckBox
     const [selecionado, setSelecionado] = useState(null);
-    const [pagar , setPagar] = useState(false);
+    const [pagar, setPagar] = useState(false);
 
     const dividaSelecionadaInfo = divida.find(c => c.idDivida === selecionado);
     const podePagar = dividaSelecionadaInfo && dividaSelecionadaInfo.status === 1;
+
+    const refBotao = useRef(null);
+    const refTabela = useRef(null);
 
     const executaPagarDivida = async () => {
         const res = await listarPorId(selecionado);
@@ -54,12 +73,21 @@ export default function Dividas() {
             const resultado = await salvarDivida(divida);
             console.log(resultado);
             if (resultado.status === 200) {
-                chamaListagem(0);               
-            } 
+                chamaListagem(0);
+                setSelecionado(null);
+                setPop([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+            } else {
+                const mensagens = resultado?.data ?? resultado;
+                const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
+                    ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
+                    : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
+                setPop(listaDeErros);
+            }
         }
     };
 
     useEffect(() => {
+        console.log("chegou aqui")
         if (!podePagar) return;
 
         executaPagarDivida();
@@ -99,13 +127,40 @@ export default function Dividas() {
         }
     }, [pesquisa])
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            const foraTabela = refTabela.current && !refTabela.current.contains(event.target);
+            const foraBotao = refBotao.current && !refBotao.current.contains(event.target);
+            if (foraTabela && foraBotao) {
+                setSelecionado(null);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
     return (
         <>
+            {pop.map((a, index) => (
+                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
+                    isFechar={() => {
+                        const novaLista = [...pop];
+                        novaLista.splice(index, 1);
+                        setPop(novaLista);
+                    }}
+                />
+            ))}
+
+            <div className={styles.topo}>
+                <h3>Listagem de Dividas</h3>
+            </div>
             <header className={styles.container}>
                 <div className={styles.pesquisa}>
                     <Search observavdorPesquisa={disparaPesquisa}></Search>
-                    <div className={styles.grupobtn}>
-                        <button className={`${styles.pagardivida} ${!podePagar ? styles.botaoDesativado : ''}`} onClick={ () => setPagar(true)} disabled={!podePagar} ><FaPlus /> Pagar Divida</button>
+                    <div className={styles.grupobtn} ref={refBotao} >
+                        <button className={`${styles.pagardivida} ${!podePagar ? styles.botaoDesativado : ''}`} onClick={() => setPagar(true)} disabled={!podePagar} ><FaPlus /> Pagar Divida</button>
                         <button className={styles.novadivida} onClick={() => abrirFormulario(null)} ><FaPlus /> Novo Divida</button>
                     </div>
                 </div>
@@ -114,7 +169,7 @@ export default function Dividas() {
                 <Divida isOpen={modalOpen} onClose={() => setModalOpen(false)} onAtualizar={chamaListagem} obj={dividaSelecionada} view={viewMode} />
             )}
             <section className={styles.datatable}>
-                <table className={styles.tabela} id="tabela">
+                <table className={styles.tabela} ref={refTabela} id="tabela">
                     <thead>
                         <tr>
                             <th></th>
@@ -133,9 +188,14 @@ export default function Dividas() {
                                 <td>{c.nome}</td>
                                 <td>{formatarData(c.cadastro)}</td>
                                 <td>{formatarData(c.pagamento)}</td>
-                                <td>{c.status === 1 ? 'Não Pago' : 'Pago'}</td>
-                                <td>R$:{c.valor}</td>
+                                <td><div className={c.status === 1 ? styles.devendo : styles.pago}>{c.status === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}</div></td>
+                                <td>R$: {formatarValor(c.valor)}</td>
                                 <td>
+                                    {c.status === StatusDivida.PAGO && c.url_pdf && (
+                                        <span onClick={() => window.open(c.url_pdf, '_blank')} style={{ cursor: 'pointer' }}>
+                                            <BsDownload />
+                                        </span>
+                                    )}
                                     <span onClick={() => { setDividaSelecionada(c); setViewMode(true); setModalOpen(true); }}><GrFormView /></span>
                                     <span onClick={() => { abrirFormulario(c); setViewMode(false) }}><AiOutlineEdit /></span>
                                     <span onClick={() => confirmarExclusao(c.idDivida)}><MdDeleteOutline /></span>

@@ -1,5 +1,3 @@
-create database projetovalendointerfocus;
-
 create sequence public.clientes_seq;
 
 create table public.clientes(
@@ -24,6 +22,7 @@ create table dividas(
     d_datapagamento timestamp,
     descricao varchar(50),
     situacao integer not null,
+    url_pdf text,
     id_cliente integer,
     CONSTRAINT fx_divida_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id) ON DELETE CASCADE
 );
@@ -65,9 +64,11 @@ FOR EACH ROW
 EXECUTE PROCEDURE  valida_new_divida();
 
 
-create view public.vis_clientes as
-    select cl.id,cl.nome,SUM(d.valor) from clientes cl
-          join dividas d on cl.id = d.id_cliente
-          group by cl.id, cl.nome
-          having sum(d.valor) < 200;
-
+create view vis_clientes as
+SELECT cl.id,
+       cl.nome,
+       COALESCE(sum(d.valor), 0::numeric) AS sum
+FROM clientes cl
+LEFT JOIN dividas d ON cl.id = d.id_cliente
+GROUP BY cl.id, cl.nome
+HAVING COALESCE(sum(d.valor), 0) < 200;

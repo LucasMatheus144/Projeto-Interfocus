@@ -247,9 +247,8 @@ namespace Venda.DOMAIN.Services
                 db.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 db.Rollback();
                 return false;
             }

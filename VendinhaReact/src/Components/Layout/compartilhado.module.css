@@ -1,60 +1,208 @@
-/*Forçar as paginas a carregarem todo o restante disponivel*/
-main {
-    background-color: var(--black-900);
-    flex: 1;
-    align-content: center;
+.lateral {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--fundo-side-white);
+    width: 55px;
+    height: 100vh;
+    padding: 20px;
+    border: 1px solid var(--borda-extensao-gray);
+    transition: transform 300ms, border-color 200ms 300ms;
 }
 
-.lateral {
-    background-color: var(--black-800);
-    width: 160px;
-    height: 100vh;
-    padding: 12px;
-    border: 1px solid var(--black-700);
+.icone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.icone li {
+    list-style: none;
+}
+
+.icone a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.icone a:hover {
+    background-color: var(--fundo-size-blue);
+}
+
+.icone .link-icon.ativo {
+
+    background-color: var(--fundo-size-blue);
+}
+
+.icone .link-icon.ativo::before {
+    content: '';
+    left: 0;
+    transform: translate(-100%);
+    width: 4px;
+    height: 15px;
+    background-color: var(--risco-blue);
+    border-radius: 10px;
 }
 
 .logo {
     display: flex;
     justify-content: center;
+    padding-bottom: 12px;
 }
 
 .logo img {
-    width: 120px;
+    width: 40px;
+    height: 40px;
 }
 
-.navegacao {
-    display: flex;
+.extensao.ativo {
+    position: fixed;
+    top: 0;
+    display: grid;
+    grid-template-columns: auto;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--fundo-side-white);
+    box-shadow: var(--shadow-black) 0 20px 25px -5px;
+    border-right: 1px solid var(--borda-extensao-gray);
+    transition: transform 300ms, border-color 200ms 300ms;
+    overflow-y: auto;
+    z-index: 1;
+    transform: translateX(55px);
+}
+
+.menuextends {
     width: 100%;
+    height: 100vh;
+    padding: 10px;
 }
 
-.navegacao ul {
-    list-style-type: none;
+.titulo {
+    color: var(--primario-blue);
+    font-size: var(--font-titulo);
+    font-family: var(--font-titulo);
+    font-weight: 700;
+}
+
+.listagem {
     width: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-column: auto;
 
 }
 
-.navegacao li {
+.listagem svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.listagem span {
+    color: var(--gray-secundario);
+    font-size: var(--font-ul-sub);
+}
+
+.listagem a {
+    width: 55%;
+    color: var(--gray-secundario);
+    font-size: var(--font-lista);
+    gap: 10px;
+}
+
+.itemHeader {
     display: flex;
     align-items: center;
-    padding: 10px;
-    gap: 30px;
-    color: var(--white);
+    gap: 10px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+
+.itemHeader .seta {
+    flex: 1;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.itemHeader:hover {
+    background-color: var(--fundo-size-blue);
+}
+
+.itemHeader.exibeai {
+    background-color: var(--fundo-size-blue);
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.itemHeader.exibeai .seta {
+    transform: rotate(-90deg);
+    transition: transform 0.3s ease;
+}
+
+.itemHeader.exibeai::before {
+    content: '';
+    left: 0;
+    transform: translate(-100%);
+    width: 4px;
+    height: 15px;
+    background-color: var(--risco-blue);
+    border-radius: 10px;
+}
+
+
+.itemHeader.exibeai svg path {
+    fill: var(--blue-mt-forte);
 
 }
 
-.navegacao li:hover {
+.itemHeader:hover svg path {
+    fill: var(--blue-mt-forte);
+}
+
+.lsta {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.lsta.active {
+    display: block;
+    max-height: 500px;
+    opacity: 1;
+    visibility: visible;
+    padding: 5px 10px 10px 10px;
+}
+
+.lsta.active a {
     width: 100%;
-    background-color: var(--black-400);
-    border-radius: 4px;
-    transition: background-color 0.6s ease;
-}
-
-.navegacao li svg {
-    width: 30px;
-    height: 100%;
-}
-
-.navegacao li a {
+    max-height: 500px;
+    text-align: left;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 0.5em;
     text-decoration: none;
-    color: var(--white);
+    transition: background-color 0.4s ease;
+}
+
+.lsta.active a:hover {
+    background-color: var(--fundo-size-blue);
+}
+
+/*Forçar as paginas a carregarem todo o restante disponivel*/
+main {
+    background-color: var(--fundo-side-outlet);
+    flex: 1;
+    align-content: center;
+    padding: 10px 10px 0 10px;
 }
