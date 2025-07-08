@@ -14,7 +14,9 @@ namespace Venda.DOMAIN.Entities
 
         public DateTime Pagamento { get; set; }
 
-        public string Descricao { get; set; } = string.Empty;  
+        public string Descricao { get; set; } = string.Empty;
+
+        public DateTime Emissao { get; set; } = DateTime.Now;
 
         public string RazaoSocial { get; set; } = "VENDA INTERFOCUS LTDA";
     }

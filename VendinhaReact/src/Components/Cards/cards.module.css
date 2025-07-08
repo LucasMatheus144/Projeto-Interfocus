@@ -6,6 +6,7 @@
     background-color: var(--gray-fundo-card);
     border-radius: 6px;
     padding: 5px;
+    gap: 10px;
     /*overflow: hidden;  Evita estourar os dados para fora do card */
 }
 
@@ -16,7 +17,7 @@
 .exibefoto img {
     width: 50px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 30px;
     object-fit: cover;
 }
 

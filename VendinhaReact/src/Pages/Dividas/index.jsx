@@ -15,6 +15,7 @@ import Paginacao from "../../Components/Paginacao/Paginacao";
 import Divida from "../../Components/FormDivida/Divida";
 import TemCerteza from "../../Components/Confirmation/TemCerteza";
 import Alerta from "../../Components/Alertas/Alerta";
+import Loading from "../../Components/loading/loading";
 
 const StatusDivida = {
     NAO_PAGO: 1,
@@ -30,6 +31,7 @@ export default function Dividas() {
     const [excluirAberto, setExcluirAberto] = useState(false);
     const [dividaParaExcluir, setDividaParaExcluir] = useState(null);
     const [pop, setPop] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (pop.length > 0) {
@@ -56,6 +58,7 @@ export default function Dividas() {
     const refTabela = useRef(null);
 
     const executaPagarDivida = async () => {
+        setLoading(true);
         const res = await listarPorId(selecionado);
         if (res.status === 200) {
             var x = res.data;
@@ -83,6 +86,8 @@ export default function Dividas() {
                     : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
                 setPop(listaDeErros);
             }
+
+            setLoading(false);
         }
     };
 
@@ -208,7 +213,7 @@ export default function Dividas() {
             <Paginacao limit={limit} total={totalDivida} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
 
             <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={(paginaAtual) => chamaListagem(paginaAtual)} obj={true} />
-
+            {loading && <Loading />}
         </>
     )
 }

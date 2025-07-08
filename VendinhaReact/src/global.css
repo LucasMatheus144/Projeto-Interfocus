@@ -111,3 +111,6 @@ input[type="number"]:-webkit-autofill:active{
   outline: none;
 }
 
+li{
+  list-style: none;
+}

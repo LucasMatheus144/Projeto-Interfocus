@@ -236,7 +236,7 @@ namespace Venda.DOMAIN.Services
 
             var result = query
                 .OrderBy(x => x.Status != SituacaoDivida.Devendo)
-                .ThenByDescending(x => x.Valor)
+                .ThenByDescending(x => x.IdDivida)
                 .Skip(skip * take)
                 .Take(take)
                 .ToList();
@@ -294,7 +294,7 @@ namespace Venda.DOMAIN.Services
             };
 
             // Carrega template HTML embedado
-            var assembly = typeof(Dividas).Assembly;
+            var assembly = typeof(NotaFiscal).Assembly;
             var resourceName = assembly.GetManifestResourceNames()
                                        .FirstOrDefault(r => r.EndsWith("notaFiscal.html"));
 
@@ -308,11 +308,12 @@ namespace Venda.DOMAIN.Services
             using var reader = new StreamReader(streamHtml);
             string html = await reader.ReadToEndAsync();
 
-            // Substituição de placeholders
+            // Substituição de tag replace
             html = html.Replace("{{NOME}}", nf.Nome)
                        .Replace("{{VALOR}}", nf.Valor.ToString("C"))
                        .Replace("{{DATA}}", nf.Pagamento.ToString("dd/MM/yyyy"))
                        .Replace("{{RAZAOSOCIAL}}", nf.RazaoSocial ?? "")
+                       .Replace("{{DATAATUAL}}", nf.Emissao.ToString("dd/MM/yyyy"))
                        .Replace("{{DESCRICAO}}", nf.Descricao ?? "");
 
             // Geração de PDF
@@ -322,7 +323,6 @@ namespace Venda.DOMAIN.Services
             var renderer = new ChromePdfRenderer();
             var pdfDocument = renderer.RenderHtmlAsPdf(html);
 
-            // Exporta o PDF para um array de bytes (sem salvar local)
             var pdfBytes = pdfDocument.BinaryData;
 
             using var httpClient = new HttpClient();
@@ -343,10 +343,8 @@ namespace Venda.DOMAIN.Services
 
         public string RetornaUrlPdf(Dividas d)
         {
-
             var url = GerarNotaFiscalAsync(d).GetAwaiter().GetResult();
             return url;
-
         }
     }
 }

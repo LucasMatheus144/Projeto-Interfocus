@@ -1,17 +1,23 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\",
+  "WorkspaceRootPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.api\\controllers\\dividacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.domain\\services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\services\\clienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\clienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.domain\\valuesobject\\situacaocliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:valuesobject\\situacaocliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,39 +48,67 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DividaController.cs",
-              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Controllers\\DividaController.cs",
-              "RelativeDocumentMoniker": "..\\Venda.API\\Controllers\\DividaController.cs",
-              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Controllers\\DividaController.cs",
-              "RelativeToolTip": "..\\Venda.API\\Controllers\\DividaController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAJAAAAAAAAAA==",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\appsettings.json",
+              "RelativeDocumentMoniker": "..\\Venda.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\appsettings.json",
+              "RelativeToolTip": "..\\Venda.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-08T19:55:33.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "..\\Venda.API\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\appsettings.Development.json",
+              "RelativeToolTip": "..\\Venda.API\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-08T19:26:00.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ClienteService.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ClienteService.cs",
+              "RelativeDocumentMoniker": "Services\\ClienteService.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ClienteService.cs",
+              "RelativeToolTip": "Services\\ClienteService.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAIwJgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T00:38:29.88Z",
+              "WhenOpened": "2025-07-08T19:19:20.433Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DividaService.cs",
-              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
-              "RelativeDocumentMoniker": "Services\\DividaService.cs",
-              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
-              "RelativeToolTip": "Services\\DividaService.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAwwKIAAAANAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Program.cs",
+              "RelativeDocumentMoniker": "..\\Venda.API\\Program.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Program.cs",
+              "RelativeToolTip": "..\\Venda.API\\Program.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAIwCkAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T00:36:11.736Z"
+              "WhenOpened": "2025-07-08T19:14:50.358Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SituacaoCliente.cs",
-              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\ValuesObject\\SituacaoCliente.cs",
-              "RelativeDocumentMoniker": "ValuesObject\\SituacaoCliente.cs",
-              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\ValuesObject\\SituacaoCliente.cs",
-              "RelativeToolTip": "ValuesObject\\SituacaoCliente.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "DividaService.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
+              "RelativeDocumentMoniker": "Services\\DividaService.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
+              "RelativeToolTip": "Services\\DividaService.cs",
+              "ViewState": "AgIAAAEBAAAAAAAAAAAAAF0BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T20:54:30.811Z"
+              "WhenOpened": "2025-07-08T17:02:26.891Z",
+              "EditorCaption": ""
             }
           ]
         }
