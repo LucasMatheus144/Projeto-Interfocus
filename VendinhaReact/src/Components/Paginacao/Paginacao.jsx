@@ -16,6 +16,10 @@ export default function Paginacao({ limit, total, attPage }) {
         if (!isFirstPage) setPage((prev) => prev - 1);
     };
 
+     useEffect(() => {
+        setPage(0);
+    }, [total]);
+
     useEffect(() => {
         var timeout = setTimeout(() => {
             attPage?.(page);
@@ -34,7 +38,7 @@ export default function Paginacao({ limit, total, attPage }) {
             <div className={styles.paginationControls}>
                 <span>Página </span>
                 <a className={`${styles.previous} ${isFirstPage ? styles.disabled : ''}`} onClick={goPrev}>&lt;</a>
-                <input value={page + 1} className={styles.pageNumber} autoCorrect="off" spellCheck="false" readOnly />
+                <input value={page + 1} className={styles.pageNumber}  spellCheck="false" readOnly />
                 <a className={`${styles.next} ${isLastPage ? styles.disabled : ''}`} onClick={goNext}>&gt;</a>
                 <span> de {pageTotal}</span>
             </div>

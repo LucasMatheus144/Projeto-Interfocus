@@ -16,7 +16,7 @@ export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
     useEffect(() => {
         if (popup.length > 0) {
             const timeout = setTimeout(() => {
-                setPopup(prev => prev.slice(1)); 
+                setPopup(prev => prev.slice(1));
             }, 8000);
             return () => clearTimeout(timeout);
         }
@@ -25,17 +25,23 @@ export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
     const gerarExclusao = async () => {
         const status = await (valida ? excluirCliente(id) : deletarDivida(id));
 
-        if (status == 200) {
+        if (status.status === 200) {
             onClose();
             attForm(0);
             setPopup([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
         } else {
             const mensagens = status?.data ?? status;
             const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
-                ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
-                : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
+                 mensagens.map(msg => ({
+                    exibir: true,
+                    status: false,
+                    mensagem: msg.mensagem
+                }));
             setPopup(listaDeErros);
+            onClose();
+            attForm(0);
         }
+
     }
     return (
         <>

@@ -1,14 +1,13 @@
-# .NET
+# Build
 bin/
 obj/
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
 .vs/
-*.dbmdl
-*.log
-*.pdb
-*.cache
+
+# Arquivos grandes e temporários
 *.dll
+*.so
 *.exe
+*.pdf
+*.zip
+*.log
+*.dylib

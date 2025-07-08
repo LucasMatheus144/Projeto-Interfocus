@@ -40,7 +40,10 @@ export async function excluirCliente(id) {
     const response = await fetch(`${URL_API}/api/cliente/${id}`, {
         method: "DELETE",
     })
-    return response.status;
+    return {
+        status: response.status,
+        data: { exibir: true, status: false, mensagem: "Gerou um erro!" }
+    };
 }
 
 export async function listarPorId(id) {
@@ -62,14 +65,14 @@ export async function listarPorId(id) {
     };
 }
 
-export async function preencheSelectList(){
-    const response = await fetch(`${URL_API}/api/cliente/labels`,{
-        method:"GET",
+export async function preencheSelectList() {
+    const response = await fetch(`${URL_API}/api/cliente/labels`, {
+        method: "GET",
     });
 
     const data = await response.json();
 
-    return{
+    return {
         status: response.status,
         data: data
     };
@@ -77,7 +80,7 @@ export async function preencheSelectList(){
 
 export async function enviarImagem(idCliente, file) {
     const formData = new FormData();
-    formData.append("file", file); 
+    formData.append("file", file);
 
     const response = await fetch(`${URL_API}/api/cliente/upload/${idCliente}`, {
         method: "POST",

@@ -2,6 +2,7 @@ import Model from '../Model/Modal';
 import styles from './divida.module.css';
 import Alerta from '../Alertas/Alerta';
 import InputSelect from '../InputDataList/InputSelect';
+import Loading from '../loading/loading';
 
 import { salvarDivida, listarPorId } from '../../services/dividaService';
 import { useEffect, useState } from 'react';
@@ -12,9 +13,11 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     const [popup, setPopup] = useState([]);
     const [clienteIdSelecionado, setClienteIdSelecionado] = useState(0);
     const idDivida = obj?.idDivida ?? null; // evitar disparar toda vevz que o componente é renderizado
+    const [loading, setLoading] = useState(false);
 
     const processarFormulario = async (form) => {
         const oData = new FormData(form);
+        setLoading(true);
 
         const divida = {
             idDivida: oData.get("dividaid") || 0,
@@ -38,6 +41,8 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
                 : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
             setPopup(listaDeErros);
         }
+
+        setLoading(false);
     };
 
     const handleSubmit = (event) => {
@@ -71,11 +76,11 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     return (
         <>
             {popup.map((a, index) => (
-                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}  isFechar={() => {
-                            const novaLista = [...popup];
-                            novaLista.splice(index, 1);
-                            setPopup(novaLista);
-                        }} />
+                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem} isFechar={() => {
+                    const novaLista = [...popup];
+                    novaLista.splice(index, 1);
+                    setPopup(novaLista);
+                }} />
             ))}
             <Model isOpen={isOpen} onClose={onClose}>
                 <form action="POST" className={styles.formulario} onSubmit={handleSubmit}>
@@ -86,7 +91,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
                     {dados?.cliente?.nome ?? obj?.nome ? (
                         <>
                             <label>Nome do cliente</label>
-                            <input type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled/>
+                            <input type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
                         </>
 
                     ) : (
@@ -116,6 +121,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
                     </div>
                 </form>
             </Model>
+            {loading && <Loading />}
         </>
     );
 }

@@ -56,9 +56,9 @@ namespace Venda.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
-            var deletar = service.ExcluirDivida(id);
+            var deletar = service.ExcluirDivida(id, out List<ExceptionMsg> erro);
 
-            return deletar ? Ok(deletar) : NotFound(deletar);
+            return deletar ? Ok(deletar) : UnprocessableEntity(erro);
         }
     }
 }

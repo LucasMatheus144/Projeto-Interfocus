@@ -82,15 +82,10 @@
     background-color: var(--blue-mt-forte);
 }
 
-
-
-
-
 .upload {
     height: 100px;
     width: 100px;
     display: flex;
-
     cursor: pointer;
     align-items: center;
     justify-content: center;

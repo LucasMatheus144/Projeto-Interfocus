@@ -61,7 +61,17 @@ export async function deletarDivida(id) {
     const response = await fetch(`${URL_API}/api/divida/${id}`, {
         method: "DELETE",
     })
-    return response.status;
+    let result = null;
+
+    try {
+        result = await response.json(); 
+    } catch (e) {
+        result = { mensagem: "Erro ao processar resposta da API." }; 
+    }
+    return {
+        status: response.status,
+        data: result
+    };
 }
 
 export async function gerarPersonalizado(){

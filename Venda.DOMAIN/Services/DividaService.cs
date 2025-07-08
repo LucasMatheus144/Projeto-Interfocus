@@ -145,15 +145,22 @@ namespace Venda.DOMAIN.Services
         }
 
         //Excluir Dívida
-        public bool ExcluirDivida(int id)
+        public bool ExcluirDivida(int id, out List<ExceptionMsg> erro)
         {
+
+            erro = new List<ExceptionMsg>();
             var valida = RetornaDividaPorId(id);
+
 
             if (valida == null)
             {
                 return false;
             }
-
+            if(valida.Situacao == SituacaoDivida.Pago)
+            {
+                erro.Add(new ExceptionMsg("Divida", "Situação", "Não pode excluir uma divida que possui nota fiscal!"));
+                return false;
+            }
 
             try
             {
