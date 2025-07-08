@@ -76,9 +76,9 @@
 
 <summary align="center">🧩 Funcionalidades Extras</summary>
 
-  - [x] Criação de um serviço AWS AMAZON S3 para armazenamento de imagem na nuvem
+  - [x] Criação de um serviço AWS AMAZON S3 para armazenamento de imagem na nuvem e pdf
   - [x] Hooks de imagem em cache do navegador
-  - [ ] Nota Fiscal do pagamento em pdf
+  - [x] Nota Fiscal do pagamento em pdf
   - [x] Criação de Trigger | View
   - [ ] Deploy
 
