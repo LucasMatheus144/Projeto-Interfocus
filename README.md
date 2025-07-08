@@ -28,9 +28,6 @@
 
 ---
 
-
----
-
 <details>
 
 <summary align="center">🗂️ Versões</summary>
