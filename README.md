@@ -57,7 +57,7 @@
 
  ### 🔧 Funcionalidades Extras
 
-  - [x] Upload de foto de clientes ( não foi desenvolvido a alteração de foto).  
+  - [x] Upload de foto de clientes.
   - [x] Restringir o cadastro de clientes menores de 18 anos ou maiores de 90 anos
   - [x] Não permitir o cadastro com o nome "Mateus Dias"
   - [x] O e-mail deve atender aos seguintes requisitos: 
