@@ -34,19 +34,21 @@
 
 ---
 
-###### Padinação | Pesquisa
+###### Paginação | Pesquisa
 ![image](https://github.com/user-attachments/assets/fe63a4ea-81d2-4879-b697-245d922b0cb8)
 ![image](https://github.com/user-attachments/assets/fd19536c-318e-4491-b634-a017bd10aac0)
 
 ---
 
-###### Cadastro | Edição | Visualização | Exclusão de Cliente |Cadastro de divida por cliente
+###### Cadastro | Edição 
 ![image](https://github.com/user-attachments/assets/22e0a234-9bc0-472c-8070-200774279f6e)
 ![image](https://github.com/user-attachments/assets/7e18ca5b-4051-48ba-b63e-1323b64b15aa)
+
+###### Visualização | Armazenamento de imagem no cache
 ![image](https://github.com/user-attachments/assets/d0c94306-d5d6-498d-854c-c2584082acdc)
 ![image](https://github.com/user-attachments/assets/f651e391-876c-4679-9c2c-960cd51adf8a)
 
-
+###### Exclusão de Cliente | Cadastro de divida por cliente
 ![image](https://github.com/user-attachments/assets/024b24b9-b25b-4415-a82a-abb4e3ad1e0b)
 
 ---
@@ -55,12 +57,15 @@
 
 ![image](https://github.com/user-attachments/assets/bb55d6f4-1c81-4f44-87fd-bed9b840f707)
 
-###### Cadastrar | Visualizar | Editar | Excluir | NotaFiscal | PagarDividaRapida
+###### Cadastrar | Visualizar | Editar | Excluir 
 ![image](https://github.com/user-attachments/assets/38bd8347-4be1-4518-9fe8-f4e8ff9b9c59)
 ![image](https://github.com/user-attachments/assets/7a604bcb-2481-4cb3-bc73-f04e7b9ebc9e)
+
+###### Visualizar | PagarDividaRapida | Excluir
 ![image](https://github.com/user-attachments/assets/6db1ff47-290e-43b2-b0b9-5a8b4ba882e3)
 ![image](https://github.com/user-attachments/assets/213a9e71-6ab2-430a-a7e0-7f68f28d6aaf)
 
+###### NotaFiscal 
 ![image](https://github.com/user-attachments/assets/94ab124c-19d2-4491-92fb-10b304895669)
 ![image](https://github.com/user-attachments/assets/f7e56c96-b513-4339-afee-3274d4cad246)
 
@@ -68,7 +73,6 @@
 
 ###### Pagina de Relatorios
 ![image](https://github.com/user-attachments/assets/29c4fd0f-fbcb-4028-883c-3b1ccc1eec3d)
-
 
 </div>
 
