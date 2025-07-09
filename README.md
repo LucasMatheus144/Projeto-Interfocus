@@ -98,13 +98,13 @@ Node -> v22.12.0
 .Net sdk -> 9.0.301
 Aplicação c# -> net8.0
 
- <PackageReference Include="Cpf" Version="2.1.0" />
- <PackageReference Include="IronPdf" Version="2025.6.8" />
- <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
- <PackageReference Include="NHibernate" Version="5.5.2" />
- <PackageReference Include="Npgsql" Version="9.0.3" />
- <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
-<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+Cpf Version="2.1.0" 
+IronPdf" Version="2025.6.8"
+Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" 
+NHibernate" Version="5.5.2"
+Npgsql" Version="9.0.3"
+Microsoft.Extensions.Configuration.Json" Version="9.0.7"
+Swashbuckle.AspNetCore" Version="6.6.2"
 
 </details>
 
