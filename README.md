@@ -30,6 +30,16 @@
 
 <details>
 
+<summary align="center">📚 Bibliotecas Utilizadas</summary>
+
+
+
+</details>
+
+---
+
+<details>
+
 <summary align="center">🗂️ Versões</summary>
 
 
