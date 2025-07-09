@@ -52,20 +52,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(
-    b => b.AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowAnyOrigin()
-    );
-//builder.Services.AddCors(options =>
-//    options.AddPolicy(name: "allowedOrigins",
-//        policy =>
-//        {
-//            policy.WithOrigins("http://localhost:5173")
-//                .WithMethods("GET", "POST")
-//                .AllowAnyHeader();
-//        })
-//);
+//app.UseCors(
+//    b => b.AllowAnyHeader()
+//        .AllowAnyMethod()
+//        .AllowAnyOrigin()
+//    );
+builder.Services.AddCors(options =>
+    options.AddPolicy(name: "allowedOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://104.131.110.118/")
+                .WithMethods("GET", "POST","PUT","DELETE")
+                .AllowAnyHeader();
+        })
+);
 
 
 app.UseHttpsRedirection();
