@@ -47,7 +47,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("allowedOrigins", policy =>
     {
-        policy.WithOrigins("http://104.131.110.118")
+        policy.WithOrigins("http://104.131.110.118", "https://bagimgs.s3.us-east-1.amazonaws.com", "https://arquivopdfsbucks.s3.us-east-1.amazonaws.com")
               .WithMethods("GET", "POST", "PUT", "DELETE")
               .AllowAnyHeader();
     });

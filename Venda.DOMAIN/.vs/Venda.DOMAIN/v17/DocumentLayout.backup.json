@@ -1,7 +1,14 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +16,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 683,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,6 +33,32 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\appsettings.json",
+              "RelativeDocumentMoniker": "..\\Venda.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\appsettings.json",
+              "RelativeToolTip": "..\\Venda.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-09T22:48:39.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Program.cs",
+              "RelativeDocumentMoniker": "..\\Venda.API\\Program.cs",
+              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.API\\Program.cs",
+              "RelativeToolTip": "..\\Venda.API\\Program.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-09T21:29:59.749Z",
+              "EditorCaption": ""
             }
           ]
         }
