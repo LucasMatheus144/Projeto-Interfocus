@@ -43,6 +43,16 @@ builder.Services.AddSingleton(c =>
 });
 builder.Services.AddTransient<IRepository, RepositoryContext>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("allowedOrigins", policy =>
+    {
+        policy.WithOrigins("http://104.131.110.118")
+              .WithMethods("GET", "POST", "PUT", "DELETE")
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -57,16 +67,8 @@ if (app.Environment.IsDevelopment())
 //        .AllowAnyMethod()
 //        .AllowAnyOrigin()
 //    );
-builder.Services.AddCors(options =>
-    options.AddPolicy(name: "allowedOrigins",
-        policy =>
-        {
-            policy.WithOrigins("http://104.131.110.118/")
-                .WithMethods("GET", "POST","PUT","DELETE")
-                .AllowAnyHeader();
-        })
-);
 
+app.UseCors("allowedOrigins");
 
 app.UseHttpsRedirection();
 
