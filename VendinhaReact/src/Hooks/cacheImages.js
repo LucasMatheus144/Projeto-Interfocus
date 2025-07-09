@@ -1,46 +1,50 @@
-import { useEffect, useState, useCallback } from "react";
+const carregarImagem = useCallback(async () => {
+    if (!idCliente) return setFotoUrl(imagemPadrao);
 
-const NOME_CACHE = 'clientes-imagens';
-
-export function useImagemCliente(idCliente, urlBanco, imagemPadrao) {
-    const [fotoUrl, setFotoUrl] = useState(imagemPadrao);
-
-    // Carrega imagem do cache, banco ou default
-    const carregarImagem = useCallback(async () => {
-        if (!idCliente) return setFotoUrl(imagemPadrao);
-
-        const cache = await caches.open(NOME_CACHE);
-        const response = await cache.match(`/clientes/foto/${idCliente}`);
-
-        if (response) {
-            const blob = await response.blob();
-            setFotoUrl(URL.createObjectURL(blob));
-        } else if (urlBanco) {
-            setFotoUrl(urlBanco);
-        } else {
-            setFotoUrl(imagemPadrao);
+    //verifica se existe
+    if (typeof caches !== 'undefined') {
+        try {
+            const cache = await caches.open(NOME_CACHE);
+            const response = await cache.match(`/clientes/foto/${idCliente}`);
+    
+            if (response) {
+                const blob = await response.blob();
+                return setFotoUrl(URL.createObjectURL(blob));
+            }
+        } catch (err) {
+            console.warn("Erro ao acessar o cache:", err);
         }
-    }, [idCliente, urlBanco, imagemPadrao]);
+    }
 
-    // Salva imagem no cache após upload
-    const salvarImagemNoCache = async (idCliente, file) => {
-        const cache = await caches.open('clientes-imagens');
+    if (urlBanco) {
+        setFotoUrl(urlBanco);
+    } else {
+        setFotoUrl(imagemPadrao);
+    }
+}, [idCliente, urlBanco, imagemPadrao]);
+
+const salvarImagemNoCache = async (idCliente, file) => {
+    if (typeof caches === 'undefined') return;
+
+    try {
+        const cache = await caches.open(NOME_CACHE);
         const response = new Response(file, {
             headers: { 'Content-Type': file.type }
         });
 
         await cache.put(`/clientes/foto/${idCliente}`, response);
-    };
+    } catch (err) {
+        console.warn("Erro ao salvar no cache:", err);
+    }
+};
 
-    // Limpa imagem do cache
-    const limparImagemDoCache = useCallback(async () => {
+const limparImagemDoCache = useCallback(async () => {
+    if (typeof caches === 'undefined') return;
+
+    try {
         const cache = await caches.open(NOME_CACHE);
         await cache.delete(`/clientes/foto/${idCliente}`);
-    }, [idCliente]);
-
-    useEffect(() => {
-        carregarImagem();
-    }, [carregarImagem]);
-
-    return { fotoUrl, salvarImagemNoCache, limparImagemDoCache };
-}
+    } catch (err) {
+        console.warn("Erro ao limpar cache:", err);
+    }
+}, [idCliente]);
