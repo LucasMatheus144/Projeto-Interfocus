@@ -6,6 +6,8 @@
 
 </div>
 
+Este projeto tem como objetivo informatizar o controle de contas de clientes (dívidas penduradas) de uma vendinha, substituindo o controle manual em papel por um sistema digital eficiente.
+A aplicação foi desenvolvida com .NET (C#) no backend e ReactJS no frontend, utilizando um banco de dados relacional PostgreSQL para persistência de dados, com suporte ao NHibernate para o mapeamento objeto-relacional.
 
 
 <details>
