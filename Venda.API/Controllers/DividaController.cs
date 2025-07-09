@@ -30,11 +30,10 @@ namespace Venda.API.Controllers
             return Ok(service.RetornaDividaPorId(id));
         }
 
-        [HttpGet]
-        [Route("personalizado")]
-        public IActionResult Personalizado()
+        [HttpGet("personalizado")]
+        public IActionResult Personalizado(int limit, int offset)
         {
-            return Ok(service.RetornarRelatorio());
+            return Ok(service.RetornarRelatorio(limit,offset));
         }
 
         [HttpPost]

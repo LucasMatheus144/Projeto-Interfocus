@@ -1,8 +1,8 @@
 ﻿using CpfLibrary;
+using NHibernate.Mapping.ByCode.Impl;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Venda.DOMAIN.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Venda.DOMAIN.Services
 {
@@ -19,8 +19,6 @@ namespace Venda.DOMAIN.Services
             msgErro = new List<ExceptionMsg>();
 
             var valida = new List<ValidationResult>();
-
-            if (obj == null) return false;
 
             // Se os atributos das classes forem satisfeitos, é valido
 
@@ -51,6 +49,18 @@ namespace Venda.DOMAIN.Services
             return isValid;
         }
 
+        public bool ValidaIsNullObjetos<DtoObjs>(DtoObjs obj, out List<ExceptionMsg> erro)
+        {
+            erro = new List<ExceptionMsg>();
+
+            if(obj == null)
+            {
+                erro.Add(new ExceptionMsg("Classe", "Objeto", "Algum campo do form veio quebrado"));
+                return false;
+            }
+            return true;
+        }
+
         //validar todas as regras de ngc do CLIENTE
 
         private bool ValidaCliente(Cliente cliente, out List<ExceptionMsg> msgErro)
@@ -59,7 +69,7 @@ namespace Venda.DOMAIN.Services
             var idade = DateTime.Now.Year - cliente.DataNascimento.Year;
             if (cliente.DataNascimento > DateTime.Now.AddYears(-idade)) idade--;
 
-            if (idade < 18 && idade > 90)
+            if (idade < 18 || idade > 90)
             {
                 msgErro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a aquedada."));
                 return false;
@@ -82,9 +92,6 @@ namespace Venda.DOMAIN.Services
                 msgErro.Add(new ExceptionMsg("Divida", "Valor", "Valor negativo"));
                 return false;
             }
-
-           
-
             return true;
         }
 
@@ -113,11 +120,15 @@ namespace Venda.DOMAIN.Services
 
             else if (msg.Contains("clientes_nome_key")) return "O nome do cliente já existe no sistema!";
             else if (msg.Contains("clientes_cpf_key")) return "O CPF do cliente já existe no sistema!";
-            else if (msg.Contains("Valor Superior a 200.")) return "O valor da divida é superior a 200 reais";
+            else if (msg.Contains("Valor Superior a 200.")) return "Esse novo valor vai ultrapassar o limite de 200 reais!";
             else if (msg.Contains("O campo Nome é obrigatório.")) return "O nome é obrigatorio.";
             else if (msg.Contains("could not insert")) return "Erro ao incluir o registro.";
             else if (msg.Contains("Cpf field is required")) return "O cpf é obrigatorio!";
             else if (msg.Contains("valor negativo")) return "O valor da divida está invalido!";
+            else if (msg.Contains("Cpf Invalido")) return "O cpf está invalido";
+            else if (msg.Contains("email min 4")) return "O email deve possuir no minimo 4 caracteres";
+            else if (msg.Contains("max 50")) return "O email deve ter no maximo 50 caracteres";
+            else if (msg.Contains("Email InvalidoEmail Invalido")) return "O email não atende os requisitos minimos";
 
             else return msg;
         }
@@ -137,9 +148,9 @@ namespace Venda.DOMAIN.Services
             if (string.IsNullOrWhiteSpace(email)) return new ValidationResult("Email está vazio", new[] { validationContext.MemberName! });
 
             //Precisa ter no minimo 4 caracteres
-            if (email.Length < 4) return new ValidationResult("Deve ter no minimo 4 caracteres", new[] { validationContext.MemberName! });
+            if (email.Length < 4) return new ValidationResult("email min 4", new[] { validationContext.MemberName! });
 
-            if (email.Length > 50) return new ValidationResult("Deve ter no maximo 50 caracteres", new[] { validationContext.MemberName! });
+            if (email.Length > 50) return new ValidationResult("max 50", new[] { validationContext.MemberName! });
 
             //Para o email ser valido, precisa ter os campos do regex -> @  , .com  ou .br
             var valido = new Regex(@"^[^@\s]+@[^@\s]+\.(com|br)$");

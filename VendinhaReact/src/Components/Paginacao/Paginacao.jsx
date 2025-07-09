@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import styles from './paginacao.module.css';
 
-export default function Paginacao({ limit, total, attPage }) {
+export default function Paginacao({ limit, total, attPage, numPage }) {
+    console.log(numPage);
     const [page, setPage] = useState(0);
 
     const pageTotal = Math.ceil(total / limit);
@@ -9,20 +10,21 @@ export default function Paginacao({ limit, total, attPage }) {
     const isLastPage = (page + 1) * limit >= total;
 
     const goNext = () => {
-        if (!isLastPage) setPage((prev) => prev + 1);
+        if (!isLastPage) {
+            setPage((prev) => prev + 1);
+        }          
     };
 
     const goPrev = () => {
-        if (!isFirstPage) setPage((prev) => prev - 1);
+        if (!isFirstPage){
+            setPage((prev) => prev - 1);
+        } 
     };
-
-     useEffect(() => {
-        setPage(0);
-    }, [total]);
 
     useEffect(() => {
         var timeout = setTimeout(() => {
             attPage?.(page);
+
         }, 300);
 
         return () => {
@@ -38,7 +40,7 @@ export default function Paginacao({ limit, total, attPage }) {
             <div className={styles.paginationControls}>
                 <span>Página </span>
                 <a className={`${styles.previous} ${isFirstPage ? styles.disabled : ''}`} onClick={goPrev}>&lt;</a>
-                <input value={page + 1} className={styles.pageNumber}  spellCheck="false" readOnly />
+                <input value={page + 1} className={styles.pageNumber} spellCheck="false" readOnly />
                 <a className={`${styles.next} ${isLastPage ? styles.disabled : ''}`} onClick={goNext}>&gt;</a>
                 <span> de {pageTotal}</span>
             </div>

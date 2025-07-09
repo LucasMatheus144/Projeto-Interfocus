@@ -123,3 +123,9 @@
     height: 100px;
     border-radius: 20px;
 }
+
+@media (min-width: 1024px) {
+  .wrapper {
+    display: flex;
+  }
+}

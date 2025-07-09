@@ -110,3 +110,44 @@
 .dore:hover {
     transform: rotate(-180deg);
 }
+
+@media (max-width: 1600px) {
+    .dados h3,
+    .infodivida h3,
+    .txtprincipal {
+        align-items: center;
+        color: var(--gray-secundario);
+        font-size: 12px;
+    }
+
+    .extras {
+        position: absolute;
+        left: 400px;
+    }
+
+    .infodivida {
+        left: 650px;
+    }
+}
+
+@media (max-width: 1240px) {
+
+    .extras {
+        left: 350px;
+    }
+
+    .extras span{
+        font-size: 12px;
+    }
+    .infodivida {
+        left: 500px;
+    }
+    .infodivida button{
+        padding: 3px 6px;
+        font-size: 12px;
+    }
+
+    .dore {
+        left: 95%;
+    }
+}

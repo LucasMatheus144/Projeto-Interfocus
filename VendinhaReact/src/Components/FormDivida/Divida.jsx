@@ -102,17 +102,17 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
 
                     <div className={styles.row}>
                         <div className={styles.col}>
-                            <label>Valor</label>
+                            <label>Valor <strong id="obrigatorio">*</strong></label>
                             <input name="valor" className={styles.spinner} type="number" step="0.01" placeholder="0.00" defaultValue={dados?.valor ?? ""} required disabled={view} />
                         </div>
 
                         <div className={styles.col}>
-                            <label>Data de pagamento</label>
+                            <label>Data de pagamento </label>
                             <input name="pagamento" type="datetime-local" defaultValue={formataImput(dados?.dataPagamento)} disabled={view} />
                         </div>
                     </div>
 
-                    <label>Descrição</label>
+                    <label>Descrição <strong id="obrigatorio">*</strong></label>
                     <input name="observacao" type="text" placeholder="Descreva aqui..." defaultValue={dados?.descricao ?? ""} required disabled={view} />
 
                     <div className={styles.buttoes}>

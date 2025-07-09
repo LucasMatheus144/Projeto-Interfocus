@@ -7,7 +7,7 @@ export async function listarPorId(id) {
         method: "GET"
     });
 
-   
+
     if (response.status == 200) {
         var result = await response.json();
         return {
@@ -64,9 +64,9 @@ export async function deletarDivida(id) {
     let result = null;
 
     try {
-        result = await response.json(); 
+        result = await response.json();
     } catch (e) {
-        result = { mensagem: "Erro ao processar resposta da API." }; 
+        result = { mensagem: "Erro ao processar resposta da API." };
     }
     return {
         status: response.status,
@@ -74,21 +74,27 @@ export async function deletarDivida(id) {
     };
 }
 
-export async function gerarPersonalizado(){
-     const response = await fetch(`${URL_API}/api/divida/personalizado`, {
+export async function gerarPersonalizado(limit,offset) {
+    const response = await fetch(`${URL_API}/api/divida/personalizado?&limit=${limit}&offset=${offset}`, {
         method: "GET"
     });
-   
+
     if (response.status == 200) {
         var result = await response.json();
         return {
             status: response.status,
-            data: result
+            __count : result.countClientes,
+            aReceber: result.aReceber,
+            recebido: result.recebido,
+            detalhes: result.detalhes
         }
     }
     return {
         status: response.status,
-        data: null
+        __count:null,
+        aReceber: null,
+        recebido: null,
+        detalhes: null
     }
 
 }

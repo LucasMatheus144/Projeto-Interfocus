@@ -1,7 +1,7 @@
 .container {
-    position: relative;
-    width: 100wh;
-    top: -330px;
+    height: 80vh;
+    width: 100%;
+    align-items: flex-start;
     padding-left: 20px;    
 }
 
@@ -49,4 +49,44 @@
     color: var(--azul-meio-forte);
     font-size: var(--font-ul-sub);
     font-weight: 600;
+}
+
+
+
+.datatable {
+    padding: 10px;
+}
+
+.tabela {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabela thead tr {
+    color: var(--gray-secundario);
+    background-color: var(--gray-fundo-card);
+    font-size: 16px;
+    height: 50px;
+}
+
+.tabela tbody tr:hover {
+    background-color: var(--gray-100);
+    transition: background-color 0.4s ease;
+}
+
+.tabela td,
+.tabela th {
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+.tabela tbody td {
+    color: var(--gray-secundario);
+    font-size: 14px;
+    height: 40px;
+    border-bottom: 1px solid var(--gray-100);
 }

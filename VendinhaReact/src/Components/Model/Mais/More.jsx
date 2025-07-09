@@ -4,13 +4,18 @@ import styles from './more.module.css';
 import FormCliente from '../../FormCliente/FormCliente';
 import TemCerteza from "../../Confirmation/TemCerteza";
 import ViewCliente from "../../ViewCliente/_Cliente";
+import Alerta from "../../Alertas/Alerta";
 
 export default function Mais({ isOpen, onClose, attform, cliente }) {
     const [formAberto, setFormAberto] = useState(false);
     const [modoVisualizacao, setModoVisualizacao] = useState(true);
     const [excluir, setExcluir] = useState(false);
     const [clienteData, setClienteData] = useState();
+
+
+
     const ref = useRef(null);
+
 
     useEffect(() => {
         if (formAberto) {
@@ -60,9 +65,10 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
             )}
 
             {formAberto && !modoVisualizacao && (
-                <FormCliente isOpen={formAberto} onClose={() => setFormAberto(false)} onAttHomePage={attform} visualizar={modoVisualizacao} obj={clienteData} />
+                <FormCliente isOpen={formAberto} onClose={() => setFormAberto(false)} onAttHomePage={attform} obj={clienteData} />
             )}
             <TemCerteza isAbrir={excluir} onClose={() => setExcluir(false)} id={cliente.id} attForm={attform} obj={false} />
         </div>
+
     );
 }

@@ -1,16 +1,17 @@
-import { useState, useReducer, useMemo, useEffect } from "react";
+import { useState, useReducer, useEffect } from "react";
 import { salvarCliente, enviarImagem } from '../../services/clienteService';
 import { useImagemCliente } from "../../Hooks/cacheImages";
 
 import styles from './form.module.css';
 import Model from '../Model/Modal';
-import Alerta from '../Alertas/Alerta';
 import user from '../../assets/user.png';
 
-export default function FormCliente({ isOpen, onClose, onAttHomePage, obj }) {
+export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAlerta = () => { } }) {
+
     const { fotoUrl, salvarImagemNoCache } = useImagemCliente(obj?.id, obj?.urlFoto, user);
-    const [alertas, setAlertas] = useState([]);
     const [imagemPreview, setImagemPreview] = useState(null); // exibir a imagem antes de salvar
+
+
 
     const mascaraCpf = (valor) => {
         if (!valor) return "";
@@ -44,8 +45,9 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj }) {
         const form = event.target;
         const oData = new FormData(form);
         const cliente = criarCliente(oData);
-        const arquivo = oData.get("foto");
+        const arquivo = oData.get("foto"); // separar o arquivo para enviar o POST serado do cliente
         if (!arquivo || arquivo.size === 0) {
+            cliente.urlFoto = obj?.urlFoto ?? null; // salvar a url caso for editar
             console.warn("Nenhum arquivo foi enviado!");
         }
         const resultado = await salvarCliente(cliente);
@@ -59,7 +61,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj }) {
                 // await enviarImagem(idCliente, arquivo);
                 // await salvarImagemNoCache(idCliente, arquivo);
             }
-            setAlertas([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+            sessionStorage.setItem("alertaHome", JSON.stringify([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]));
             fluxoTela();
 
         } else {
@@ -67,8 +69,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj }) {
             const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
                 ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
                 : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
-            setAlertas(listaDeErros);
-            fluxoTela();
+            onAlerta(listaDeErros);
         }
     };
 
@@ -78,14 +79,6 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj }) {
         }
     }, [obj?.cpf]);
 
-    useEffect(() => {
-        if (alertas.length > 0) {
-            const timeout = setTimeout(() => {
-                setAlertas(prev => prev.slice(1));
-            }, 8000);
-            return () => clearTimeout(timeout);
-        }
-    }, [alertas]);
 
     const qndAlterarImagem = (e) => {
         const file = e.target.files[0];
@@ -104,61 +97,49 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj }) {
     };
 
     return (
-        <>
-            {alertas.map((a, index) => (
-                <Alerta
-                    key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
-                    isFechar={() => {
-                        const novaLista = [...alertas];
-                        novaLista.splice(index, 1);
-                        setAlertas(novaLista);
-                    }}
-                />
-            ))}
+        <Model isOpen={isOpen} onClose={gatilhoClosePop} >
+            <form method='POST' encType="multipart/form-data" onSubmit={enviarForm} className={styles.cadastraCliente} >
+                <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
+                <div className={styles.row}>
+                    {(!imagemPreview && !obj?.urlFoto) ? (
+                        <div className={styles.upload} onClick={() => document.getElementById('file').click()}>
+                            <div className={styles.icon}></div>
+                            <div className="text"><span>Salvar Arquivo</span></div>
+                        </div>
+                    ) : (
+                        <div className={styles.imagem} onClick={() => document.getElementById('file').click()}>
+                            <img src={imagemPreview ?? obj?.urlFoto} alt="imagem" loading="lazy" />
 
-            <Model isOpen={isOpen} onClose={gatilhoClosePop}>
-                <form method='POST' encType="multipart/form-data" onSubmit={enviarForm} className={styles.cadastraCliente} >
-                    <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
-                    <div className={styles.row}>
-                        {(!imagemPreview && !obj?.urlFoto) ? (
-                            <div className={styles.upload} onClick={() => document.getElementById('file').click()}>
-                                <div className={styles.icon}></div>
-                                <div className="text"><span>Salvar Arquivo</span></div>
-                            </div>
-                        ) : (
-                            <div className={styles.imagem}>
-                                <img src={imagemPreview ?? obj?.urlFoto} alt="imagem" loading="lazy" />
-                            </div>
-                        )}
-                        <input id="file" name="foto" type="file" accept="image/jpeg, image/png, image/jpg" onChange={qndAlterarImagem} style={{ display: 'none' }} />
-                        
-                        <div className={styles.grupo}>
-                            <label htmlFor="nome">Nome do Cliente</label>
-                            <input type="text" name="nome" required maxLength={25} defaultValue={obj?.nome ?? ""} />
                         </div>
+                    )}
+                    <input id="file" name="foto" type="file" accept="image/jpeg, image/png, image/jpg" onChange={qndAlterarImagem} style={{ display: 'none' }} />
 
-                    </div>
-                    <div className={styles.row}>
-                        <div className={styles.col}>
-                            <label htmlFor="cpf">CPF</label>
-                            <input type="text" name="cpf" placeholder="000.000.000-00" maxLength={14} required value={cpf} onChange={(e) => setCpf(e.target.value)} />
-                        </div>
-                        <div className={styles.col}>
-                            <label htmlFor="data-nascimento">Data de Nascimento</label>
-                            <input type="date" name="data-nascimento" required defaultValue={obj?.dataNascimento?.split('T')[0] ?? ""}
-                            />
-                        </div>
-                    </div>
                     <div className={styles.grupo}>
-                        <label htmlFor="email">E-mail</label>
-                        <input type="text" name="email" maxLength={50} defaultValue={obj?.email ?? ""} />
+                        <label htmlFor="nome">Nome do Cliente <strong id="obrigatorio">*</strong></label>
+                        <input type="text" name="nome" required maxLength={25} defaultValue={obj?.nome ?? ""} />
                     </div>
-                    <div className={styles.buttoes}>
-                        <button className={styles.cancelar} type="button" onClick={gatilhoClosePop}>Cancelar</button>
-                        <button className={styles.cadastrar} type="submit">Cadastrar</button>
+
+                </div>
+                <div className={styles.row}>
+                    <div className={styles.col}>
+                        <label htmlFor="cpf">CPF <strong id="obrigatorio">*</strong></label>
+                        <input type="text" name="cpf" placeholder="000.000.000-00" maxLength={14} required value={cpf} onChange={(e) => setCpf(e.target.value)} />
                     </div>
-                </form>
-            </Model>
-        </>
+                    <div className={styles.col}>
+                        <label htmlFor="data-nascimento">Data de Nascimento <strong id="obrigatorio">*</strong> </label>
+                        <input type="date" name="data-nascimento" required defaultValue={obj?.dataNascimento?.split('T')[0] ?? ""}
+                        />
+                    </div>
+                </div>
+                <div className={styles.grupo}>
+                    <label htmlFor="email">E-mail</label>
+                    <input type="text" name="email" maxLength={50} defaultValue={obj?.email ?? ""} />
+                </div>
+                <div className={styles.buttoes}>
+                    <button className={styles.cancelar} type="button" onClick={gatilhoClosePop}>Cancelar</button>
+                    <button className={styles.cadastrar} type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </Model>
     );
 }

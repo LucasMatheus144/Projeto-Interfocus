@@ -1,12 +1,9 @@
-﻿using CpfLibrary;
-using NHibernate.Transform;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.Text.RegularExpressions;
 using Venda.DOMAIN.DTO.Cliente;
 using Venda.DOMAIN.Entities;
 using Venda.DOMAIN.Repository;
 using Venda.DOMAIN.ValuesObject;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Venda.DOMAIN.Services
 {
@@ -23,25 +20,27 @@ namespace Venda.DOMAIN.Services
         }
 
         //Cadastrar Cliente
+        // coloquei o CLIENTE? para parar de aparecer os WARNINGS de possivel retorno null
         public Cliente? CadastraCliente(ClienteDtoCreateUpdate obj, out List<ExceptionMsg> erro)
         {
             erro = new List<ExceptionMsg>();
 
-            if (!validar.ValidarEntites(obj, out erro)) return null;
+            if (!validar.ValidaIsNullObjetos(obj, out erro)) return null;
+
+            var cliente = new Cliente
+            {
+                Nome = obj.Nome,
+                Cpf = obj.Cpf,
+                DataNascimento = obj.DataNascimento,
+                Email = obj.Email,
+                Situacao = obj.Situacao,
+                UrlFoto = null
+            };
+
+            if (!validar.ValidarEntites(cliente, out erro)) return null;
 
             try
             {
-                var cliente = new Cliente
-                {
-                    Nome = obj.Nome,
-                    Cpf = obj.Cpf,
-                    DataNascimento = obj.DataNascimento,
-                    Email = obj.Email,
-                    Situacao = obj.Situacao,
-                    UrlFoto = null
-                };
-
-
                 using var inicia = db.IniciarTransacao();
 
                 db.Incluir(cliente);
@@ -61,6 +60,8 @@ namespace Venda.DOMAIN.Services
         public bool EditarCliente(Cliente obj, out List<ExceptionMsg> erro)
         {
             erro = new List<ExceptionMsg>();
+
+            if (!validar.ValidaIsNullObjetos(obj, out erro)) return false;
 
             var procura = db.ConsultaId<Cliente>(obj.Id);
 

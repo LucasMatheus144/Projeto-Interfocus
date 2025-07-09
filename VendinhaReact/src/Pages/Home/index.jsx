@@ -21,7 +21,6 @@ export default function HomePage() {
     /*Paginação*/
     const [page, setPage] = useState(0);
     const limit = 10;
-
     // Efeitos para atualização de componentes
     useEffect(() => {
         var timeout = setTimeout(() => {
@@ -39,11 +38,20 @@ export default function HomePage() {
         if (result.status === 200) {
             setTotal(result.__count);
             setClientes(result.data);
+            console.log("deu 200 - pageAtual ", pageAtual);
         }
     }
+
+    const handlePageChange = (paginaAtual) => {
+        setCurrentPage(paginaAtual);
+    };
     const disparaPesquisa = (valor) => {
         setPage(0);
         setPesquisa(valor);
+    }
+
+    const atualizarPagePaginacao = () => {
+        chamaListagem(page);
     }
 
     const alternarFormularioDivida = (clienteId) => {
@@ -60,17 +68,18 @@ export default function HomePage() {
                     </div>
                 </div>
             </header>
-            <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={chamaListagem} ></FormCliente>
+            <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} numPage={handlePageChange}></FormCliente>
             <section className={styles.grid}>
                 {clientes.map(c =>
                     <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} aberto={clienteComDividaAberta === c.id} onAbrir={() => alternarFormularioDivida(c.id)} />
                 )}
             </section>
             <footer className={styles.lowerpage}>
-                <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
+                <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => {
+                    setPage(paginaAtual);
+                    chamaListagem(paginaAtual);
+                }} />
             </footer>
-
-
         </>
     )
 }

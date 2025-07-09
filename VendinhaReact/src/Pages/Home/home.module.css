@@ -25,12 +25,10 @@
     width: 125px;
 }
 
-
 .grid{
     display: grid;
     padding: 5px 5px 5px 10px;
-    max-height: 800px;
-    height: 750px;
+    max-height: 750px;
     grid-auto-rows: min-content;
     row-gap: 10px; 
 }

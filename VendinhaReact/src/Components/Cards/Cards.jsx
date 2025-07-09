@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { IoMdMore } from "react-icons/io";
 import { useImagemCliente } from "../../Hooks/cacheImages";
 import { formatarValor } from "../../services/validarService";
@@ -45,6 +45,9 @@ export default function Cards({ cliente, onAtualizar, aberto, onAbrir }) {
             {aberto && (
                 <Divida isOpen={true} onClose={() => onAbrir()} onAtualizar={onAtualizar} obj={cliente} view={false} />
             )}
+
+            
+            
         </div>
     );
 }

@@ -32,6 +32,8 @@ namespace Venda.DOMAIN.Services
         {
             erro = new List<ExceptionMsg>();
 
+            if (!validar.ValidaIsNullObjetos(obj, out erro)) return false;
+
             var procuraCliente = ListarClientePorId(obj.ClienteId);
 
             if (procuraCliente == null)
@@ -41,8 +43,6 @@ namespace Venda.DOMAIN.Services
             }
 
             obj.Situacao = obj.DataPagamento != null ? SituacaoDivida.Pago : SituacaoDivida.Devendo;
-
-
 
             var divida = new Dividas
             {
@@ -55,8 +55,6 @@ namespace Venda.DOMAIN.Services
             };
 
             if (!validar.ValidarEntites(divida, out erro)) return false;
-
-
 
             try
             {
@@ -86,6 +84,8 @@ namespace Venda.DOMAIN.Services
         {
             erro = new List<ExceptionMsg>();
 
+            if (!validar.ValidaIsNullObjetos(obj, out erro)) return false;
+
             var divida = RetornaDividaPorId(obj.IdDivida);
 
             if (divida == null)
@@ -110,8 +110,6 @@ namespace Venda.DOMAIN.Services
             }
 
             obj.Situacao = obj.DataPagamento != null ? SituacaoDivida.Pago : SituacaoDivida.Devendo;
-
-
 
             divida.cliente = cliente;
             divida.Valor = obj.Valor;
@@ -190,7 +188,7 @@ namespace Venda.DOMAIN.Services
             return db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).ToList();
         }
 
-        public RelatorioDto RetornarRelatorio()
+        public RelatorioDto RetornarRelatorio(int take = 10, int skip = 0)
         {
             /*
                select sum(case when d.situacao = 1 then d.valor else 0 end) as AReceber,
@@ -209,10 +207,28 @@ namespace Venda.DOMAIN.Services
             decimal aReceber = relatorioDados?.AReceber ?? 0;
             decimal recebido = relatorioDados?.Recebido ?? 0;
 
+            var queryComClientes = (from cl in db.Consulta<Cliente>()
+                                    join d in db.Consulta<Dividas>() on cl.Id equals d.cliente.Id
+                                    group new { cl, d } by new { cl.Nome, cl.Cpf, cl.Email, d.DataPagamento } into g
+                                    select new DtoRelatorio
+                                    {
+                                        Nome = g.Key.Nome,
+                                        Cpf = g.Key.Cpf,
+                                        Email = g.Key.Email,
+                                        VaiReceber = g.Sum(x => (decimal?)(x.d.Situacao == SituacaoDivida.Devendo && x.d.DataPagamento == null ? x.d.Valor : 0)) ?? 0,
+                                        JaPagou = g.Sum(x => (decimal?)(x.d.Situacao == SituacaoDivida.Pago && x.d.DataPagamento != null ? x.d.Valor : 0)) ?? 0,
+                                        Total = g.Sum(x => (decimal?)x.d.Valor) ?? 0
+                                    })
+                                    .Skip(skip * take)
+                                    .Take(take)
+                                    .ToList();
+
             return new RelatorioDto
             {
+                CountClientes = queryComClientes.Count(),
                 AReceber = aReceber,
                 Recebido = recebido,
+                Detalhes = queryComClientes
             };
         }
 
@@ -248,7 +264,6 @@ namespace Venda.DOMAIN.Services
             };
         }
 
-        /*essa vai de vasco*/
         public List<Dividas> RetornaTodasDividas()
         {
             return db.Consulta<Dividas>().ToList();
