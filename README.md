@@ -18,7 +18,6 @@
 
 ---
 
-<details>
 
 <details><summary align="center">📊 Prints</summary><div align="center">
 
