@@ -20,7 +20,7 @@
 
 <details>
 
-<summary align="center">📊 Prints</summary>
+<details><summary align="center">📊 Prints</summary><div align="center">
 
 ###### Opções menu Lateral
 ![image](https://github.com/user-attachments/assets/181efd50-8672-4d65-b730-2840f25fd51b)
@@ -71,6 +71,7 @@
 ![image](https://github.com/user-attachments/assets/29c4fd0f-fbcb-4028-883c-3b1ccc1eec3d)
 
 
+</div>
 
 </details>
 
