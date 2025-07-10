@@ -36,13 +36,15 @@ namespace Venda.DOMAIN.Services
             }
             else
             {
-                if (obj is Cliente cl)
+                switch (obj)
                 {
-                    isValid = ValidaCliente(cl, out msgErro);
-                }
-                else if (obj is Dividas dv)
-                {
-                    isValid = ValidaDivida(dv, out msgErro);
+                    case Cliente cl:
+                        isValid = ValidaCliente(cl, out msgErro);
+                        break;
+
+                    case Dividas dv:
+                        isValid = ValidaDivida(dv, out msgErro);
+                        break;
                 }
             }
 

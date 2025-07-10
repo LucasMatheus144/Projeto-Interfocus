@@ -7,6 +7,7 @@
     background-color:var(--white);
     border-left: 1px solid var(--borda-extensao-gray);
     padding: 10px;
+    z-index: 1;
 }
 
 .gpimagem{
@@ -55,12 +56,12 @@
     background-color: var(--green-v4);
 }
 
-.dadosusuario{
+.dadosusuario , .dividadados{
     display: grid;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
-.dadosusuario h4{
+.dadosusuario h4 , .dividadados h4{
     color: var(--primario-blue);
 }
 
@@ -88,4 +89,77 @@
     color: var(--gray-secundario);
     font-size: var(--font-small);
     font-weight: 600;
+}
+
+
+
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.tabela thead,
+.tabela tbody {
+    display: block;
+    width: 100%;
+}
+
+.tabela tbody {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.tabela thead tr,
+.tabela tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.tabela th,
+.tabela td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px;
+    width: 20%; 
+    box-sizing: border-box;
+}
+
+.tabela thead tr {
+    color: var(--gray-secundario);
+    background-color: var(--gray-fundo-card);
+    font-size: 16px;
+    height: 50px;
+}
+
+.tabela tbody td {
+    color: var(--gray-secundario);
+    font-size: 14px;
+    height: 40px;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.tabela tbody tr:hover {
+    background-color: var(--gray-100);
+    transition: background-color 0.4s ease;
+}
+
+
+.pago{
+    background-color: var(--green-v4);
+    border-radius: 10px;
+    padding: 5px;
+    color: var(--green-v5);
+}
+
+.devendo{
+    background-color: var(--red-v6);
+    padding: 5px;
+    max-width: 80px;
+    border-radius: 10px;
+    color: var(--red-v4);
 }

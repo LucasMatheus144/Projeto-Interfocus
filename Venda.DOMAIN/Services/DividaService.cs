@@ -188,9 +188,9 @@ namespace Venda.DOMAIN.Services
             return db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).ToList();
         }
 
-        public List<DividaClienteViewDto> RetornaDividaPorCliente(int idcliente, int limit = 10, int offset = 0)
+        public List<DividaClienteViewDto> RetornaDividaPorCliente(int idcliente, string sopradiferenciar)
         {
-            var consulta = db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).Take(limit).Skip(offset)
+            var consulta = db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente)
                 .Select(x => new DividaClienteViewDto
                 {
                     IdCliente = x.cliente.Id,        

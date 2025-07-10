@@ -1,10 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\",
+  "WorkspaceRootPath": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\lumet\\projeto-interfocus\\venda.domain\\venda.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:venda.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\templates\\notafiscal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:templates\\notafiscal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\dividaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\services\\validacaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:services\\validacaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7AAA29B-388D-46C8-B86D-1931FB3DDAB9}|..\\Venda.API\\Venda.API.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.api\\controllers\\dividacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\valuesobject\\situacaodivida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:valuesobject\\situacaodivida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|c:\\users\\interfocus\\projeto-interfocus\\venda.domain\\dto\\divida\\dividaclienteviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC48BCB9-6B42-4288-836B-45E97B11A121}|Venda.DOMAIN.csproj|solutionrelative:dto\\divida\\dividaclienteviewdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,14 +54,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Venda.DOMAIN",
-              "DocumentMoniker": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
-              "RelativeDocumentMoniker": "Venda.DOMAIN.csproj",
-              "ToolTip": "C:\\Users\\lumet\\Projeto-Interfocus\\Venda.DOMAIN\\Venda.DOMAIN.csproj",
-              "RelativeToolTip": "Venda.DOMAIN.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-10T16:14:00.784Z",
+              "Title": "notaFiscal.html",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Templates\\notaFiscal.html",
+              "RelativeDocumentMoniker": "Templates\\notaFiscal.html",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Templates\\notaFiscal.html",
+              "RelativeToolTip": "Templates\\notaFiscal.html",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAE8AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-10T18:18:14.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ValidacaoService.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ValidacaoService.cs",
+              "RelativeDocumentMoniker": "Services\\ValidacaoService.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\ValidacaoService.cs",
+              "RelativeToolTip": "Services\\ValidacaoService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAUwCgAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T18:06:56.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DividaController.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Controllers\\DividaController.cs",
+              "RelativeDocumentMoniker": "..\\Venda.API\\Controllers\\DividaController.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.API\\Controllers\\DividaController.cs",
+              "RelativeToolTip": "..\\Venda.API\\Controllers\\DividaController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAxwCkAAAB7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T17:38:18.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DividaService.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
+              "RelativeDocumentMoniker": "Services\\DividaService.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\Services\\DividaService.cs",
+              "RelativeToolTip": "Services\\DividaService.cs",
+              "ViewState": "AgIAAFsBAAAAAAAAAAAlwHMBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T16:53:50.245Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SituacaoDivida.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\ValuesObject\\SituacaoDivida.cs",
+              "RelativeDocumentMoniker": "ValuesObject\\SituacaoDivida.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\ValuesObject\\SituacaoDivida.cs",
+              "RelativeToolTip": "ValuesObject\\SituacaoDivida.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T17:12:42.439Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DividaClienteViewDto.cs",
+              "DocumentMoniker": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\DTO\\Divida\\DividaClienteViewDto.cs",
+              "RelativeDocumentMoniker": "DTO\\Divida\\DividaClienteViewDto.cs",
+              "ToolTip": "C:\\Users\\Interfocus\\Projeto-Interfocus\\Venda.DOMAIN\\DTO\\Divida\\DividaClienteViewDto.cs",
+              "RelativeToolTip": "DTO\\Divida\\DividaClienteViewDto.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T17:05:27.816Z",
               "EditorCaption": ""
             }
           ]

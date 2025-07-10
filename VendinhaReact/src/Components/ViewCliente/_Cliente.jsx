@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import { listarPorCliente } from '../../services/dividaService';
-import { dataAniversario } from '../../services/validarService';
+import { dataAniversario, formatarData, formatarValor } from '../../services/validarService';
 
 import styles from './view.module.css';
 import user from '../../assets/user.png';
+
+const StatusDivida = {
+    NAO_PAGO: 1,
+    PAGO: 2
+};
 
 
 export default function ViewCliente({ obj }) {
@@ -11,10 +16,9 @@ export default function ViewCliente({ obj }) {
 
     useEffect(() => {
         if (!obj?.id) return;
-
         (async () => {
             try {
-                const result = await listarPorCliente(obj.id, 10, 0);
+                const result = await listarPorCliente(obj.id);
                 setDivida(result.data);
             } catch (err) {
                 console.error("Erro ao buscar dados:", err);
@@ -24,7 +28,6 @@ export default function ViewCliente({ obj }) {
 
     return (
         <div className={styles.view}>
-
             <div className={styles.gpimagem}>
                 <div className={styles.imagem}>
                     <img src={obj?.urlFoto ?? user} alt="imagem" loading="lazy" />
@@ -65,10 +68,29 @@ export default function ViewCliente({ obj }) {
                         </div>
                     </div>
                 </div>
-
-
-
-
+                <div className={styles.dividadados}>
+                    <h4>Listagem De Dividas</h4>
+                </div>
+                <section className={styles.datatable}>
+                    <table className={styles.tabela} id="tabela">
+                        <thead>
+                            <tr>
+                                <th>Valor</th>
+                                <th>Situação</th>
+                                <th>Pagamento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {divida.map((c, index) => (
+                                <tr key={index} className={styles.frame}>
+                                    <td>{formatarValor(c.valor)}</td>
+                                    <td><div className={c.status === 1 ? styles.pago : styles.devendo}>{c.situacao === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}</div></td>
+                                    <td>{formatarData(c.pagamento)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </section>
             </div>
         </div>
     );

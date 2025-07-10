@@ -37,9 +37,9 @@ namespace Venda.API.Controllers
         }
 
         [HttpGet("cliente")]
-        public IActionResult RetornaDividaCliente(int idcliente, int limit, int offset)
+        public IActionResult RetornaDividaCliente(int idcliente)
         {
-            return Ok(service.RetornaDividaPorCliente(idcliente, limit, offset));
+            return Ok(service.RetornaDividaPorCliente(idcliente, "fiz isso so pra usar função com o msm nome no service kkk"));
         }
 
         [HttpPost]

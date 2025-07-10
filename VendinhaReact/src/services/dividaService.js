@@ -100,9 +100,8 @@ export async function gerarPersonalizado(limit,offset) {
 
 }
 
-export async function listarPorCliente(idcliente, limit, offset) {
-    console.log(`${URL_API}/api/divida/cliente?idcliente=${idcliente}&limit=${limit}&${offset}`);
-       const response = await fetch(`${URL_API}/api/divida/cliente?idcliente=${idcliente}&limit=${limit}&${offset}`, {
+export async function listarPorCliente(idcliente) {
+    const response = await fetch(`${URL_API}/api/divida/cliente?idcliente=${idcliente}`, {
         method: "GET"
     });
 

@@ -122,7 +122,7 @@ export default function Dividas() {
                 clienteId: x.cliente.id,
                 valor: x.valor,
                 dataCadastro: x.dataCadastro,
-                dataPagamento: new Date(),
+                dataPagamento: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }), // o deploy e o banco estão em Nova York ✈️
                 descricao: x.descricao,
                 situacao: x.situacao
             };
