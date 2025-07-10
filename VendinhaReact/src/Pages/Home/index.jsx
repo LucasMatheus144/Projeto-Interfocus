@@ -38,7 +38,6 @@ export default function HomePage() {
         if (result.status === 200) {
             setTotal(result.__count);
             setClientes(result.data);
-            console.log("deu 200 - pageAtual ", pageAtual);
         }
     }
 

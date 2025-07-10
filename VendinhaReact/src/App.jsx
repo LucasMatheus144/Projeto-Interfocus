@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NotFound from './Pages/Error/index';
-import HomePage from './pages/Home/index';
-import Dividas from './pages/Dividas/index';
+import HomePage from './Pages/Home/index';
+import Dividas from './Pages/Dividas/index';
 import Layout from './Components/Layout/compartilhado';
 import Relatorio from './Pages/Relatorio/relatorio';
 

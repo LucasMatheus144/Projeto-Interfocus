@@ -23,15 +23,33 @@ const StatusDivida = {
 };
 
 export default function Dividas() {
+    //abrir modal
     const [modalOpen, setModalOpen] = useState(false);
-    const [divida, serDivida] = useState([]);
-    const [pesquisa, setPesquisa] = useState("");
-    const [dividaSelecionada, setDividaSelecionada] = useState(null);
     const [viewMode, setViewMode] = useState(false);
     const [excluirAberto, setExcluirAberto] = useState(false);
+    //preenche api
+    const [divida, serDivida] = useState([]);
+    //search
+    const [pesquisa, setPesquisa] = useState("");
+    // selecionar divida para pagamento rapido e selecionar a exclusão
+    const [dividaSelecionada, setDividaSelecionada] = useState(null);
     const [dividaParaExcluir, setDividaParaExcluir] = useState(null);
+    //alertas
     const [pop, setPop] = useState([]);
     const [loading, setLoading] = useState(false);
+    /*Paginação*/
+    const [page, setPage] = useState(0);
+    const [totalDivida, setTotal] = useState(0);
+    const limit = 10;
+    //CheckBox
+    const [selecionado, setSelecionado] = useState(null);
+    const [pagar, setPagar] = useState(false);
+    // logica para exibir o botão de Pagamento rapido
+    const dividaSelecionadaInfo = divida.find(c => c.idDivida === selecionado);
+    const podePagar = dividaSelecionadaInfo && dividaSelecionadaInfo.status === 1;
+    // observadores
+    const refBotao = useRef(null);
+    const refTabela = useRef(null);
 
     useEffect(() => {
         if (pop.length > 0) {
@@ -42,20 +60,56 @@ export default function Dividas() {
         }
     }, [pop]);
 
-    /*Paginação*/
-    const [page, setPage] = useState(0);
-    const [totalDivida, setTotal] = useState(0);
-    const limit = 10;
+    useEffect(() => {
+        if (!podePagar) return;
 
-    //CheckBox
-    const [selecionado, setSelecionado] = useState(null);
-    const [pagar, setPagar] = useState(false);
+        executaPagarDivida();
+        setPagar(false);  // isso é nescessario para poder clicar no btn mais vezes após o primeira divida paga
+    }, [pagar]);
 
-    const dividaSelecionadaInfo = divida.find(c => c.idDivida === selecionado);
-    const podePagar = dividaSelecionadaInfo && dividaSelecionadaInfo.status === 1;
+    useEffect(() => {
+        var timeout = setTimeout(() => {
+            chamaListagem(page);
+        }, 700);
 
-    const refBotao = useRef(null);
-    const refTabela = useRef(null);
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, [pesquisa])
+
+    // isso é pra remover o checkbox quando clicar para fora do table
+    useEffect(() => {
+        function handleClickOutside(event) {
+            const foraTabela = refTabela.current && !refTabela.current.contains(event.target); // olha a TABLE
+            const foraBotao = refBotao.current && !refBotao.current.contains(event.target); // olha o botão de pagamento
+            if (foraTabela && foraBotao) {
+                setSelecionado(null);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    const chamaListagem = async (paginaAtual) => {
+        const result = await listarDividas(pesquisa, limit, paginaAtual);
+        if (result.status == 200) {
+            setTotal(result.__count);
+            serDivida(result.data);
+        }
+    }
+
+    const disparaPesquisa = (valor) => {
+        setPage(0);
+        setPesquisa(valor);
+    }
+
+    const abrirFormulario = (divida = null) => {
+        setDividaSelecionada(divida);
+        setModalOpen(true);
+    };
 
     const executaPagarDivida = async () => {
         setLoading(true);
@@ -91,61 +145,11 @@ export default function Dividas() {
         }
     };
 
-    useEffect(() => {
-        console.log("chegou aqui")
-        if (!podePagar) return;
-
-        executaPagarDivida();
-    }, [pagar]);
-
-
-    const abrirFormulario = (divida = null) => {
-        setDividaSelecionada(divida);
-        setModalOpen(true);
-    };
-
-    const chamaListagem = async (paginaAtual) => {
-        const result = await listarDividas(pesquisa, limit, paginaAtual);
-        if (result.status == 200) {
-            setTotal(result.__count);
-            serDivida(result.data);
-        }
-    }
-
-    const disparaPesquisa = (valor) => {
-        setPage(0);
-        setPesquisa(valor);
-    }
-
     const confirmarExclusao = (c) => {
         setDividaParaExcluir(c);
         setExcluirAberto(true);
     };
 
-    useEffect(() => {
-        var timeout = setTimeout(() => {
-            chamaListagem(page);
-        }, 700);
-
-        return () => {
-            clearTimeout(timeout);
-        }
-    }, [pesquisa])
-
-    useEffect(() => {
-        function handleClickOutside(event) {
-            const foraTabela = refTabela.current && !refTabela.current.contains(event.target);
-            const foraBotao = refBotao.current && !refBotao.current.contains(event.target);
-            if (foraTabela && foraBotao) {
-                setSelecionado(null);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
     return (
         <>
             {pop.map((a, index) => (

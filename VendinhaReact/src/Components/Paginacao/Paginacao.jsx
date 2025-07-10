@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import styles from './paginacao.module.css';
 
 export default function Paginacao({ limit, total, attPage, numPage }) {
-    console.log(numPage);
     const [page, setPage] = useState(0);
 
     const pageTotal = Math.ceil(total / limit);
