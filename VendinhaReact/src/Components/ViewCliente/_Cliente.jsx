@@ -1,9 +1,26 @@
+import { useEffect, useState } from 'react';
+import { listarPorCliente } from '../../services/dividaService';
+import { dataAniversario } from '../../services/validarService';
+
 import styles from './view.module.css';
 import user from '../../assets/user.png';
 
-import { dataAniversario } from '../../services/validarService';
 
 export default function ViewCliente({ obj }) {
+    const [divida, setDivida] = useState([]);
+
+    useEffect(() => {
+        if (!obj?.id) return;
+
+        (async () => {
+            try {
+                const result = await listarPorCliente(obj.id, 10, 0);
+                setDivida(result.data);
+            } catch (err) {
+                console.error("Erro ao buscar dados:", err);
+            }
+        })();
+    }, [obj?.id]);
 
     return (
         <div className={styles.view}>
@@ -34,7 +51,7 @@ export default function ViewCliente({ obj }) {
                                 <span>{obj?.cpf}</span>
                             </div>
                         </div>
-                        <div >
+                        <div>
                             <div className={styles.resposta}>
                                 <label>EMAIL</label>
                                 <span>{obj?.email}</span>
@@ -49,8 +66,10 @@ export default function ViewCliente({ obj }) {
                     </div>
                 </div>
 
-            </div>
 
+
+
+            </div>
         </div>
     );
 }

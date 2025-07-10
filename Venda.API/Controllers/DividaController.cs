@@ -36,6 +36,12 @@ namespace Venda.API.Controllers
             return Ok(service.RetornarRelatorio(limit,offset));
         }
 
+        [HttpGet("cliente")]
+        public IActionResult RetornaDividaCliente(int idcliente, int limit, int offset)
+        {
+            return Ok(service.RetornaDividaPorCliente(idcliente, limit, offset));
+        }
+
         [HttpPost]
         public IActionResult Cadastra([FromBody] DividaCreateDto obj)
         {

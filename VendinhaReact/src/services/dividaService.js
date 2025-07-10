@@ -99,3 +99,23 @@ export async function gerarPersonalizado(limit,offset) {
     }
 
 }
+
+export async function listarPorCliente(idcliente, limit, offset) {
+    console.log(`${URL_API}/api/divida/cliente?idcliente=${idcliente}&limit=${limit}&${offset}`);
+       const response = await fetch(`${URL_API}/api/divida/cliente?idcliente=${idcliente}&limit=${limit}&${offset}`, {
+        method: "GET"
+    });
+
+    if (response.status == 200) {
+        var result = await response.json();
+        return {
+            status: response.status,
+            data: result
+        }
+    }
+    return {
+        status: response.status,
+        data: null
+    }
+    
+}

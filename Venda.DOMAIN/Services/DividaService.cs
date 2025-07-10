@@ -188,6 +188,21 @@ namespace Venda.DOMAIN.Services
             return db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).ToList();
         }
 
+        public List<DividaClienteViewDto> RetornaDividaPorCliente(int idcliente, int limit = 10, int offset = 0)
+        {
+            var consulta = db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente).Take(limit).Skip(offset)
+                .Select(x => new DividaClienteViewDto
+                {
+                    IdCliente = x.cliente.Id,        
+                    Valor = x.Valor,
+                    Situacao = x.Situacao,                  
+                    Pagamento = x.DataPagamento,
+                })
+                .ToList();
+
+            return consulta;
+        }
+
         public RelatorioDto RetornarRelatorio(int take = 10, int skip = 0)
         {
             /*

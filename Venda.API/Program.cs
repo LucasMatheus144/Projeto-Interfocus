@@ -43,15 +43,15 @@ builder.Services.AddSingleton(c =>
 });
 builder.Services.AddTransient<IRepository, RepositoryContext>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("allowedOrigins", policy =>
-    {
-        policy.WithOrigins("http://104.131.110.118", "https://bagimgs.s3.us-east-1.amazonaws.com", "https://arquivopdfsbucks.s3.us-east-1.amazonaws.com")
-              .WithMethods("GET", "POST", "PUT", "DELETE")
-              .AllowAnyHeader();
-    });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("allowedOrigins", policy =>
+//    {
+//        policy.WithOrigins("http://104.131.110.118")
+//              .WithMethods("GET", "POST", "PUT", "DELETE")
+//              .AllowAnyHeader();
+//    });
+//});
 
 var app = builder.Build();
 
@@ -62,13 +62,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseCors(
-//    b => b.AllowAnyHeader()
-//        .AllowAnyMethod()
-//        .AllowAnyOrigin()
-//    );
+app.UseCors(
+    b => b.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin()
+    );
 
-app.UseCors("allowedOrigins");
+//app.UseCors("allowedOrigins");
 
 app.UseHttpsRedirection();
 
