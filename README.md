@@ -153,7 +153,7 @@ Swashbuckle.AspNetCore" Version="6.6.2"
   - [x] Hooks de imagem em cache do navegador
   - [x] Nota Fiscal do pagamento em pdf
   - [x] Criação de Trigger | View
-  - [ ] Deploy
+  - [x] Deploy
 
 </details>
 
