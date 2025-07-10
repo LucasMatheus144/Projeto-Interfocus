@@ -5,11 +5,12 @@
     transform: translate(-50%, -50%);
     width: 464px;
     border-radius: 10px;
-    background-color: var(--black-700);
+    background-color: var(--white);
     box-shadow: 0 4px 4px var(--black-400);
     transition: opacity 0.5s ease, transform 0.5s ease;
     z-index: 9999;
 }
+
 .dialogo {
     opacity: 1;
 }
@@ -34,14 +35,14 @@
 .descricao {
     padding: 16px 24px;
     font-size: 16px;
-    color: var(--gray-300);
+    color: var(--gray-secundario);
     width: 416px;
     gap: 16px;
     opacity: 1;
 }
 
-.descricao strong{
-   color: var(--white);
+.descricao strong {
+    color: var(--black-900);
 }
 
 .finale {
@@ -54,8 +55,7 @@
     opacity: 1;
 }
 
-.finale button{
-   
+.finale button {
     padding: 5px 14px;
     border: none;
     border-radius: 8px;
@@ -64,22 +64,21 @@
     transition: 0.2s ease;
 }
 
-.finale .sim{
-    background-color: var(--yellow-400);
-    color: var(--black-400);
+.finale .sim {
+    background-color: var(--azul-meio-forte);
+    color: var(--white);
 }
 
-.finale .nao{
-    background-color: var(--black-400);
-    color: var(--yellow-400);
+.finale .nao {
+    background-color: var(--gray-300);
+    color: var(--black-900);
 }
 
 
-.finale .sim:hover{
-    background-color: var(--black-400);
-    color: var(--yellow-400);
+.finale .sim:hover {
+    background-color: var(--blue-mt-forte);
 }
 
-.finale .nao:hover{
-    background-color: var(--black-100);
+.finale .nao:hover {
+    background-color: var(--gray-secundario);
 }

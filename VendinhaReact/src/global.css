@@ -116,5 +116,5 @@ li{
 }
 
 #obrigatorio{
-  color: red;
+  color: var( --red-v4);
 }

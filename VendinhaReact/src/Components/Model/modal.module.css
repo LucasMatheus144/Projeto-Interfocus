@@ -10,7 +10,7 @@
     border: var(--shadow-black);
     opacity: 1;
     z-index: 1;
-    transition: opacity 0.1 ease-out;
+    transition: opacity 0.4ms ease-out;
 }
 
 .ocultar{
