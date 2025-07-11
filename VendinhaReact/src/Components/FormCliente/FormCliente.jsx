@@ -41,7 +41,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
         setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
         gatilhoClosePop();
         onAttHomePage(0);
-        onAlertaSucesso?.("Cliente salvo com sucesso!");
+        
     };
 
     const enviarForm = async (event) => {
@@ -64,6 +64,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
                 // await enviarImagem(idCliente, arquivo);
                 // await salvarImagemNoCache(idCliente, arquivo);
             }
+            onAlertaSucesso?.(true);
             fluxoTela();
 
         } else {

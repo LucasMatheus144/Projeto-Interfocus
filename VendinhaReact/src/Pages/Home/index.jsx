@@ -7,6 +7,8 @@ import Cards from '../../Components/Cards/Cards';
 import FormCliente from "../../Components/FormCliente/FormCliente";
 import Paginacao from "../../Components/Paginacao/Paginacao";
 import styles from './home.module.css';
+import Alerta from '../../Components/Alertas/Alerta';
+
 
 export default function HomePage() {
     /*FormCliente*/
@@ -22,12 +24,12 @@ export default function HomePage() {
     const [page, setPage] = useState(0);
     const limit = 10;
 
-    const [alerta, setAlerta] = useState(null);
+    const [alerta, setAlerta] = useState({
+        isAbrir: false,
+        status: true, // true: sucesso | false: erro
+        txtError: ""
+    });
 
-    const exibirAlerta = (mensagem) => {
-        setAlerta({ exibir: true, status: true, mensagem });
-        setTimeout(() => setAlerta(null), 8000);
-    };
     // Efeitos para atualização de componentes
     useEffect(() => {
         var timeout = setTimeout(() => {
@@ -48,9 +50,6 @@ export default function HomePage() {
         }
     }
 
-    const handlePageChange = (paginaAtual) => {
-        setCurrentPage(paginaAtual);
-    };
     const disparaPesquisa = (valor) => {
         setPage(0);
         setPesquisa(valor);
@@ -64,11 +63,26 @@ export default function HomePage() {
         setClienteComDividaAberta(prev => prev === clienteId ? null : clienteId);
     };
 
+    const abrirSucesso = () => {
+        setAlerta({
+            isAbrir: true,
+            status: true,
+            txtError: "", 
+        });
+
+        setTimeout(() => {
+            setAlerta(prev => ({ ...prev, isAbrir: false }));
+        }, 8000);
+    };
+
     return (
         <>
-            {alerta?.exibir && (
-                <Alerta tipo="sucesso" mensagem={alerta.mensagem} onClose={() => setAlerta(null)} />
-            )}
+            <Alerta
+                isAbrir={alerta.isAbrir}
+                status={alerta.status}
+                txtError={alerta.txtError}
+                isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))}
+            />
             <header className={styles.container}>
                 <div className={styles.pesquisa}>
                     <Search observavdorPesquisa={disparaPesquisa}></Search>
@@ -77,7 +91,7 @@ export default function HomePage() {
                     </div>
                 </div>
             </header>
-            <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} numPage={handlePageChange} onAlertaSucesso={exibirAlerta}></FormCliente>
+            <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} obj={null} onAlertaSucesso={abrirSucesso}></FormCliente>
             <section className={styles.grid}>
                 {clientes.map(c =>
                     <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} aberto={clienteComDividaAberta === c.id} onAbrir={() => alternarFormularioDivida(c.id)} />

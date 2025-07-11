@@ -12,8 +12,23 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
     const [excluir, setExcluir] = useState(false);
     const [clienteData, setClienteData] = useState();
 
+    const [alerta, setAlerta] = useState({
+        isAbrir: false,
+        status: true, // true: sucesso | false: erro
+        txtError: ""
+    });
 
+    const abrirSucesso = () => {
+        setAlerta({
+            isAbrir: true,
+            status: true,
+            txtError: "",
+        });
 
+        setTimeout(() => {
+            setAlerta(prev => ({ ...prev, isAbrir: false }));
+        }, 8000);
+    };
     const ref = useRef(null);
 
 
@@ -48,27 +63,35 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
     if (!isOpen) return null;
 
     return (
-        <div ref={ref} className={styles.addmais}>
-            <ul>
-                <li>
-                    <button onClick={() => { setModoVisualizacao(true); setFormAberto(true); }}>Visualizar</button>
-                </li>
-                <li>
-                    <button onClick={() => { setModoVisualizacao(false); setFormAberto(true); }}>Editar</button>
-                </li>
-                <li>
-                    <button onClick={() => setExcluir(true)}>Excluir</button>
-                </li>
-            </ul>
-            {formAberto && modoVisualizacao && (
-                <ViewCliente obj={clienteData} />
-            )}
 
-            {formAberto && !modoVisualizacao && (
-                <FormCliente isOpen={formAberto} onClose={() => setFormAberto(false)} onAttHomePage={attform} obj={clienteData} />
-            )}
-            <TemCerteza isAbrir={excluir} onClose={() => setExcluir(false)} id={cliente.id} attForm={attform} obj={false} />
-        </div>
+        <>
+            <Alerta
+                isAbrir={alerta.isAbrir}
+                status={alerta.status}
+                txtError={alerta.txtError}
+                isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))}
+            />
+            <div ref={ref} className={styles.addmais}>
+                <ul>
+                    <li>
+                        <button onClick={() => { setModoVisualizacao(true); setFormAberto(true); }}>Visualizar</button>
+                    </li>
+                    <li>
+                        <button onClick={() => { setModoVisualizacao(false); setFormAberto(true); }}>Editar</button>
+                    </li>
+                    <li>
+                        <button onClick={() => setExcluir(true)}>Excluir</button>
+                    </li>
+                </ul>
+                {formAberto && modoVisualizacao && (
+                    <ViewCliente obj={clienteData} />
+                )}
 
+                {formAberto && !modoVisualizacao && (
+                    <FormCliente isOpen={formAberto} onClose={() => setFormAberto(false)} onAttHomePage={attform} obj={clienteData} onAlertaSucesso={abrirSucesso} />
+                )}
+                <TemCerteza isAbrir={excluir} onClose={() => setExcluir(false)} id={cliente.id} attForm={attform} obj={false} />
+            </div>
+        </>
     );
 }

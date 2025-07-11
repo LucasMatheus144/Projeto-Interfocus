@@ -81,7 +81,7 @@ namespace Venda.DOMAIN.Services
 
             if (idade < 18 || idade > 90)
             {
-                msgErro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a aquedada."));
+                msgErro.Add(new ExceptionMsg("Cliente", "Data Nascimento", "O cliente não possui a idade aquedada."));
                 return false;
             }
             else if (cliente.Nome.ToLower().Contains("mateus dias"))
@@ -99,7 +99,7 @@ namespace Venda.DOMAIN.Services
 
             if(divida.Valor < 0)
             {
-                msgErro.Add(new ExceptionMsg("Divida", "Valor", "Valor negativo"));
+                msgErro.Add(new ExceptionMsg("Divida", "Valor", "Valor da divida é menor que 0"));
                 return false;
             }
             return true;
