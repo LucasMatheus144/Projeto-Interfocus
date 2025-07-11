@@ -4,11 +4,13 @@ import { useImagemCliente } from "../../Hooks/cacheImages";
 
 import styles from './form.module.css';
 import Model from '../Model/Modal';
-import user from '../../assets/user.png';
+
+const urlUser = 'https://bagimgs.s3.us-east-1.amazonaws.com/user.png';
+
 
 export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAlerta = () => { } }) {
 
-    const { fotoUrl, salvarImagemNoCache } = useImagemCliente(obj?.id, obj?.urlFoto, user);
+    const { fotoUrl, salvarImagemNoCache } = useImagemCliente(obj?.id, obj?.urlFoto, urlUser);
     const [imagemPreview, setImagemPreview] = useState(null); // exibir a imagem antes de salvar
 
 

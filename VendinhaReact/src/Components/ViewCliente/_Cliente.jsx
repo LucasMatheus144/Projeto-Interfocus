@@ -3,12 +3,14 @@ import { listarPorCliente } from '../../services/dividaService';
 import { dataAniversario, formatarData, formatarValor } from '../../services/validarService';
 
 import styles from './view.module.css';
-import user from '../../assets/user.png';
 
 const StatusDivida = {
     NAO_PAGO: 1,
     PAGO: 2
 };
+
+const urlUser = 'https://bagimgs.s3.us-east-1.amazonaws.com/user.png';
+
 
 
 export default function ViewCliente({ obj }) {
@@ -30,7 +32,7 @@ export default function ViewCliente({ obj }) {
         <div className={styles.view}>
             <div className={styles.gpimagem}>
                 <div className={styles.imagem}>
-                    <img src={obj?.urlFoto ?? user} alt="imagem" loading="lazy" />
+                    <img src={obj?.urlFoto ?? urlUser} alt="imagem" loading="lazy" />
                     <div className={styles.infoprincipal}>
                         <div className={styles.nome}>
                             <h3>{obj?.nome}</h3>
@@ -84,7 +86,7 @@ export default function ViewCliente({ obj }) {
                             {divida.map((c, index) => (
                                 <tr key={index} className={styles.frame}>
                                     <td>{formatarValor(c.valor)}</td>
-                                    <td><div className={c.status === 1 ? styles.pago : styles.devendo}>{c.situacao === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}</div></td>
+                                    <td><div className={c.situacao === StatusDivida.NAO_PAGO ? styles.devendo : styles.pago}>{c.situacao === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}</div></td>
                                     <td>{formatarData(c.pagamento)}</td>
                                 </tr>
                             ))}

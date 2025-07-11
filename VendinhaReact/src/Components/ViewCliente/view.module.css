@@ -159,7 +159,6 @@
 .devendo{
     background-color: var(--red-v6);
     padding: 5px;
-    max-width: 80px;
     border-radius: 10px;
     color: var(--red-v4);
 }

@@ -3,9 +3,11 @@ using System.Text.Json.Serialization;
 using Venda.DOMAIN.Repository;
 using Venda.DOMAIN.Repository.Implemetantions;
 using Venda.DOMAIN.Services;
-
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services to the container.
 

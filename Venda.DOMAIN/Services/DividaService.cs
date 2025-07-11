@@ -1,5 +1,7 @@
-﻿using IronPdf;
-
+﻿using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using System.Globalization;
 using Venda.DOMAIN.DTO.Divida;
 using Venda.DOMAIN.DTO.Relatorio;
 using Venda.DOMAIN.Entities;
@@ -320,41 +322,98 @@ namespace Venda.DOMAIN.Services
                 Nome = c.Nome,
                 Descricao = d.Descricao,
                 Valor = d.Valor,
-                Pagamento = d.DataPagamento ?? DateTime.Now
+                Pagamento = d.DataPagamento ?? DateTime.Now,
+                Emissao = DateTime.Now
             };
 
-            // Carrega template HTML embedado
-            var assembly = typeof(NotaFiscal).Assembly;
-            var resourceName = assembly.GetManifestResourceNames()
-                                       .FirstOrDefault(r => r.EndsWith("notaFiscal.html"));
-
-            if (string.IsNullOrEmpty(resourceName))
-                throw new Exception("Template HTML não encontrado.");
-
-            using var streamHtml = assembly.GetManifestResourceStream(resourceName);
-            if (streamHtml == null)
-                throw new Exception("Erro ao carregar o template HTML.");
-
-            using var reader = new StreamReader(streamHtml);
-            string html = await reader.ReadToEndAsync();
-
-            // Substituição de tag replace
-            html = html.Replace("{{NOME}}", nf.Nome)
-                       .Replace("{{VALOR}}", nf.Valor.ToString("C"))
-                       .Replace("{{DATA}}", nf.Pagamento.ToString("dd/MM/yyyy"))
-                       .Replace("{{RAZAOSOCIAL}}", nf.RazaoSocial ?? "")
-                       .Replace("{{DATAATUAL}}", nf.Emissao.ToString("dd/MM/yyyy"))
-                       .Replace("{{DESCRICAO}}", nf.Descricao ?? "");
-
-            // Geração de PDF
+            // Geração do PDF com QuestPDF
             var nomeArquivo = Guid.NewGuid().ToString("N") + ".pdf";
             string urlS3 = url_aws.TrimEnd('/') + "/" + nomeArquivo;
 
-            var renderer = new ChromePdfRenderer();
-            var pdfDocument = renderer.RenderHtmlAsPdf(html);
+            // Gera o PDF em memória (byte[])
+            var pdfBytes = Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(30);
+                    page.PageColor("#f9f9f9");
+                    page.DefaultTextStyle(x => x.FontFamily("Arial").FontSize(12));
 
-            var pdfBytes = pdfDocument.BinaryData;
+                    page.Content().Padding(20).Column(column =>
+                    {
+                        column.Spacing(15);
 
+                        column.Item().Container().Background(Colors.White).Padding(30).Border(1).BorderColor("#ccc").Column(inner =>
+                        {
+                            // Título
+                            inner.Item().AlignCenter().Text("Nota Fiscal")
+                                .FontSize(28)
+                                .Bold()
+                                .FontColor("#000");
+
+                            inner.Item().LineHorizontal(1).LineColor("#ccc");
+
+                            // Informações principais
+                            inner.Item().Column(info =>
+                            {
+                                info.Spacing(5);
+                                info.Item().Text(text =>
+                                {
+                                    text.Span("Razão Social: ").SemiBold();
+                                    text.Span(nf.RazaoSocial ?? "-");
+                                });
+
+                                info.Item().Text(text =>
+                                {
+                                    text.Span("Nome: ").SemiBold();
+                                    text.Span(nf.Nome);
+                                });
+
+                                info.Item().Text(text =>
+                                {
+                                    text.Span("Valor: ").SemiBold();
+                                    text.Span(nf.Valor.ToString("C", CultureInfo.GetCultureInfo("pt-BR")));
+                                });
+
+                                info.Item().Text(text =>
+                                {
+                                    text.Span("Data de Pagamento: ").SemiBold();
+                                    text.Span(nf.Pagamento.ToString("dd/MM/yyyy"));
+                                });
+                            });
+
+                            // Descrição
+                            inner.Item().PaddingTop(20).Text("Descrição:")
+                                .FontSize(16)
+                                .Bold();
+
+                            inner.Item().Text(nf.Descricao ?? "-")
+                                .FontSize(14)
+                                .LineHeight(1.5f)
+                                .WrapAnywhere();
+                        });
+
+                        // Rodapé
+                        column.Item().AlignCenter().Text($"Documento gerado automaticamente - {nf.Emissao:dd/MM/yyyy}")
+                            .FontSize(10)
+                            .FontColor("#777");
+                    });
+
+                    // Numeração da página
+                    page.Footer().AlignCenter().Text(x =>
+                    {
+                        x.Span("Página ");
+                        x.CurrentPageNumber();
+                        x.Span(" de ");
+                        x.TotalPages();
+                    });
+                });
+            }).GeneratePdf(); // <- este parêntese e chave estavam faltando!
+
+
+
+            // Upload para S3
             using var httpClient = new HttpClient();
             using var content = new ByteArrayContent(pdfBytes);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
@@ -368,7 +427,6 @@ namespace Venda.DOMAIN.Services
             }
 
             return urlS3;
-
         }
 
         public string RetornaUrlPdf(Dividas d)
