@@ -18,6 +18,12 @@ namespace Venda.DOMAIN.Services
         {
             msgErro = new List<ExceptionMsg>();
 
+            if ( obj == null )
+            {
+                msgErro.Add(new ExceptionMsg("Classe", "Objeto", "Algum campo do form veio quebrado"));
+                return false;
+            }
+
             var valida = new List<ValidationResult>();
 
             // Se os atributos das classes forem satisfeitos, é valido
@@ -51,6 +57,8 @@ namespace Venda.DOMAIN.Services
             return isValid;
         }
 
+        // Isso valida o Objeto DTO , e não a Classe em si.
+        // Foi nescessario porque eu realizo cadastro com obj DTO, e salvo a Classe.
         public bool ValidaIsNullObjetos<DtoObjs>(DtoObjs obj, out List<ExceptionMsg> erro)
         {
             erro = new List<ExceptionMsg>();

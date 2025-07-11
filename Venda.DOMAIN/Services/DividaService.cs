@@ -226,7 +226,7 @@ namespace Venda.DOMAIN.Services
 
             var queryComClientes = (from cl in db.Consulta<Cliente>()
                                     join d in db.Consulta<Dividas>() on cl.Id equals d.cliente.Id
-                                    group new { cl, d } by new { cl.Nome, cl.Cpf, cl.Email, d.DataPagamento } into g
+                                    group new { cl, d } by new { cl.Nome, cl.Cpf, cl.Email } into g
                                     select new DtoRelatorio
                                     {
                                         Nome = g.Key.Nome,
@@ -389,9 +389,8 @@ namespace Venda.DOMAIN.Services
                                 .Bold();
 
                             inner.Item().Text(nf.Descricao ?? "-")
-                                .FontSize(14)
-                                .LineHeight(1.5f)
-                                .WrapAnywhere();
+                                 .FontSize(14)
+                                 .LineHeight(1.5f);
                         });
 
                         // Rodapé
@@ -409,7 +408,7 @@ namespace Venda.DOMAIN.Services
                         x.TotalPages();
                     });
                 });
-            }).GeneratePdf(); // <- este parêntese e chave estavam faltando!
+            }).GeneratePdf();
 
 
 

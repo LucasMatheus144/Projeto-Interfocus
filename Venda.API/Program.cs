@@ -7,17 +7,17 @@ using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// isso é para conseguir utilizar a biblioteca gratuita.
 QuestPDF.Settings.License = LicenseType.Community;
 
-// Add services to the container.
-
+// para conseguir puxar um json dentro de uma propriedade lista na classe
 builder.Services.AddControllers()
     .AddJsonOptions(o =>
     {
-        o.JsonSerializerOptions.ReferenceHandler =
-            ReferenceHandler.IgnoreCycles;
+        o.JsonSerializerOptions.ReferenceHandler =  ReferenceHandler.IgnoreCycles;
     });
 
+// AddTransient de todos os serviços que existir nos arquivos que terminam com Service
 var tipo = typeof(ClienteService).Assembly;
 
 var serviceTipo = tipo.GetTypes().Where(x => x.IsClass && !x.IsAbstract && x.Name.EndsWith("Service"));
@@ -28,8 +28,6 @@ foreach (var nome in serviceTipo)
 
 }
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -45,32 +43,35 @@ builder.Services.AddSingleton(c =>
 });
 builder.Services.AddTransient<IRepository, RepositoryContext>();
 
+// definir corns
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("allowedOrigins", policy =>
+    options.AddPolicy("CorsDeploy", policy =>
     {
         policy.WithOrigins("http://104.131.110.118")
               .WithMethods("GET", "POST", "PUT", "DELETE")
               .AllowAnyHeader();
     });
-});
 
+    options.AddPolicy("CorsLocal", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("CorsLocal");
 }
-
-//app.UseCors(
-//    b => b.AllowAnyHeader()
-//        .AllowAnyMethod()
-//        .AllowAnyOrigin()
-//    );
-
-app.UseCors("allowedOrigins");
+else
+{
+    app.UseCors("CorsDeploy");
+}
 
 app.UseHttpsRedirection();
 

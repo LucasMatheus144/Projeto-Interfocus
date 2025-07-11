@@ -128,11 +128,10 @@ export default function Dividas() {
             };
 
             const resultado = await salvarDivida(divida);
-            console.log(resultado);
             if (resultado.status === 200) {
                 chamaListagem(0);
                 setSelecionado(null);
-                setPop([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
+                setPop([{ exibir: true, status: true, mensagem: "Nota Fiscal emitida com sucesso!" }]);
             } else {
                 const mensagens = resultado?.data ?? resultado;
                 const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0

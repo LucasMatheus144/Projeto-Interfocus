@@ -21,6 +21,13 @@ export default function HomePage() {
     /*Paginação*/
     const [page, setPage] = useState(0);
     const limit = 10;
+
+    const [alerta, setAlerta] = useState(null);
+
+    const exibirAlerta = (mensagem) => {
+        setAlerta({ exibir: true, status: true, mensagem });
+        setTimeout(() => setAlerta(null), 8000);
+    };
     // Efeitos para atualização de componentes
     useEffect(() => {
         var timeout = setTimeout(() => {
@@ -59,6 +66,9 @@ export default function HomePage() {
 
     return (
         <>
+            {alerta?.exibir && (
+                <Alerta tipo="sucesso" mensagem={alerta.mensagem} onClose={() => setAlerta(null)} />
+            )}
             <header className={styles.container}>
                 <div className={styles.pesquisa}>
                     <Search observavdorPesquisa={disparaPesquisa}></Search>
@@ -67,7 +77,7 @@ export default function HomePage() {
                     </div>
                 </div>
             </header>
-            <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} numPage={handlePageChange}></FormCliente>
+            <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} numPage={handlePageChange} onAlertaSucesso={exibirAlerta}></FormCliente>
             <section className={styles.grid}>
                 {clientes.map(c =>
                     <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} aberto={clienteComDividaAberta === c.id} onAbrir={() => alternarFormularioDivida(c.id)} />

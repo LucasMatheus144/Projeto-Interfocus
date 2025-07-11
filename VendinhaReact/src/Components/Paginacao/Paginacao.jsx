@@ -23,13 +23,13 @@ export default function Paginacao({ limit, total, attPage, numPage }) {
     useEffect(() => {
         var timeout = setTimeout(() => {
             attPage?.(page);
-
         }, 300);
 
         return () => {
             clearTimeout(timeout);
         }
     }, [page])
+
 
     return (
         <div className={styles.paginacao}>

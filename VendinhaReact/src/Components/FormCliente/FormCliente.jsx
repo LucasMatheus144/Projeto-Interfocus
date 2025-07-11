@@ -4,14 +4,15 @@ import { useImagemCliente } from "../../Hooks/cacheImages";
 
 import styles from './form.module.css';
 import Model from '../Model/Modal';
+import Alerta from '../Alertas/Alerta';
 
 const urlUser = 'https://bagimgs.s3.us-east-1.amazonaws.com/user.png';
 
 
-export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAlerta = () => { } }) {
-
+export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAlertaSucesso }) {
     const { fotoUrl, salvarImagemNoCache } = useImagemCliente(obj?.id, obj?.urlFoto, urlUser);
     const [imagemPreview, setImagemPreview] = useState(null); // exibir a imagem antes de salvar
+    const [alertas, setAlertas] = useState([]);
 
 
 
@@ -40,6 +41,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
         setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
         gatilhoClosePop();
         onAttHomePage(0);
+        onAlertaSucesso?.("Cliente salvo com sucesso!");
     };
 
     const enviarForm = async (event) => {
@@ -50,7 +52,6 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
         const arquivo = oData.get("foto"); // separar o arquivo para enviar o POST serado do cliente
         if (!arquivo || arquivo.size === 0) {
             cliente.urlFoto = obj?.urlFoto ?? null; // salvar a url caso for editar
-            console.warn("Nenhum arquivo foi enviado!");
         }
         const resultado = await salvarCliente(cliente);
         if (resultado.status === 200) {
@@ -63,7 +64,6 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
                 // await enviarImagem(idCliente, arquivo);
                 // await salvarImagemNoCache(idCliente, arquivo);
             }
-            sessionStorage.setItem("alertaHome", JSON.stringify([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]));
             fluxoTela();
 
         } else {
@@ -71,7 +71,7 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
             const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
                 ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
                 : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
-            onAlerta(listaDeErros);
+            setAlertas(listaDeErros);
         }
     };
 
@@ -98,8 +98,26 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
         onClose();
     };
 
+    useEffect(() => {
+            if (alertas.length > 0) {
+                const timeout = setTimeout(() => {
+                    setPop(prev => prev.slice(1));
+                }, 8000);
+                return () => clearTimeout(timeout);
+            }
+        }, [alertas]);
+
     return (
         <Model isOpen={isOpen} onClose={gatilhoClosePop} >
+            {alertas.map((a, index) => (
+                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
+                    isFechar={() => {
+                        const novaLista = [...pop];
+                        novaLista.splice(index, 1);
+                        setAlertas(novaLista);
+                    }}
+                />
+            ))}
             <form method='POST' encType="multipart/form-data" onSubmit={enviarForm} className={styles.cadastraCliente} >
                 <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
                 <div className={styles.row}>
