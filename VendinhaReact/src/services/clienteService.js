@@ -1,6 +1,6 @@
-const URL_API = "http://104.131.110.118"
+//const URL_API = "http://104.131.110.118"
 
-//const URL_API = "http://localhost:5200"
+const URL_API = "http://localhost:5200"
 
 
 export async function salvarCliente(cliente) {
