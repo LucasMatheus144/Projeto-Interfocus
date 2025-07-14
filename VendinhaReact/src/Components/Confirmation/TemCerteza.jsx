@@ -2,6 +2,13 @@ import { excluirCliente } from '../../services/clienteService';
 import { deletarDivida } from '../../services/dividaService';
 import styles from './temcerteza.module.css';
 
+/**
+* @param {boolean} props.isAbrir - Define se o modal está visível.
+ * @param {Function} props.onClose - Função chamada ao fechar o modal.
+ * @param {number|string} props.id - ID do item para deletar.
+ * @param {Function} props.attForm - Atualizar pagina após a ação.
+ * @param {Bolean} props.obj - Aqui é pra decidir se vai excluir o cliente ou a divida
+ */
 export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
     if (!isAbrir) return null;
     var valida = obj === false;

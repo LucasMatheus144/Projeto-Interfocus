@@ -3,6 +3,9 @@ import { preencheSelectList } from "../../services/clienteService";
 import { FaSearch } from "react-icons/fa";
 import styles from './inputselect.module.css';
 
+/**
+ * @param {Number} props.setClienteIdSelecionado - Identificação do cliente selecionado para o NOVO CADASTRO
+ */
 export default function InputSelect({ setClienteIdSelecionado }) {
     const [ativarDrop, SetativarDrop] = useState(false);
     const [listaCompleta, setListaCompleta] = useState([]);

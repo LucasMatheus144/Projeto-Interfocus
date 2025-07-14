@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { listarClientes } from '../../services/clienteService';
 import { FaPlus } from "react-icons/fa";
+import { PageProvider } from "../../Contexts/PageContext";
 
 import Search from '../../Components/InputSearch/Search';
 import Cards from '../../Components/Cards/Cards';
@@ -23,7 +24,6 @@ export default function HomePage() {
     /*Paginação*/
     const [page, setPage] = useState(0);
     const limit = 10;
-
     const [alerta, setAlerta] = useState({
         isAbrir: false,
         status: true, // true: sucesso | false: erro
@@ -67,7 +67,7 @@ export default function HomePage() {
         setAlerta({
             isAbrir: true,
             status: true,
-            txtError: "", 
+            txtError: "",
         });
 
         setTimeout(() => {
@@ -77,32 +77,34 @@ export default function HomePage() {
 
     return (
         <>
-            <Alerta
-                isAbrir={alerta.isAbrir}
-                status={alerta.status}
-                txtError={alerta.txtError}
-                isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))}
-            />
-            <header className={styles.container}>
-                <div className={styles.pesquisa}>
-                    <Search observavdorPesquisa={disparaPesquisa}></Search>
-                    <div>
-                        <button className={styles.novocliente} onClick={() => setOpen(true)} ><FaPlus /> Novo Cliente</button>
-                    </div>
+            <PageProvider>
+                <div id="agrupamento">
+                    <Alerta isAbrir={alerta.isAbrir} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))} />
                 </div>
-            </header>
-            <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} obj={null} onAlertaSucesso={abrirSucesso}></FormCliente>
-            <section className={styles.grid}>
-                {clientes.map(c =>
-                    <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} aberto={clienteComDividaAberta === c.id} onAbrir={() => alternarFormularioDivida(c.id)} />
-                )}
-            </section>
-            <footer className={styles.lowerpage}>
-                <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => {
-                    setPage(paginaAtual);
-                    chamaListagem(paginaAtual);
-                }} />
-            </footer>
+                <header className={styles.container}>
+                    <div className={styles.pesquisa}>
+                        <Search observavdorPesquisa={disparaPesquisa}></Search>
+                        <div>
+                            <button className={styles.novocliente} onClick={() => setOpen(true)} ><FaPlus /> Novo Cliente</button>
+                        </div>
+                    </div>
+                </header>
+                <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} obj={null} onAlertaSucesso={abrirSucesso}></FormCliente>
+                <section className={styles.grid}>
+                    {clientes.map(c =>
+                        <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} aberto={clienteComDividaAberta === c.id} onAbrir={() => alternarFormularioDivida(c.id)} />
+                    )}
+                </section>
+                <footer className={styles.lowerpage}>
+
+                    <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => {
+                        setPage(paginaAtual);
+                        chamaListagem(paginaAtual);
+                    }} />
+
+                </footer>
+
+            </PageProvider>
         </>
     )
 }

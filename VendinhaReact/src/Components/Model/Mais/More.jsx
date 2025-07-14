@@ -6,7 +6,17 @@ import TemCerteza from "../../Confirmation/TemCerteza";
 import ViewCliente from "../../ViewCliente/_Cliente";
 import Alerta from "../../Alertas/Alerta";
 
+
+/**
+ * @param {boolean} props.isOpen - Define se o modal está aberto.
+ * @param {Function} props.onClose - Função chamada para fechar o modal.
+ * @param {Function} props.attform - Função chamada para atualizar listagem de clientes após alguma ação dos  componentes renderizados pelo MESMO.
+ * @param {Object} props.cliente - Objeto cliente para preencher todos os dados do cliente nescessario para os demais componentes.
+ */
 export default function Mais({ isOpen, onClose, attform, cliente }) {
+    // fiz isso pq não quero nem renderizar esse componente quando eu não selecionar]
+    if (!isOpen) return null;
+
     const [formAberto, setFormAberto] = useState(false);
     const [modoVisualizacao, setModoVisualizacao] = useState(true);
     const [excluir, setExcluir] = useState(false);
@@ -14,7 +24,7 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
 
     const [alerta, setAlerta] = useState({
         isAbrir: false,
-        status: true, // true: sucesso | false: erro
+        status: true,
         txtError: ""
     });
 
@@ -60,17 +70,12 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
         };
     }, [isOpen]);
 
-    if (!isOpen) return null;
-
     return (
 
         <>
-            <Alerta
-                isAbrir={alerta.isAbrir}
-                status={alerta.status}
-                txtError={alerta.txtError}
-                isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))}
-            />
+            <div id="agrupamento">
+                <Alerta isAbrir={alerta.isAbrir} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))} />
+            </div>
             <div ref={ref} className={styles.addmais}>
                 <ul>
                     <li>

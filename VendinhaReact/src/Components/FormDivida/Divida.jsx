@@ -7,13 +7,25 @@ import Loading from '../loading/loading';
 import { salvarDivida, listarPorId } from '../../services/dividaService';
 import { useEffect, useState } from 'react';
 import { formataImput } from '../../services/validarService';
+import { usePaginaAtual } from "../../Contexts/PageContext";
 
+
+/**
+ * @param {boolean} props.isOpen - Define se o modal do formulário está aberto.
+ * @param {Function} props.onClose - Função chamada para fechar o formulário.
+ * @param {Function} props.onAttHomePage - Função para atualizar a listagem na página principal.
+ * @param {Object|null} props.obj - Objeto qé passado, se for null é um novo cadastro ?? editar cadastro.
+ * @param {boolean} props.view - Se for true, bloqueia os inputs para somente poder visualizar
+ */
 export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     const [dados, setDados] = useState(null);
     const [popup, setPopup] = useState([]);
     const [clienteIdSelecionado, setClienteIdSelecionado] = useState(0);
     const idDivida = obj?.idDivida ?? null; // evitar disparar toda vevz que o componente é renderizado
     const [loading, setLoading] = useState(false);
+
+    const { paginaAtualRef } = usePaginaAtual();
+
 
     const processarFormulario = async (form) => {
         const oData = new FormData(form);
@@ -31,7 +43,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
 
         if (resultado.status === 200) {
             setPopup([{ exibir: true, status: true, mensagem: "Operação realizada com sucesso!" }]);
-            onAtualizar(0);
+            onAtualizar(paginaAtualRef.current);
             onClose();
 
         } else {
@@ -67,7 +79,7 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     useEffect(() => {
         if (popup.length > 0) {
             const timeout = setTimeout(() => {
-                setAlertas(prev => prev.slice(1))
+                setPopup(prev => prev.slice(popup.length))
             }, 8000);
             return () => clearTimeout(timeout);
         }
@@ -75,13 +87,15 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
 
     return (
         <>
-            {popup.map((a, index) => (
-                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem} isFechar={() => {
-                    const novaLista = [...popup];
-                    novaLista.splice(index, 1);
-                    setPopup(novaLista);
-                }} />
-            ))}
+            <div id="agrupamento">
+                {popup.map((a, index) => (
+                    <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem} isFechar={() => {
+                        const novaLista = [...popup];
+                        novaLista.splice(index, 1);
+                        setPopup(novaLista);
+                    }} />
+                ))}
+            </div>
             <Model isOpen={isOpen} onClose={onClose}>
                 <form action="POST" className={styles.formulario} onSubmit={handleSubmit}>
                     <input type="number" name="clienteid" value={dados?.cliente?.id ?? obj?.id ?? clienteIdSelecionado} readOnly className={styles.ocultar} />

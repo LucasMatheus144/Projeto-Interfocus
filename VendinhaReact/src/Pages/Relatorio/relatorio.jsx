@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { gerarPersonalizado } from '../../services/dividaService';
 import { formatarValor } from '../../services/validarService';
+import { PageProvider } from "../../Contexts/PageContext";
+
 
 import styles from './relatorio.module.css';
 import Paginacao from '../../Components/Paginacao/Paginacao';
@@ -31,7 +33,7 @@ export default function Relatorio() {
 
     const chamaListagem = async (pageatual) => {
         try {
-            const result = await gerarPersonalizado(limit,pageatual);
+            const result = await gerarPersonalizado(limit, pageatual);
             if (result.status === 200) {
                 setDados(result);
                 setTotal(result.__count);
@@ -52,34 +54,36 @@ export default function Relatorio() {
                 <Info titulo="A Receber" valor={formatarValor(dados.aReceber)} />
                 <Info titulo="Recebido" valor={formatarValor(dados.recebido)} />
             </div>
-            <section className={styles.datatable}>
-                <table className={styles.tabela} id="tabela">
-                    <thead>
-                        <tr>
-                            <th>Cliente</th>
-                            <th>Cpf</th>
-                            <th>Email</th>
-                            <th>Contas A Receber</th>
-                            <th>Contas Pagas</th>
-                            <th>Total por cliente</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dados.detalhes?.map((c, index) => (
-                            <tr key={index} className={styles.frame}>
-                                <td>{c.nome}</td>
-                                <td>{c.cpf}</td>
-                                <td>{c.email}</td>
-                                <td>R$: {formatarValor(c.vaiReceber)}</td>
-                                <td>R$: {formatarValor(c.jaPagou)}</td>
-                                <td>R$: {formatarValor(c.total)}</td>
+            <PageProvider>
+                <section className={styles.datatable}>
+                    <table className={styles.tabela} id="tabela">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Cpf</th>
+                                <th>Email</th>
+                                <th>Contas A Receber</th>
+                                <th>Contas Pagas</th>
+                                <th>Total por cliente</th>
+                                <th></th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
-            <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => chamaListagem(paginaAtual)}/>
+                        </thead>
+                        <tbody>
+                            {dados.detalhes?.map((c, index) => (
+                                <tr key={index} className={styles.frame}>
+                                    <td>{c.nome}</td>
+                                    <td>{c.cpf}</td>
+                                    <td>{c.email}</td>
+                                    <td>R$: {formatarValor(c.vaiReceber)}</td>
+                                    <td>R$: {formatarValor(c.jaPagou)}</td>
+                                    <td>R$: {formatarValor(c.total)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </section>
+                <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
+            </PageProvider>
         </div>
     );
 }

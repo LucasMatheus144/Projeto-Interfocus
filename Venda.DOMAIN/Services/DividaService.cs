@@ -50,11 +50,15 @@ namespace Venda.DOMAIN.Services
             {
                 cliente = procuraCliente,
                 Valor = obj.Valor,
-                DataPagamento = obj.DataPagamento,
                 Descricao = obj.Descricao,
                 Situacao = obj.Situacao,
                 Url_Pdf = null
             };
+
+            if (obj.DataPagamento.HasValue)
+            {
+                divida.DefinirDataPagamento(obj.DataPagamento.Value); // SEMPRE PREGAR O data de agora
+            }
 
             if (!validar.ValidarEntites(divida, out erro)) return false;
 
@@ -115,9 +119,12 @@ namespace Venda.DOMAIN.Services
 
             divida.cliente = cliente;
             divida.Valor = obj.Valor;
-            divida.DataPagamento = obj.DataPagamento;
             divida.Descricao = obj.Descricao;
             divida.Situacao = obj.Situacao;
+            if (obj.DataPagamento.HasValue)
+            {
+                divida.DefinirDataPagamento(obj.DataPagamento.Value);
+            }
 
 
             if (!validar.ValidarEntites(divida, out erro)) return false;

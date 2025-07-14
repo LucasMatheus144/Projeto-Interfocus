@@ -2,6 +2,9 @@ import { useState } from "react";
 import styles from './search.module.css'
 import { FaSearch } from "react-icons/fa";
 
+/**
+ * @param {Function} props.observavdorPesquisa - Função chamada identificar um novo filtro
+ */
 export default function Search( {observavdorPesquisa} ){
     const [search, setSearch] = useState("");
 

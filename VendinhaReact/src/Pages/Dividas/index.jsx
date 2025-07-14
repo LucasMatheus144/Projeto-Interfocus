@@ -7,7 +7,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { GrFormView } from "react-icons/gr";
 import { MdDeleteOutline } from "react-icons/md";
 import { BsDownload } from "react-icons/bs";
-
+import { PageProvider } from "../../Contexts/PageContext";
 
 import styles from './divida.module.css';
 import Search from '../../Components/InputSearch/Search';
@@ -54,7 +54,7 @@ export default function Dividas() {
     useEffect(() => {
         if (pop.length > 0) {
             const timeout = setTimeout(() => {
-                setPop(prev => prev.slice(1));
+                setPop(prev => prev.slice(pop.length));
             }, 8000);
             return () => clearTimeout(timeout);
         }
@@ -151,72 +151,76 @@ export default function Dividas() {
 
     return (
         <>
-            {pop.map((a, index) => (
-                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
-                    isFechar={() => {
-                        const novaLista = [...pop];
-                        novaLista.splice(index, 1);
-                        setPop(novaLista);
-                    }}
-                />
-            ))}
-
-            <div className={styles.topo}>
-                <h3>Listagem de Dividas</h3>
+            <div id="agrupamento">
+                {pop.map((a, index) => (
+                    <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
+                        isFechar={() => {
+                            const novaLista = [...pop];
+                            novaLista.splice(index, 1);
+                            setPop(novaLista);
+                        }}
+                    />
+                ))}
             </div>
-            <header className={styles.container}>
-                <div className={styles.pesquisa}>
-                    <Search observavdorPesquisa={disparaPesquisa}></Search>
-                    <div className={styles.grupobtn} ref={refBotao} >
-                        <button className={`${styles.pagardivida} ${!podePagar ? styles.botaoDesativado : ''}`} onClick={() => setPagar(true)} disabled={!podePagar} ><FaPlus /> Pagar Divida</button>
-                        <button className={styles.novadivida} onClick={() => abrirFormulario(null)} ><FaPlus /> Novo Divida</button>
-                    </div>
-                </div>
-            </header>
-            {modalOpen && (
-                <Divida isOpen={modalOpen} onClose={() => setModalOpen(false)} onAtualizar={chamaListagem} obj={dividaSelecionada} view={viewMode} />
-            )}
-            <section className={styles.datatable}>
-                <table className={styles.tabela} ref={refTabela} id="tabela">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Cliente</th>
-                            <th>Cadastro</th>
-                            <th>Pagamento</th>
-                            <th>Status</th>
-                            <th>Valor</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {divida.map((c, index) => (
-                            <tr key={index} className={styles.frame}>
-                                <td><input type="checkbox" checked={selecionado === c.idDivida} onChange={() => setSelecionado(c.idDivida)} /></td>
-                                <td>{c.nome}</td>
-                                <td>{formatarData(c.cadastro)}</td>
-                                <td>{formatarData(c.pagamento)}</td>
-                                <td><div className={c.status === 1 ? styles.devendo : styles.pago}>{c.status === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}</div></td>
-                                <td>R$: {formatarValor(c.valor)}</td>
-                                <td>
-                                    {c.status === StatusDivida.PAGO && c.url_pdf && (
-                                        <span onClick={() => window.open(c.url_pdf, '_blank')} style={{ cursor: 'pointer' }}>
-                                            <BsDownload />
-                                        </span>
-                                    )}
-                                    <span onClick={() => { setDividaSelecionada(c); setViewMode(true); setModalOpen(true); }}><GrFormView /></span>
-                                    <span onClick={() => { abrirFormulario(c); setViewMode(false) }}><AiOutlineEdit /></span>
-                                    <span onClick={() => confirmarExclusao(c.idDivida)}><MdDeleteOutline /></span>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
-            <Paginacao limit={limit} total={totalDivida} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
+            <PageProvider>
 
-            <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={(paginaAtual) => chamaListagem(paginaAtual)} obj={true} />
-            {loading && <Loading />}
+                <div className={styles.topo}>
+                    <h3>Listagem de Dividas</h3>
+                </div>
+                <header className={styles.container}>
+                    <div className={styles.pesquisa}>
+                        <Search observavdorPesquisa={disparaPesquisa}></Search>
+                        <div className={styles.grupobtn} ref={refBotao} >
+                            <button className={`${styles.pagardivida} ${!podePagar ? styles.botaoDesativado : ''}`} onClick={() => setPagar(true)} disabled={!podePagar} ><FaPlus /> Pagar Divida</button>
+                            <button className={styles.novadivida} onClick={() => abrirFormulario(null)} ><FaPlus /> Novo Divida</button>
+                        </div>
+                    </div>
+                </header>
+                {modalOpen && (
+                    <Divida isOpen={modalOpen} onClose={() => setModalOpen(false)} onAtualizar={chamaListagem} obj={dividaSelecionada} view={viewMode} />
+                )}
+                <section className={styles.datatable}>
+                    <table className={styles.tabela} ref={refTabela} id="tabela">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Cliente</th>
+                                <th>Cadastro</th>
+                                <th>Pagamento</th>
+                                <th>Status</th>
+                                <th>Valor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {divida.map((c, index) => (
+                                <tr key={index} className={styles.frame}>
+                                    <td><input type="checkbox" checked={selecionado === c.idDivida} onChange={() => setSelecionado(c.idDivida)} /></td>
+                                    <td>{c.nome}</td>
+                                    <td>{formatarData(c.cadastro)}</td>
+                                    <td>{formatarData(c.pagamento)}</td>
+                                    <td><div className={c.status === 1 ? styles.devendo : styles.pago}>{c.status === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}</div></td>
+                                    <td>R$: {formatarValor(c.valor)}</td>
+                                    <td>
+                                        {c.status === StatusDivida.PAGO && c.url_pdf && (
+                                            <span onClick={() => window.open(c.url_pdf, '_blank')} style={{ cursor: 'pointer' }}>
+                                                <BsDownload />
+                                            </span>
+                                        )}
+                                        <span onClick={() => { setDividaSelecionada(c); setViewMode(true); setModalOpen(true); }}><GrFormView /></span>
+                                        <span onClick={() => { abrirFormulario(c); setViewMode(false) }}><AiOutlineEdit /></span>
+                                        <span onClick={() => confirmarExclusao(c.idDivida)}><MdDeleteOutline /></span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </section>
+                <Paginacao limit={limit} total={totalDivida} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
+
+                <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={(paginaAtual) => chamaListagem(paginaAtual)} obj={true} />
+                {loading && <Loading />}
+            </PageProvider>
         </>
     )
 }

@@ -32,18 +32,26 @@ export function useImagemCliente(idCliente, urlBanco, imagemPadrao) {
 
     const salvarImagemNoCache = useCallback(async (idCliente, file) => {
         if (typeof caches === 'undefined') return;
+        const url = `/clientes/foto/${idCliente}`;
 
         try {
             const cache = await caches.open(NOME_CACHE);
+
+            const existente = await cache.match(url);
+            if (existente) {
+                await cache.delete(url);
+            }
+
             const response = new Response(file, {
                 headers: { 'Content-Type': file.type }
             });
 
-            await cache.put(`/clientes/foto/${idCliente}`, response);
+            await cache.put(url, response);
         } catch (err) {
             console.warn("Erro ao salvar no cache:", err);
         }
     }, []);
+
 
     const limparImagemDoCache = useCallback(async () => {
         if (typeof caches === 'undefined') return;

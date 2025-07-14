@@ -18,7 +18,7 @@ create sequence public.dividas_seq;
 create table dividas(
     id integer primary key default nextval('dividas_seq'),
     valor decimal(10,2) not null,
-    d_datacadastro timestamp default now(),
+    d_datacadastro timestamp,
     d_datapagamento timestamp,
     descricao varchar(50),
     situacao integer not null,

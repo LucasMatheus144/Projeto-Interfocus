@@ -3,6 +3,7 @@ using NHibernate.Mapping.ByCode.Impl;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Venda.DOMAIN.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Venda.DOMAIN.Services
 {
@@ -99,8 +100,28 @@ namespace Venda.DOMAIN.Services
 
             if(divida.Valor < 0)
             {
-                msgErro.Add(new ExceptionMsg("Divida", "Valor", "Valor da divida é menor que 0"));
+                msgErro.Add(new ExceptionMsg("Divida", "Valor", "Valor da divida é menor que R$:00,00"));
                 return false;
+            }
+            else if (divida.DataPagamento.HasValue)
+            {
+                var data = divida.DataPagamento.Value;
+
+                var hoje = DateTime.Today;
+                var inicioMesAtual = new DateTime(hoje.Year, hoje.Month, 1);
+                var limiteMinimo = hoje.AddYears(-100);
+                var limitMax = hoje.AddDays(60);
+
+                if (data < limiteMinimo || data > limitMax)
+                {
+                    msgErro.Add(new ExceptionMsg("DataPagamento", "Valor", "A data não pode ser salva no periodo gravado."));
+                    return false;
+                }
+                else if (data < inicioMesAtual)
+                {
+                    msgErro.Add(new ExceptionMsg("DataPagamento", "Valor", "A data deve ser igual ou posterior ao mês atual."));
+                    return false;
+                }
             }
             return true;
         }

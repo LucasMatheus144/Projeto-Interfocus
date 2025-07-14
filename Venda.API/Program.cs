@@ -62,6 +62,8 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
+// isso é pra nao precisar ficar ajsutando o CORS toda hora que subir o repositorio na maquina virtual -> ASPNETCORE_ENVIRONMENT "Production"
+// mudar no LanchSettings.json a variavel
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react';
+import { usePaginaAtual } from '../../Contexts/PageContext';
 import styles from './paginacao.module.css';
 
-export default function Paginacao({ limit, total, attPage, numPage }) {
+/**
+ * @param {Number} props.limit - Numeração do limit exibido na tela
+ * @param {boolean} props.total - Numeração do total de cliente que possui na listagem
+ * @param {Function} props.attPage - Atualizar a listagem de acordo com a NumPage
+ */
+export default function Paginacao({ limit, total, attPage }) {
     const [page, setPage] = useState(0);
+    const { paginaAtualRef } = usePaginaAtual();
 
     const pageTotal = Math.ceil(total / limit);
     const isFirstPage = page === 0;
@@ -21,6 +28,7 @@ export default function Paginacao({ limit, total, attPage, numPage }) {
     };
 
     useEffect(() => {
+        paginaAtualRef.current = page;
         var timeout = setTimeout(() => {
             attPage?.(page);
         }, 300);

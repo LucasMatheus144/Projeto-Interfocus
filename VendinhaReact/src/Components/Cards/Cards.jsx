@@ -9,6 +9,13 @@ import Divida from "../FormDivida/Divida";
 
 const urlUser = 'https://bagimgs.s3.us-east-1.amazonaws.com/user.png';
 
+/**
+ * @param {Object} props.cliente - Objeto contendo os dados do cliente.
+ * @param {Function} props.onAtualizar - Função que retorna para o componente principal se deve ser atualizado a Listagem ou não
+ * @param {boolean} props.aberto - Indica se ja foi aberto o componente de dividas dentro do card (Cadastrar uma nova divida dentro do card)
+ * @param {Function} props.onAbrir - Aqui faz abrir o o componente de Dividas no Card
+ */
+
 export default function Cards({ cliente, onAtualizar, aberto, onAbrir }) {
     const [maisAberto, setMaisAberto] = useState(false);
     const { fotoUrl } = useImagemCliente(cliente.id, cliente.stringFoto, urlUser);
@@ -46,8 +53,8 @@ export default function Cards({ cliente, onAtualizar, aberto, onAbrir }) {
                 <Divida isOpen={true} onClose={() => onAbrir()} onAtualizar={onAtualizar} obj={cliente} view={false} />
             )}
 
-            
-            
+
+
         </div>
     );
 }

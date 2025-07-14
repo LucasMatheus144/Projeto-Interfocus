@@ -10,7 +10,7 @@
 		</id>
 
 		<property name="Valor" column="valor" type="Decimal" not-null="true" />
-		<property name="DataCadastro" column="d_datacadastro" type="Timestamp" not-null="true" generated="insert" />
+		<property name="DataCadastro" column="d_datacadastro" type="Timestamp" not-null="true" />
 		<property name="DataPagamento" column="d_datapagamento" type="Timestamp" not-null="false" />
 		<property name="Descricao" column="descricao" length="50" not-null="false" />
 		<property name="Situacao" column="situacao" not-null="true" />

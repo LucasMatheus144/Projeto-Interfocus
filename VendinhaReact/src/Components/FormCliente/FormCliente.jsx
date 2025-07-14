@@ -1,6 +1,7 @@
 import { useState, useReducer, useEffect } from "react";
 import { salvarCliente, enviarImagem } from '../../services/clienteService';
 import { useImagemCliente } from "../../Hooks/cacheImages";
+import { usePaginaAtual } from "../../Contexts/PageContext";
 
 import styles from './form.module.css';
 import Model from '../Model/Modal';
@@ -8,13 +9,19 @@ import Alerta from '../Alertas/Alerta';
 
 const urlUser = 'https://bagimgs.s3.us-east-1.amazonaws.com/user.png';
 
-
+/**
+ * @param {boolean} props.isOpen - Define se o modal do formulário está aberto.
+ * @param {Function} props.onClose - Função chamada para fechar o formulário.
+ * @param {Function} props.onAttHomePage - Função para atualizar a listagem na página principal.
+ * @param {Object|null} props.obj - Objeto qé passado, se for null é um novo cadastro ?? editar cadastro.
+ * @param {Function} props.onAlertaSucesso - Função para exibir alerta de sucesso em outro componente.
+ */
 export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAlertaSucesso }) {
+
     const { fotoUrl, salvarImagemNoCache } = useImagemCliente(obj?.id, obj?.urlFoto, urlUser);
     const [imagemPreview, setImagemPreview] = useState(null); // exibir a imagem antes de salvar
     const [alertas, setAlertas] = useState([]);
-
-
+    const { paginaAtualRef } = usePaginaAtual();
 
     const mascaraCpf = (valor) => {
         if (!valor) return "";
@@ -40,8 +47,8 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
     const fluxoTela = () => {
         setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
         gatilhoClosePop();
-        onAttHomePage(0);
-        
+        onAlertaSucesso?.(true);
+        onAttHomePage(paginaAtualRef.current);
     };
 
     const enviarForm = async (event) => {
@@ -60,11 +67,10 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
             if (arquivo && arquivo.size > 0) {
                 const cache = salvarImagemNoCache(idCliente, arquivo);
                 const envio = enviarImagem(idCliente, arquivo);
-                Promise.all([cache, envio]);
+                Promise.all([cache, envio]); // Foi nescessario pq existe um delay pra salvar a imagem no Bucket, assim salvo no cache e exibo na tela
                 // await enviarImagem(idCliente, arquivo);
                 // await salvarImagemNoCache(idCliente, arquivo);
             }
-            onAlertaSucesso?.(true);
             fluxoTela();
 
         } else {
@@ -100,25 +106,27 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
     };
 
     useEffect(() => {
-            if (alertas.length > 0) {
-                const timeout = setTimeout(() => {
-                    setPop(prev => prev.slice(1));
-                }, 8000);
-                return () => clearTimeout(timeout);
-            }
-        }, [alertas]);
+        if (alertas.length > 0) {
+            const timeout = setTimeout(() => {
+                setAlertas(prev => prev.slice(alertas.length));
+            }, 8000);
+            return () => clearTimeout(timeout);
+        }
+    }, [alertas]);
 
     return (
         <Model isOpen={isOpen} onClose={gatilhoClosePop} >
-            {alertas.map((a, index) => (
-                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
-                    isFechar={() => {
-                        const novaLista = [...pop];
-                        novaLista.splice(index, 1);
-                        setAlertas(novaLista);
-                    }}
-                />
-            ))}
+            <div id="agrupamento">
+                {alertas.map((a, index) => (
+                    <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
+                        isFechar={() => {
+                            const novaLista = [...alertas];
+                            novaLista.splice(index, 1);
+                            setAlertas(novaLista);
+                        }}
+                    />
+                ))}
+            </div>
             <form method='POST' encType="multipart/form-data" onSubmit={enviarForm} className={styles.cadastraCliente} >
                 <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
                 <div className={styles.row}>

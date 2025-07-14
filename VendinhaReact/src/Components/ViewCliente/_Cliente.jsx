@@ -11,8 +11,9 @@ const StatusDivida = {
 
 const urlUser = 'https://bagimgs.s3.us-east-1.amazonaws.com/user.png';
 
-
-
+/**
+ * @param {Object} props.obj - Objeto para conseguir preencher todos os dados que precisamos
+ */
 export default function ViewCliente({ obj }) {
     const [divida, setDivida] = useState([]);
 
