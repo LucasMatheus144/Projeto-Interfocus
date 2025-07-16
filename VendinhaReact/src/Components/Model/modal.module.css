@@ -1,7 +1,7 @@
 .modal{
     position: fixed;
-    top: 20%;
-    left: 40%;
+    top: 25%;
+    left: 35%;
     width: 500px;
     height: 350px;
     background-color:var(--gray-fundo-card);

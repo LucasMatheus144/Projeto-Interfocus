@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { IoMdMore } from "react-icons/io";
 import { useImagemCliente } from "../../Hooks/cacheImages";
 import { formatarValor } from "../../services/validarService";
@@ -20,10 +20,11 @@ export default function Cards({ cliente, onAtualizar, aberto, onAbrir }) {
     const [maisAberto, setMaisAberto] = useState(false);
     const { fotoUrl } = useImagemCliente(cliente.id, cliente.stringFoto, urlUser);
 
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.exibefoto}>
-                <img src={fotoUrl ?? cliente.stringFoto ?? urlUser} alt="imagem" loading="lazy" />
+                <img src={fotoUrl ?? cliente.stringFoto ?? urlUser} alt="imagem" loading="lazy" width={100} height={100} />
             </div>
             <div className={styles.dados}>
                 <h3 className={styles.principal}>{cliente.nome}</h3>
@@ -42,19 +43,19 @@ export default function Cards({ cliente, onAtualizar, aberto, onAbrir }) {
             </div>
 
             <div className={styles.infodivida}>
-                <h3 className={styles.txtprincipal}>R$: {formatarValor(cliente.totalDivida)}</h3>
+                <h3 className={styles.txtprincipal}>Devendo R$: {formatarValor(cliente.totalDivida)}</h3>
                 <button onClick={onAbrir}>Adicionar Dívida</button>
             </div>
 
             <IoMdMore className={styles.dore} onClick={() => setMaisAberto(true)} />
-            <Mais isOpen={maisAberto} onClose={() => setMaisAberto(false)} cliente={cliente} attform={onAtualizar} />
+
+            {maisAberto && (
+                <Mais isOpen={true} onClose={() => setMaisAberto(false)} cliente={cliente} attform={onAtualizar} />
+            )}
 
             {aberto && (
                 <Divida isOpen={true} onClose={() => onAbrir()} onAtualizar={onAtualizar} obj={cliente} view={false} />
             )}
-
-
-
         </div>
     );
 }

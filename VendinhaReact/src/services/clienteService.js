@@ -19,24 +19,24 @@ export async function salvarCliente(cliente) {
     }
 }
 
-export function listarClientes(pesquisa, limit, offset) {
-    return fetch(`${URL_API}/api/cliente?search=${pesquisa || ""}&limit=${limit}&offset=${offset}`, {
+export async function listarClientes(pesquisa, limit, offset) {
+    const response = await fetch(`${URL_API}/api/cliente?search=${pesquisa || ""}&limit=${limit}&offset=${offset}`, {
         method: "GET"
-    }).then(async resultado => {
-        if (resultado.status == 200) {
-            const data = await resultado.json();
-            return {
-                status: resultado.status,
+    });
+
+    if (response.status == 200) {
+        const data = await response.json();
+        return {
+                status: response.status,
                 __count: data.totalClientes,
                 data: data.result
             }
-        }
-        return {
-            status: resultado.status,
+    }
+     return {
+            status: response.status,
             __count: 0,
             data: null
-        }
-    })
+    }
 }
 
 export async function excluirCliente(id) {

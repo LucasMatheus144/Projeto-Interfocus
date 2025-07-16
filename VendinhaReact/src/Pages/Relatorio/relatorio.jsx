@@ -42,6 +42,9 @@ export default function Relatorio() {
             console.error('Erro ao chamar API:', error);
         }
     };
+    function identificaAlterarPagina(pageatual) {
+        setPage(pageatual);
+    }
 
     useEffect(() => {
         chamaListagem(page);
@@ -82,7 +85,7 @@ export default function Relatorio() {
                         </tbody>
                     </table>
                 </section>
-                <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
+                <Paginacao limit={limit} total={totalClientes} exibindo={dados.detalhes?.length} attPage={identificaAlterarPagina} />
             </PageProvider>
         </div>
     );

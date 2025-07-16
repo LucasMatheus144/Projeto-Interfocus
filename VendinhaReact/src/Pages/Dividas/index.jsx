@@ -51,54 +51,13 @@ export default function Dividas() {
     const refBotao = useRef(null);
     const refTabela = useRef(null);
 
-    useEffect(() => {
-        if (pop.length > 0) {
-            const timeout = setTimeout(() => {
-                setPop(prev => prev.slice(pop.length));
-            }, 8000);
-            return () => clearTimeout(timeout);
-        }
-    }, [pop]);
-
-    useEffect(() => {
-        if (!podePagar) return;
-
-        executaPagarDivida();
-        setPagar(false);  // isso é nescessario para poder clicar no btn mais vezes após o primeira divida paga
-    }, [pagar]);
-
-    useEffect(() => {
-        var timeout = setTimeout(() => {
-            chamaListagem(page);
-        }, 700);
-
-        return () => {
-            clearTimeout(timeout);
-        }
-    }, [pesquisa])
-
-    // isso é pra remover o checkbox quando clicar para fora do table
-    useEffect(() => {
-        function handleClickOutside(event) {
-            const foraTabela = refTabela.current && !refTabela.current.contains(event.target); // olha a TABLE
-            const foraBotao = refBotao.current && !refBotao.current.contains(event.target); // olha o botão de pagamento
-            if (foraTabela && foraBotao) {
-                setSelecionado(null);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
     const chamaListagem = async (paginaAtual) => {
         const result = await listarDividas(pesquisa, limit, paginaAtual);
         if (result.status == 200) {
             setTotal(result.__count);
             serDivida(result.data);
         }
+        setLoading(false);
     }
 
     const disparaPesquisa = (valor) => {
@@ -148,6 +107,53 @@ export default function Dividas() {
         setDividaParaExcluir(c);
         setExcluirAberto(true);
     };
+
+    function identificaAlterarPagina(paginaAtual) {
+        setLoading(true);
+        setPage(paginaAtual);
+    }
+
+    // isso é pra remover o checkbox quando clicar para fora do table
+    useEffect(() => {
+        function handleClickOutside(event) {
+            const foraTabela = refTabela.current && !refTabela.current.contains(event.target); // olha a TABLE
+            const foraBotao = refBotao.current && !refBotao.current.contains(event.target); // olha o botão de pagamento
+            if (foraTabela && foraBotao) {
+                setSelecionado(null);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (pop.length > 0) {
+            const timeout = setTimeout(() => {
+                setPop(prev => prev.slice(pop.length));
+            }, 8000);
+            return () => clearTimeout(timeout);
+        }
+    }, [pop]);
+
+    useEffect(() => {
+        if (!podePagar) return;
+
+        executaPagarDivida();
+        setPagar(false);  // isso é nescessario para poder clicar no btn mais vezes após o primeira divida paga
+    }, [pagar]);
+
+    useEffect(() => {
+        var timeout = setTimeout(() => {
+            chamaListagem(page);
+        }, 600);
+
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, [pesquisa, page])
 
     return (
         <>
@@ -216,9 +222,9 @@ export default function Dividas() {
                         </tbody>
                     </table>
                 </section>
-                <Paginacao limit={limit} total={totalDivida} attPage={(paginaAtual) => chamaListagem(paginaAtual)} />
+                <Paginacao limit={limit} total={totalDivida} exibindo={divida.length} attPage={identificaAlterarPagina} />
 
-                <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={(paginaAtual) => chamaListagem(paginaAtual)} obj={true} />
+                <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={identificaAlterarPagina} obj={true} />
                 {loading && <Loading />}
             </PageProvider>
         </>

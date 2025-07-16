@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { listarPorId } from '../../../services/clienteService';
 import styles from './more.module.css';
 import FormCliente from '../../FormCliente/FormCliente';
@@ -13,7 +13,7 @@ import Alerta from "../../Alertas/Alerta";
  * @param {Function} props.attform - Função chamada para atualizar listagem de clientes após alguma ação dos  componentes renderizados pelo MESMO.
  * @param {Object} props.cliente - Objeto cliente para preencher todos os dados do cliente nescessario para os demais componentes.
  */
-export default function Mais({ isOpen, onClose, attform, cliente }) {
+function Mais({ isOpen, onClose, attform, cliente }) {
     // fiz isso pq não quero nem renderizar esse componente quando eu não selecionar]
     if (!isOpen) return null;
 
@@ -53,7 +53,7 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
                 }
             })();
         }
-    }, [formAberto]);
+    }, [formAberto, !modoVisualizacao]);
 
     useEffect(() => {
         function clicarForaEvento(event) {
@@ -100,3 +100,7 @@ export default function Mais({ isOpen, onClose, attform, cliente }) {
         </>
     );
 }
+
+export default React.memo(Mais); 
+
+// salva na memoria e renderiza somente quando o prop mudar

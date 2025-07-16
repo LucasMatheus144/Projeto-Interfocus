@@ -9,6 +9,7 @@ import FormCliente from "../../Components/FormCliente/FormCliente";
 import Paginacao from "../../Components/Paginacao/Paginacao";
 import styles from './home.module.css';
 import Alerta from '../../Components/Alertas/Alerta';
+import Loading from "../../Components/loading/loading";
 
 
 export default function HomePage() {
@@ -30,24 +31,15 @@ export default function HomePage() {
         txtError: ""
     });
 
-    // Efeitos para atualização de componentes
-    useEffect(() => {
-        var timeout = setTimeout(() => {
-            chamaListagem(page);
-        }, 600);
+    const [loading, setLoading] = useState(false);
 
-        return () => {
-            clearTimeout(timeout);
-        }
-    }, [pesquisa])
-
-    // Dispara ação
     const chamaListagem = async (pageAtual) => {
         const result = await listarClientes(pesquisa, limit, pageAtual);
         if (result.status === 200) {
             setTotal(result.__count);
             setClientes(result.data);
         }
+        setLoading(false);
     }
 
     const disparaPesquisa = (valor) => {
@@ -75,11 +67,28 @@ export default function HomePage() {
         }, 8000);
     };
 
+    function identificaAlterarPagina(paginaAtual) {
+        setPage(paginaAtual);
+        setLoading(true);
+    }
+
+    useEffect(() => {
+        var timeout = setTimeout(() => {
+            chamaListagem(page);
+        }, 600);
+
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, [pesquisa, page]);
+
     return (
         <>
             <PageProvider>
                 <div id="agrupamento">
-                    <Alerta isAbrir={alerta.isAbrir} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))} />
+                    {alerta.isAbrir && (
+                        <Alerta isAbrir={true} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta(prev => ({ ...prev, isAbrir: false }))} />
+                    )}
                 </div>
                 <header className={styles.container}>
                     <div className={styles.pesquisa}>
@@ -89,21 +98,18 @@ export default function HomePage() {
                         </div>
                     </div>
                 </header>
-                <FormCliente isOpen={abrir} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} obj={null} onAlertaSucesso={abrirSucesso}></FormCliente>
+                {abrir && (
+                    <FormCliente isOpen={true} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} obj={null} onAlertaSucesso={abrirSucesso} />
+                )}
                 <section className={styles.grid}>
                     {clientes.map(c =>
                         <Cards key={c.id} cliente={c} onAtualizar={chamaListagem} aberto={clienteComDividaAberta === c.id} onAbrir={() => alternarFormularioDivida(c.id)} />
                     )}
                 </section>
                 <footer className={styles.lowerpage}>
-
-                    <Paginacao limit={limit} total={totalClientes} attPage={(paginaAtual) => {
-                        setPage(paginaAtual);
-                        chamaListagem(paginaAtual);
-                    }} />
-
+                    <Paginacao limit={limit} total={totalClientes} exibindo={clientes.length} attPage={identificaAlterarPagina} />
                 </footer>
-
+                {loading && <Loading />}
             </PageProvider>
         </>
     )
