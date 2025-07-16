@@ -124,14 +124,16 @@ obs: Alteração de imagem basta somente clicar na imagem na opção de edição
 
 <details>
 
-<summary align="center">📚 Bibliotecas Utilizadas</summary>
+<summary align="center">📚 <strong>Bibliotecas Utilizadas</strong></summary>
 
-- Cpf 2.1.0
-- QuestPdf 2025.7.0
-- NHibernate 5.5.2
-- Npsql 9.0.3
-- react-router-dom
-- react-icons
+| Biblioteca              | Versão     | Finalidade                                                                 |
+|------------------------|------------|----------------------------------------------------------------------------|
+| 🔒 **Cpf**             | 2.1.0      | Validação de CPF conforme padrão brasileiro para autenticar cadastros.     |
+| 🧾 **QuestPDF**         | 2025.7.0   | Geração de documentos PDF com layout customizado.                          | 
+| 🧬 **NHibernate**       | 5.5.2      | ORM utilizado para fazer o mapeamento objeto-relacional de forma flexível. |
+| 🐘 **Npgsql**           | 9.0.3      | Pacote oficial ADO.NET utilizado para comunicação eficiente com PostgreSQL.|
+| 🔁 **react-router-dom** | latest     | Gerenciamento de rotas entre páginas no front-end com React.               |
+| 🎨 **react-icons**      | latest     | Inclusão de ícones SVG modernos no projeto.                                |
 
 </details>
 
@@ -184,7 +186,7 @@ obs: Alteração de imagem basta somente clicar na imagem na opção de edição
 <summary align="center">📅 To do list</summary>
 
 ###### Board de desenvolvimento [https://github.com/users/LucasMatheus144/projects/2](https://github.com/users/LucasMatheus144/projects/2)
-[![image](https://github.com/user-attachments/assets/d29d0c08-e546-458e-bbc3-54e9547cf025)](https://github.com/users/LucasMatheus144/projects/2)
+[![image](https://github.com/user-attachments/assets/d29d0c08-e546-458e-bbc3-54e9547cf025)]
 
 ###### Fluxograma https://lucid.app/lucidspark/cf85fa0e-272c-48dd-9827-3bb6267f2ece/edit?viewport_loc=-21%2C873%2C3043%2C1509%2C0_0&invitationId=inv_6c79d1fc-9bdf-43aa-a84a-868ff3dbc553
 <img width="1738" height="705" alt="image" src="https://github.com/user-attachments/assets/ea08ec44-f7ca-49c2-a3b1-c9e7c69fba0f" />
@@ -244,13 +246,13 @@ cd seu-repositorio
 │       │   ├── ...                     
 │   └── 📁 src/                        # Arquivos font da aplicação web
 │       │   ├── 📁 Componentes/         # Componentes
-│       │   |    ├── ...
+│       │   │    ├── ...
 │       │   ├── 📁 Hooks/               
-│       │   |    ├── ...                
+│       │   │    ├── ...                
 │       │   ├── 📁 Pages/
-│       │   |    ├── ...
+│       │   │    ├── ...
 │       │   ├── 📁 Services/
-│       │   |    ├── ...
+│       │   │    ├── ...
 │       │   ├── 📄 App.jsx
 │       │   ├── 📄 global.css
 │       │   ├── 📄 main.jsx
