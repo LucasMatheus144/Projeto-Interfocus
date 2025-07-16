@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 
-// Lazy loading das páginas
+//https://legacy-reactjs-org.translate.goog/docs/code-splitting.html?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc&_x_tr_hist=true
 const NotFound = lazy(() => import('./Pages/Error/index'));
 const HomePage = lazy(() => import('./Pages/Home/index'));
 const Dividas = lazy(() => import('./Pages/Dividas/index'));

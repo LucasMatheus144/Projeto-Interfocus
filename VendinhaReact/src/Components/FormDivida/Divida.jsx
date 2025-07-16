@@ -102,10 +102,10 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
                     <input type="number" name="dividaid" value={dados?.id ?? 0} readOnly className={styles.ocultar} />
 
                     {/*qUANDO NAO FOR CADASTRAR DIVIDA PELA HOME PAGE E NEM EDITAR A DIVIDA*/}
-                    {dados?.cliente?.nome ?? obj?.nome ? (
+                    {dados?.cliente?.nome || obj?.nome ? (
                         <>
                             <label>Nome do cliente</label>
-                            <input type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
+                            <input className={styles.inputficticio} type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
                         </>
 
                     ) : (

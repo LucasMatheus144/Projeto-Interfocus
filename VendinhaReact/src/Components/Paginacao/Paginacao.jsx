@@ -5,12 +5,12 @@ import styles from './paginacao.module.css';
 /**
  * @param {number} props.limit - Quantos itens por página
  * @param {number} props.total - Total de registros disponíveis
- * @param {number} props.exibindo - Quantos registros estão atualmente sendo exibidos (pode variar com filtro)
+ * @param {number} props.exibindo - Qntde de registros sendo exibidos
  * @param {Function} props.attPage - Callback para solicitar nova página
  */
 export default function Paginacao({ limit, total, exibindo, attPage }) {
     const [page, setPage] = useState(0);
-    const [visualPage, setVisualPage] = useState(0); // página exibida
+    const [visualPage, setVisualPage] = useState(0);
     const { paginaAtualRef } = usePaginaAtual();
 
     const pageTotal = Math.ceil(total / limit);
@@ -49,7 +49,7 @@ export default function Paginacao({ limit, total, exibindo, attPage }) {
             <div className={styles.paginationControls}>
                 <span>Página </span>
                 <a className={`${styles.previous} ${isFirstPage ? styles.disabled : ''}`} onClick={goPrev}>&lt;</a>
-                <input value={visualPage + 1} className={styles.pageNumber} readOnly />
+                <input value={paginaAtualRef.current + 1} className={styles.pageNumber} readOnly />
                 <a className={`${styles.next} ${isLastPage ? styles.disabled : ''}`} onClick={goNext}>&gt;</a>
                 <span> de {pageTotal}</span>
             </div>

@@ -98,7 +98,6 @@ export default function Dividas() {
                     : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
                 setPop(listaDeErros);
             }
-
             setLoading(false);
         }
     };
@@ -140,7 +139,6 @@ export default function Dividas() {
 
     useEffect(() => {
         if (!podePagar) return;
-
         executaPagarDivida();
         setPagar(false);  // isso é nescessario para poder clicar no btn mais vezes após o primeira divida paga
     }, [pagar]);
@@ -148,8 +146,7 @@ export default function Dividas() {
     useEffect(() => {
         var timeout = setTimeout(() => {
             chamaListagem(page);
-        }, 600);
-
+        }, 400);
         return () => {
             clearTimeout(timeout);
         }

@@ -26,10 +26,19 @@
   background-color: var(--fundo-side-white);
   border: 1px solid var(--gray-300);
   border-radius: 8px;
-   padding: 0.6em 1em;
+  padding: 0.6em 1em;
   color: var(--gray-secundario);
   width: 100%;
-   transition: border-color 0.3s;
+  transition: border-color 0.3s;
+}
+
+.formulario .inputficticio {
+  background-color: var(--gray-fundo-card);
+  border: none;
+  border-bottom: 1px solid var(--gray-300);
+  padding: 0.6em 1em;
+  color: var(--gray-secundario);
+  width: 100%;
 }
 
 .row {
@@ -64,7 +73,7 @@
   cursor: pointer;
   width: 100%;
   transition: 0.2s ease;
-  
+
 }
 
 .buttoes .cadastrar {
@@ -86,4 +95,3 @@
 .buttoes .cadastrar:hover {
   background-color: var(--blue-mt-forte);
 }
-
