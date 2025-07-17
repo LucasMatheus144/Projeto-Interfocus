@@ -1,6 +1,5 @@
-//const URL_API = "http://104.131.110.118"
+import { URL_API } from "./validarService";
 
-const URL_API = "http://localhost:5200"
 
 export async function listarPorId(id) {
 

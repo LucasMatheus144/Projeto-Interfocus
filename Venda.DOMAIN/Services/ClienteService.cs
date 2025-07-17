@@ -149,7 +149,11 @@ namespace Venda.DOMAIN.Services
                                                        ? (decimal?)d.Valor : 0) ?? 0
                         };
 
-            int totalClientes = db.Consulta<Cliente>().Count();
+            int totalClientes = db.Consulta<Cliente>()
+                .Where(cl => string.IsNullOrEmpty(pesquisa) || cl.Nome.Contains(pesquisa))
+                .Select(cl => cl.Id)
+                .Distinct()
+                .Count();
 
             var result = query
                 .OrderByDescending(x => x.TotalDivida)
