@@ -1,7 +1,7 @@
 
-//export var URL_API = "http://104.131.110.118"
+export var URL_API = "http://104.131.110.118"
 
-export var URL_API = "http://localhost:5200"
+//export var URL_API = "http://localhost:5200"
 
 export function formatarData(dataString) {
     if (!dataString) return '';
