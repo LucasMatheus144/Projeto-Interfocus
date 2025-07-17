@@ -21,6 +21,36 @@ function Info({ titulo, valor }) {
     );
 }
 
+function Tabela({ dados }) {
+    return (
+        <table className={styles.tabela} id="tabela">
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Cpf</th>
+                    <th>Email</th>
+                    <th>Contas A Receber</th>
+                    <th>Contas Pagas</th>
+                    <th>Total por cliente</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {dados.detalhes?.map((c, index) => (
+                    <tr key={index} className={styles.frame}>
+                        <td>{c.nome}</td>
+                        <td>{c.cpf}</td>
+                        <td>{c.email}</td>
+                        <td>R$: {formatarValor(c.vaiReceber)}</td>
+                        <td>R$: {formatarValor(c.jaPagou)}</td>
+                        <td>R$: {formatarValor(c.total)}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
+}
+
 export default function Relatorio() {
     const [dados, setDados] = useState([]);
 
@@ -59,31 +89,7 @@ export default function Relatorio() {
             </div>
             <PageProvider>
                 <section className={styles.datatable}>
-                    <table className={styles.tabela} id="tabela">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Cpf</th>
-                                <th>Email</th>
-                                <th>Contas A Receber</th>
-                                <th>Contas Pagas</th>
-                                <th>Total por cliente</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {dados.detalhes?.map((c, index) => (
-                                <tr key={index} className={styles.frame}>
-                                    <td>{c.nome}</td>
-                                    <td>{c.cpf}</td>
-                                    <td>{c.email}</td>
-                                    <td>R$: {formatarValor(c.vaiReceber)}</td>
-                                    <td>R$: {formatarValor(c.jaPagou)}</td>
-                                    <td>R$: {formatarValor(c.total)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <Tabela dados={dados} />
                 </section>
                 <Paginacao limit={limit} total={totalClientes} exibindo={dados.detalhes?.length} attPage={identificaAlterarPagina} />
             </PageProvider>

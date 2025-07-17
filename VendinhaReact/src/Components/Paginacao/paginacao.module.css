@@ -30,7 +30,7 @@
 }
 
 
-.next.disabled {
+.next.disabled, .previous.disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }

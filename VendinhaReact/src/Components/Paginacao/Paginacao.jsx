@@ -14,26 +14,26 @@ export default function Paginacao({ limit, total, exibindo, attPage }) {
     const { paginaAtualRef } = usePaginaAtual();
 
     const pageTotal = Math.ceil(total / limit);
-    const isFirstPage = visualPage === 0;
+    const isFirstPage = page === 0;
     const isLastPage = (visualPage + 1) * limit >= total;
 
     const inicio = total === 0 || exibindo === 0 ? 0 : visualPage * limit + 1;
     const fim = inicio + exibindo - 1;
 
     const goNext = () => {
-        if (!isLastPage) {
-            setPage((prev) => prev + 1);
+        if (page < pageTotal - 1) {
+            setPage(page + 1);
         }
     };
 
     const goPrev = () => {
-        if (!isFirstPage) {
-            setPage((prev) => prev - 1);
+        if (page > 0) {
+            setPage(page - 1);
         }
     };
 
     useEffect(() => {
-        paginaAtualRef.current = page;
+        paginaAtualRef.current = page; // salvar a pagina para quando precisar dar algum PUT | POST  na api, assim volta sempre na pagina que foi feito a ação
         attPage?.(page);
     }, [page]);
 
@@ -49,7 +49,7 @@ export default function Paginacao({ limit, total, exibindo, attPage }) {
             <div className={styles.paginationControls}>
                 <span>Página </span>
                 <a className={`${styles.previous} ${isFirstPage ? styles.disabled : ''}`} onClick={goPrev}>&lt;</a>
-                <input value={paginaAtualRef.current + 1} className={styles.pageNumber} readOnly />
+                <input value={page + 1} className={styles.pageNumber} readOnly />
                 <a className={`${styles.next} ${isLastPage ? styles.disabled : ''}`} onClick={goNext}>&gt;</a>
                 <span> de {pageTotal}</span>
             </div>

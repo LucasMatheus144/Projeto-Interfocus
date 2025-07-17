@@ -1,5 +1,6 @@
 .topo{
     padding: 10px;
+    width: 240px;
 }
 
 .topo h3{
@@ -32,11 +33,18 @@
     width: 125px;
     opacity: 1;
     transition: opacity 0.4s ease;
+    width: 130px;
+    height: 40px;
 }
 
 .grupobtn{
     display: flex;
     gap: 10px;
+}
+
+.grupobtn svg{
+    width: 20px;
+    height: 20px;
 }
 
 .pagardivida.botaoDesativado{
@@ -95,8 +103,8 @@ tbody td span svg {
     cursor: pointer;
 }
 
-tbody td span svg:hover{
-    color: var(--white);
+tbody td span svg path:hover{
+    fill: var(--black-800);
 }
 
 .pago{
