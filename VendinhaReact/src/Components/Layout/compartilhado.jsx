@@ -2,6 +2,18 @@ import { Link, Outlet } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import styles from './compartilhado.module.css';
 
+export default function Layout() {
+    return (
+        <>
+            <header>
+                <Menu />
+            </header>
+            <main>
+                <Outlet />
+            </main>
+        </>
+    );
+}
 
 // esse svg vai repetir em toda LI
 function SetaSvg() {
@@ -139,20 +151,6 @@ function Menu() {
                 {ativo === 'cadastro' && <CadastroMenu />}
                 {ativo === 'relatorio' && <RelatorioMenu />}
             </div>
-        </>
-    );
-}
-
-
-export default function Layout() {
-    return (
-        <>
-            <header>
-                <Menu />
-            </header>
-            <main>
-                <Outlet />
-            </main>
         </>
     );
 }

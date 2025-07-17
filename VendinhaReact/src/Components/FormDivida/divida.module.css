@@ -32,13 +32,19 @@
   transition: border-color 0.3s;
 }
 
-.formulario .inputficticio {
-  background-color: var(--gray-fundo-card);
+.dadosNomeCliente{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dadosNomeCliente .inputficticio{
+  background-color: transparent;
   border: none;
-  border-bottom: 1px solid var(--gray-300);
+  border-bottom: 2px solid var(--gray-300);
   padding: 0.6em 1em;
   color: var(--gray-secundario);
-  width: 100%;
+  width: 60%;
 }
 
 .row {

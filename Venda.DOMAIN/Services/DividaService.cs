@@ -249,7 +249,7 @@ namespace Venda.DOMAIN.Services
 
             return new RelatorioDto
             {
-                CountClientes = queryComClientes.Count(),
+                CountClientes = db.Consulta<Cliente>().Select(x => x.Id).Count(),
                 AReceber = aReceber,
                 Recebido = recebido,
                 Detalhes = queryComClientes

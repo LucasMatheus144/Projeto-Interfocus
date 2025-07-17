@@ -58,7 +58,7 @@
 
 .dadosusuario , .dividadados{
     display: grid;
-    padding-top: 20px;
+    padding: 10px 0 20px 0;
 }
 
 .dadosusuario h4 , .dividadados h4{
@@ -90,8 +90,6 @@
     font-size: var(--font-small);
     font-weight: 600;
 }
-
-
 
 
 .tabela {

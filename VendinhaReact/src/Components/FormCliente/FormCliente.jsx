@@ -116,38 +116,15 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
 
     return (
         <Model isOpen={isOpen} onClose={gatilhoClosePop} >
-            <div id="agrupamento">
-                {alertas.map((a, index) => (
-                    <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
-                        isFechar={() => {
-                            const novaLista = [...alertas];
-                            novaLista.splice(index, 1);
-                            setAlertas(novaLista);
-                        }}
-                    />
-                ))}
-            </div>
+            <GrupoAlerta alertas={alertas} setAlertas={setAlertas} />
             <form method='POST' encType="multipart/form-data" onSubmit={enviarForm} className={styles.cadastraCliente} >
                 <input type="number" name="id" defaultValue={obj?.id ?? ""} className={styles.ocultar} />
                 <div className={styles.row}>
-                    {(!imagemPreview && !obj?.urlFoto) ? (
-                        <div className={styles.upload} onClick={() => document.getElementById('file').click()}>
-                            <div className={styles.icon}></div>
-                            <div className="text"><span>Salvar Arquivo</span></div>
-                        </div>
-                    ) : (
-                        <div className={styles.imagem} onClick={() => document.getElementById('file').click()}>
-                            <img src={imagemPreview ?? obj?.urlFoto} alt="imagem" loading="lazy" />
-
-                        </div>
-                    )}
-                    <input id="file" name="foto" type="file" accept="image/jpeg, image/png, image/jpg" onChange={qndAlterarImagem} style={{ display: 'none' }} />
-
+                    <ImagemUpload imagemPreview={imagemPreview} urlFoto={obj?.urlFoto} onChange={qndAlterarImagem} />
                     <div className={styles.grupo}>
                         <label htmlFor="nome">Nome do Cliente <strong id="obrigatorio">*</strong></label>
                         <input type="text" name="nome" required maxLength={25} defaultValue={obj?.nome ?? ""} />
                     </div>
-
                 </div>
                 <div className={styles.row}>
                     <div className={styles.col}>
@@ -170,5 +147,40 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
                 </div>
             </form>
         </Model>
+    );
+}
+
+function GrupoAlerta({ alertas, setAlertas }) {
+    return (
+        <div id="agrupamento">
+            {alertas.map((a, index) => (
+                <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem}
+                    isFechar={() => {
+                        const novaLista = [...alertas];
+                        novaLista.splice(index, 1);
+                        setAlertas(novaLista);
+                    }}
+                />
+            ))}
+        </div>
+    );
+}
+
+function ImagemUpload({ imagemPreview, urlFoto, onChange }) {
+    const temImagem = imagemPreview || urlFoto;
+    return (
+        <div className={styles.row}>
+            {!temImagem ? (
+                <div className={styles.upload} onClick={() => document.getElementById('file').click()}>
+                    <div className={styles.icon}></div>
+                    <div className="text"><span>Salvar Arquivo</span></div>
+                </div>
+            ) : (
+                <div className={styles.imagem} onClick={() => document.getElementById('file').click()}>
+                    <img src={imagemPreview ?? urlFoto} alt="imagem" loading="lazy" />
+                </div>
+            )}
+            <input id="file" name="foto" type="file" accept="image/jpeg, image/png, image/jpg" onChange={onChange} style={{ display: 'none' }} />
+        </div>
     );
 }

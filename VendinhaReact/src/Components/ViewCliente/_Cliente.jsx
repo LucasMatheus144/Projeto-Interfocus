@@ -32,69 +32,92 @@ export default function ViewCliente({ obj }) {
     return (
         <div className={styles.view}>
             <div className={styles.gpimagem}>
-                <div className={styles.imagem}>
-                    <img src={obj?.urlFoto ?? urlUser} alt="imagem" loading="lazy" />
-                    <div className={styles.infoprincipal}>
-                        <div className={styles.nome}>
-                            <h3>{obj?.nome}</h3>
-                        </div>
-                        <div className={styles.identificador}>
-                            <h3>ID : {obj?.id}</h3>
-                            {obj?.situacao === 1 ? (
-                                <span className={styles.adimplente}>Adimplente</span>
-                            ) : (
-                                <span className={styles.inadimplente}>Inadimplente</span>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.dadosusuario}>
-                    <h4>DADOS DO CLIENTE</h4>
-                    <div className={styles.infodadosuser}>
-                        <div>
-                            <div className={styles.resposta}>
-                                <label>CPF</label>
-                                <span>{obj?.cpf}</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div className={styles.resposta}>
-                                <label>EMAIL</label>
-                                <span>{obj?.email}</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div className={styles.resposta}>
-                                <label>Nascimento</label>
-                                <span>{dataAniversario(obj?.dataNascimento)}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.dividadados}>
-                    <h4>Listagem De Dividas</h4>
-                </div>
-                <section className={styles.datatable}>
-                    <table className={styles.tabela} id="tabela">
-                        <thead>
-                            <tr>
-                                <th>Valor</th>
-                                <th>Situação</th>
-                                <th>Pagamento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {divida.map((c, index) => (
-                                <tr key={index} className={styles.frame}>
-                                    <td>{formatarValor(c.valor)}</td>
-                                    <td><div className={c.situacao === StatusDivida.NAO_PAGO ? styles.devendo : styles.pago}>{c.situacao === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}</div></td>
-                                    <td>{formatarData(c.pagamento)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </section>
+                <ImagemCliente obj={obj} />
+                <DadosCliente obj={obj} />
+                <TituloSecao texto="Listagem De Dividas" />
+                <TabelaDividas dividas={divida} />
             </div>
         </div>
+    );
+}
+
+
+function ImagemCliente({ obj }) {
+    return (
+        <div className={styles.imagem}>
+            <img src={obj?.urlFoto ?? urlUser} alt="imagem" loading="lazy" />
+            <div className={styles.infoprincipal}>
+                <div className={styles.nome}>
+                    <h3>{obj?.nome}</h3>
+                </div>
+                <div className={styles.identificador}>
+                    <h3>ID : {obj?.id}</h3>
+                    {obj?.situacao === 1 ? (
+                        <span className={styles.adimplente}>Adimplente</span>
+                    ) : (
+                        <span className={styles.inadimplente}>Inadimplente</span>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function DadosCliente({ obj }) {
+    return (
+        <div className={styles.dadosusuario}>
+            <h4>DADOS DO CLIENTE</h4>
+            <div className={styles.infodadosuser}>
+                <InfoLabel label="CPF" valor={obj?.cpf} />
+                <InfoLabel label="EMAIL" valor={obj?.email} />
+                <InfoLabel label="Nascimento" valor={dataAniversario(obj?.dataNascimento)} />
+            </div>
+        </div>
+    );
+}
+
+function InfoLabel({ label, valor }) {
+    return (
+        <div className={styles.resposta}>
+            <label>{label}</label>
+            <span>{valor}</span>
+        </div>
+    );
+}
+
+function TituloSecao({ texto }) {
+    return (
+        <div className={styles.dividadados}>
+            <h4>{texto}</h4>
+        </div>
+    );
+}
+
+function TabelaDividas({ dividas }) {
+    return (
+        <section className={styles.datatable}>
+            <table className={styles.tabela} id="tabela">
+                <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Situação</th>
+                        <th>Pagamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {dividas.map((c, index) => (
+                        <tr key={index} className={styles.frame}>
+                            <td>{formatarValor(c.valor)}</td>
+                            <td>
+                                <div className={c.situacao === StatusDivida.NAO_PAGO ? styles.devendo : styles.pago}>
+                                    {c.situacao === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}
+                                </div>
+                            </td>
+                            <td>{formatarData(c.pagamento)}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </section>
     );
 }

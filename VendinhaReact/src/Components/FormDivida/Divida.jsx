@@ -87,56 +87,83 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
 
     return (
         <>
-            <div id="agrupamento">
-                {popup.map((a, index) => (
-                    <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem} isFechar={() => {
-                        const novaLista = [...popup];
-                        novaLista.splice(index, 1);
-                        setPopup(novaLista);
-                    }} />
-                ))}
-            </div>
+            <GrupoAlerta popup={popup} setPopup={setPopup} />
             <Model isOpen={isOpen} onClose={onClose}>
-                <form action="POST" className={styles.formulario} onSubmit={handleSubmit}>
-                    <input type="number" name="clienteid" value={dados?.cliente?.id ?? obj?.id ?? clienteIdSelecionado} readOnly className={styles.ocultar} />
-                    <input type="number" name="dividaid" value={dados?.id ?? 0} readOnly className={styles.ocultar} />
-
-                    {/*qUANDO NAO FOR CADASTRAR DIVIDA PELA HOME PAGE E NEM EDITAR A DIVIDA*/}
-                    {dados?.cliente?.nome || obj?.nome ? (
-                        <>
-                            <label>Nome do cliente</label>
-                            <input className={styles.inputficticio} type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
-                        </>
-
-                    ) : (
-                        <>
-                            <InputSelect setClienteIdSelecionado={setClienteIdSelecionado} />
-                        </>
-                    )}
-
-                    <div className={styles.row}>
-                        <div className={styles.col}>
-                            <label>Valor <strong id="obrigatorio">*</strong></label>
-                            <input name="valor" className={styles.spinner} type="number" step="0.01" placeholder="0.00" defaultValue={dados?.valor ?? ""} required disabled={view} />
-                        </div>
-
-                        <div className={styles.col}>
-                            <label>Data de pagamento </label>
-                            <input name="pagamento" type="datetime-local" defaultValue={formataImput(dados?.dataPagamento)} disabled={view} />
-                        </div>
-                    </div>
-
-                    <label>Descrição <strong id="obrigatorio">*</strong></label>
-                    <input name="observacao" type="text" placeholder="Descreva aqui..." defaultValue={dados?.descricao ?? ""} required disabled={view} />
-
-                    <div className={styles.buttoes}>
-                        <button className={styles.cancelar} onClick={onClose} type="button">Cancelar</button>
-                        <button className={styles.cadastrar} type="submit">Cadastrar</button>
-                    </div>
-                </form>
+                <Formulario
+                    handleSubmit={handleSubmit} dados={dados} obj={obj} clienteIdSelecionado={clienteIdSelecionado}
+                    setClienteIdSelecionado={setClienteIdSelecionado} onClose={onClose} view={view} />
             </Model>
             {loading && <Loading />}
         </>
     );
 }
 
+function GrupoAlerta({ popup, setPopup }) {
+    return (
+        <div id="agrupamento">
+            {popup.map((a, index) => (
+                <Alerta
+                    key={index}
+                    isAbrir={a.exibir}
+                    status={a.status}
+                    txtError={a.mensagem}
+                    isFechar={() => {
+                        const novaLista = [...popup];
+                        novaLista.splice(index, 1);
+                        setPopup(novaLista);
+                    }}
+                />
+            ))}
+        </div>
+    );
+}
+
+function Formulario({ handleSubmit, dados, obj, clienteIdSelecionado, setClienteIdSelecionado, onClose, view }) {
+    return (
+        <form action="POST" className={styles.formulario} onSubmit={handleSubmit}>
+            <input type="number" name="clienteid" value={dados?.cliente?.id ?? obj?.id ?? clienteIdSelecionado} readOnly className={styles.ocultar} />
+            <input type="number" name="dividaid" value={dados?.id ?? 0} readOnly className={styles.ocultar} />
+
+            <ClienteInfo dados={dados} obj={obj} setClienteIdSelecionado={setClienteIdSelecionado} />
+
+            <div className={styles.row}>
+                <div className={styles.col}>
+                    <label>Valor <strong id="obrigatorio">*</strong></label>
+                    <input name="valor" className={styles.spinner} type="number" step="0.01" placeholder="0.00" defaultValue={dados?.valor ?? ""} required disabled={view} />
+                </div>
+
+                <div className={styles.col}>
+                    <label>Data de pagamento </label>
+                    <input name="pagamento" type="datetime-local" defaultValue={formataImput(dados?.dataPagamento)} disabled={view} />
+                </div>
+            </div>
+
+            <label>Descrição <strong id="obrigatorio">*</strong></label>
+            <input name="observacao" type="text" placeholder="Descreva aqui..." defaultValue={dados?.descricao ?? ""} required disabled={view} />
+
+            <BotoesForm onClose={onClose} />
+        </form>
+    );
+}
+
+function ClienteInfo({ dados, obj, setClienteIdSelecionado }) {
+    if (dados?.cliente?.nome || obj?.nome) {
+        return (
+            <div className={styles.dadosNomeCliente}>
+                <label>Nome do cliente</label>
+                <input className={styles.inputficticio} type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
+            </div>
+        );
+    }
+
+    return <InputSelect setClienteIdSelecionado={setClienteIdSelecionado} />;
+}
+
+function BotoesForm({ onClose }) {
+    return (
+        <div className={styles.buttoes}>
+            <button className={styles.cancelar} onClick={onClose} type="button">Cancelar</button>
+            <button className={styles.cadastrar} type="submit">Cadastrar</button>
+        </div>
+    );
+}

@@ -17,6 +17,74 @@ const StatusDivida = {
     PAGO: 2
 };
 
+export default function Dividas() {
+    const {
+        modalOpen, setModalOpen,
+        viewMode, setViewMode,
+        excluirAberto, setExcluirAberto,
+        dividaSelecionada, setDividaSelecionada,
+        dividaParaExcluir, setDividaParaExcluir,
+        dividas,
+        totalDivida,
+        pesquisa, setPesquisa,
+        page, setPage,
+        pop, setPop,
+        loading,
+        selecionado, setSelecionado,
+        pagar, setPagar,
+        podePagar,
+        refTabela,
+        refBotao,
+        abrirFormulario,
+        chamaListagem, limit
+    } = useDivida(StatusDivida);
+
+    return (
+        <>
+            <div id="agrupamento">
+                {pop.map((a, index) => (
+                    <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem} isFechar={() => {
+                        const novaLista = [...pop];
+                        novaLista.splice(index, 1);
+                        setPop(novaLista);
+                    }} />
+                ))}
+            </div>
+            <PageProvider>
+                <div className={styles.topo}><h3>Listagem de Dívidas</h3></div>
+                <header className={styles.container}>
+                    <Cadastros setPesquisa={setPesquisa} refBotao={refBotao} podePagar={podePagar} setPagar={setPagar} abrirFormulario={abrirFormulario} />
+                </header>
+
+                {modalOpen && (
+                    <Divida
+                        isOpen={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                        onAtualizar={chamaListagem}
+                        obj={dividaSelecionada}
+                        view={viewMode}
+                    />
+                )}
+
+                <section className={styles.datatable}>
+                    <TableDividas
+                        dividas={dividas} selecionado={selecionado} setSelecionado={setSelecionado} confirmarExclusao={(id) => { setDividaParaExcluir(id); setExcluirAberto(true); }}
+                        abrirFormulario={abrirFormulario} setViewMode={setViewMode} refTabela={refTabela} setModalOpen={setModalOpen} setDividaSelecionada={setDividaSelecionada}
+                    />
+                </section>
+
+                <Paginacao limit={limit} total={totalDivida} exibindo={dividas.length} attPage={setPage} />
+
+                {excluirAberto && (
+                    <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={setPage} obj={true} />
+                )}
+
+                {loading && <Loading />}
+            </PageProvider>
+        </>
+    );
+}
+
 function useDivida(StatusDivida, limit = 10) {
     const [modalOpen, setModalOpen] = useState(false);
     const [viewMode, setViewMode] = useState(false);
@@ -213,73 +281,5 @@ function Cadastros({ setPesquisa, refBotao, podePagar, setPagar, abrirFormulario
                 </button>
             </div>
         </div>
-    );
-}
-
-export default function Dividas() {
-    const {
-        modalOpen, setModalOpen,
-        viewMode, setViewMode,
-        excluirAberto, setExcluirAberto,
-        dividaSelecionada, setDividaSelecionada,
-        dividaParaExcluir, setDividaParaExcluir,
-        dividas,
-        totalDivida,
-        pesquisa, setPesquisa,
-        page, setPage,
-        pop, setPop,
-        loading,
-        selecionado, setSelecionado,
-        pagar, setPagar,
-        podePagar,
-        refTabela,
-        refBotao,
-        abrirFormulario,
-        chamaListagem, limit
-    } = useDivida(StatusDivida);
-
-    return (
-        <>
-            <div id="agrupamento">
-                {pop.map((a, index) => (
-                    <Alerta key={index} isAbrir={a.exibir} status={a.status} txtError={a.mensagem} isFechar={() => {
-                        const novaLista = [...pop];
-                        novaLista.splice(index, 1);
-                        setPop(novaLista);
-                    }} />
-                ))}
-            </div>
-            <PageProvider>
-                <div className={styles.topo}><h3>Listagem de Dívidas</h3></div>
-                <header className={styles.container}>
-                    <Cadastros setPesquisa={setPesquisa} refBotao={refBotao} podePagar={podePagar} setPagar={setPagar} abrirFormulario={abrirFormulario} />
-                </header>
-
-                {modalOpen && (
-                    <Divida
-                        isOpen={modalOpen}
-                        onClose={() => setModalOpen(false)}
-                        onAtualizar={chamaListagem}
-                        obj={dividaSelecionada}
-                        view={viewMode}
-                    />
-                )}
-
-                <section className={styles.datatable}>
-                    <TableDividas
-                        dividas={dividas} selecionado={selecionado} setSelecionado={setSelecionado} confirmarExclusao={(id) => { setDividaParaExcluir(id); setExcluirAberto(true); }}
-                        abrirFormulario={abrirFormulario} setViewMode={setViewMode} refTabela={refTabela} setModalOpen={setModalOpen} setDividaSelecionada={setDividaSelecionada}
-                    />
-                </section>
-
-                <Paginacao limit={limit} total={totalDivida} exibindo={dividas.length} attPage={setPage} />
-
-                {excluirAberto && (
-                    <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={setPage} obj={true} />
-                )}
-
-                {loading && <Loading />}
-            </PageProvider>
-        </>
     );
 }

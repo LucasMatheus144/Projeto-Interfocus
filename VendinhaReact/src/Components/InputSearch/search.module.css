@@ -1,9 +1,9 @@
-.where{
-   position: relative;
-   width: 35%;
+.where {
+    position: relative;
+    width: 35%;
 }
 
-.icon{
+.icon {
     position: absolute;
     color: var(--risco-blue);
     left: 10px;
@@ -11,7 +11,7 @@
     transform: translateY(-50%);
 }
 
-.inputss{
+.inputss {
     padding: 8px 20px 8px 30px;
     width: 100%;
     border-radius: 10px;

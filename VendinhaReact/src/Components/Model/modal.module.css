@@ -1,10 +1,10 @@
-.modal{
+.modal {
     position: fixed;
     top: 25%;
     left: 35%;
     width: 500px;
     height: 350px;
-    background-color:var(--gray-fundo-card);
+    background-color: var(--gray-fundo-card);
     padding: 12px;
     border-radius: 20px;
     border: var(--shadow-black);
@@ -13,24 +13,23 @@
     transition: opacity 0.4ms ease-out;
 }
 
-.ocultar{
+.ocultar {
     opacity: 0;
     position: fixed;
     z-index: -1;
     display: none;
 }
 
-.close{
+
+
+.modal svg {
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: flex-end;
     margin-left: auto;
     font-size: 24px;
-    color: var(--gray-300);
+    color: var(--black-900);
     cursor: pointer;
     transition: color 0.5s ease;
-}
-
-
-.close:hover{
-    color: var(--black-900);
 }

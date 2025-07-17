@@ -27,7 +27,7 @@
     padding: 4px;
 }
 
-.icon{
+.filter .icon{
     position: absolute;
     color: var(--risco-blue);
     right: 15px;

@@ -15,11 +15,9 @@ export default function Search({ observavdorPesquisa }) {
     }
 
     return (
-        <>
-            <div className={styles.where}>
-                <FaSearch className={styles.icon} />
-                <input className={styles.inputss} type="text" value={search} onChange={observerChange} />
-            </div>
-        </>
-    )
+        <div className={styles.where}>
+            <FaSearch className={styles.icon} />
+            <input className={styles.inputss} type="text" value={search} onChange={observerChange} />
+        </div>
+    );
 }
