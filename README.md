@@ -127,13 +127,23 @@ obs: Alteração de imagem basta somente clicar na imagem na opção de edição
 <summary align="center">📚 <strong>Bibliotecas Utilizadas</strong></summary>
 
 | Biblioteca              | Versão     | Finalidade                                                                 |
-|------------------------|------------|----------------------------------------------------------------------------|
-| 🔒 **Cpf**             | 2.1.0      | Validação de CPF conforme padrão brasileiro para autenticar cadastros.     |
+|-------------------------|------------|----------------------------------------------------------------------------|
+| 🔒 **Cpf**              | 2.1.0      | Validação de CPF conforme padrão brasileiro para autenticar cadastros.     |
 | 🧾 **QuestPDF**         | 2025.7.0   | Geração de documentos PDF com layout customizado.                          | 
 | 🧬 **NHibernate**       | 5.5.2      | ORM utilizado para fazer o mapeamento objeto-relacional de forma flexível. |
 | 🐘 **Npgsql**           | 9.0.3      | Pacote oficial ADO.NET utilizado para comunicação eficiente com PostgreSQL.|
 | 🔁 **react-router-dom** | latest     | Gerenciamento de rotas entre páginas no front-end com React.               |
 | 🎨 **react-icons**      | latest     | Inclusão de ícones SVG modernos no projeto.                                |
+| 📊 **xlsx**             | 0.18.5     | Geração de Planilhas xlsx                                                  |
+
+
+> ⚠️ **IMPORTANTE:** O react identifica a biblioteca XLSX como vulnerável
+>
+> ```bash
+> Essa vulnerabilidade é gerada quando voce importa o arquivo xlsx malicioso. 
+> No meu projeto estou apenas exportando os dados da api para um excel, o que entendo que não é um problema e não geraria uma falha na aplicação.
+> Em caso de interesse, é possivel compreender melhor https://github.com/advisories/GHSA-4r6h-8v6p-xvw6
+> ```
 
 </details>
 

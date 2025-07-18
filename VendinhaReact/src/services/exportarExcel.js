@@ -1,31 +1,20 @@
-import ExcelJS from "exceljs";
+import { utils, write } from "xlsx";
 import { saveAs } from "file-saver";
 
-/**
- * Gera e baixa um relatório Excel com os dados dos clientes.
- * @param {Array} detalhes - Array de objetos com nome, cpf, email, vaiReceber, jaPagou, total.
- */
-export async function exportarExcel(detalhes) {
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("RelatórioClientes");
+export function exportarExcel(detalhes) {
+  const worksheet = utils.json_to_sheet(detalhes);
 
-    worksheet.columns = [
-        { header: "Cliente", key: "nome" },
-        { header: "CPF", key: "cpf" },
-        { header: "Email", key: "email" },
-        { header: "Contas a Receber", key: "vaiReceber" },
-        { header: "Contas Pagas", key: "jaPagou" },
-        { header: "Total por Cliente", key: "total" }
-    ];
+  const workbook = utils.book_new();
+  utils.book_append_sheet(workbook, worksheet, "RelatórioClientes");
 
-    detalhes.forEach(item => {
-        worksheet.addRow(item);
-    });
+  const excelBuffer = write(workbook, {
+    bookType: "xlsx",
+    type: "array",
+  });
 
-    const buffer = await workbook.xlsx.writeBuffer();
-    const blob = new Blob([buffer], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    });
+  const blob = new Blob([excelBuffer], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
 
-    saveAs(blob, `RelatorioClientes_${new Date().toISOString().slice(0, 10)}.xlsx`);
+  saveAs(blob, `RelatorioClientes_${new Date().toISOString().slice(0, 10)}.xlsx`);
 }

@@ -44,8 +44,8 @@ export default function Relatorio() {
                 <Info titulo="A Receber" valor={formatarValor(dados.aReceber)} />
                 <Info titulo="Recebido" valor={formatarValor(dados.recebido)} />
                 <div className={styles.endpage}>
-                    <div className={styles.excel}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="2500" height="2442" viewBox="0 0 110.037 107.5" id="excel-app" onClick={() => exportarExcel(dados.detalhes)}>
+                    <div className={styles.excel} onClick={() => exportarExcel(dados.detalhes)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2500" height="2442" viewBox="0 0 110.037 107.5" id="excel-app">
                             <path fill="#207245" d="M57.55 0h7.425v10c12.513 0 25.025.025 37.537-.038 2.113.087 4.438-.062 6.275 1.2 1.287 1.85 1.138 4.2 1.225 6.325-.062 21.7-.037 43.388-.024 65.075-.062 3.638.337 7.35-.425 10.938-.5 2.6-3.625 2.662-5.713 2.75-12.95.037-25.912-.025-38.875 0v11.25h-7.763c-19.05-3.463-38.138-6.662-57.212-10V10.013C19.188 6.675 38.375 3.388 57.55 0z"></path>
                             <path fill="#fff" d="M64.975 13.75h41.25V92.5h-41.25V85h10v-8.75h-10v-5h10V62.5h-10v-5h10v-8.75h-10v-5h10V35h-10v-5h10v-8.75h-10v-7.5z"></path>
                             <path fill="#207245" d="M79.975 21.25h17.5V30h-17.5v-8.75z"></path>
