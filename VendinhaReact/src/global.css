@@ -118,7 +118,6 @@ li{
 }
 
 /*Agrupamento onde o alerta sera exibido quando tiver mais de 1 erro gerado*/
-
 #agrupamento {
     position: fixed;
     top: 1rem;

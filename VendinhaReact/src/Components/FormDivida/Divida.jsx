@@ -132,10 +132,14 @@ function Formulario({ handleSubmit, dados, obj, clienteIdSelecionado, setCliente
                     <input name="valor" className={styles.spinner} type="number" step="0.01" placeholder="0.00" defaultValue={dados?.valor ?? ""} required disabled={view} />
                 </div>
 
-                <div className={styles.col}>
-                    <label title="Se preenchido, a divida é incluida como paga">Data de pagamento </label>
-                    <input name="pagamento" type="datetime-local" defaultValue={formataImput(dados?.dataPagamento)} disabled={view}  />
-                </div>
+                {dados !== null && (
+                    <div className={styles.col}>
+                        <label title="Se preenchido, a divida é incluida como paga">Data de pagamento </label>
+                        <input name="pagamento" type="datetime-local" defaultValue={formataImput(dados?.dataPagamento)} disabled={view} />
+                    </div>
+                )}
+
+
             </div>
 
             <label>Descrição <strong id="obrigatorio" title="Campo obrigatório">*</strong></label>
@@ -151,7 +155,7 @@ function ClienteInfo({ dados, obj, setClienteIdSelecionado }) {
         return (
             <div className={styles.dadosNomeCliente}>
                 <label>Nome do cliente</label>
-                <input className={styles.inputficticio} type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""}  disabled />
+                <input className={styles.inputficticio} type="text" name="fictio" value={dados?.cliente?.nome ?? obj?.nome ?? ""} disabled />
             </div>
         );
     }

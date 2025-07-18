@@ -35,13 +35,11 @@
 .dadosNomeCliente{
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 6px;
 }
 
 .dadosNomeCliente .inputficticio{
   background-color: transparent;
-  border: none;
-  border-bottom: 2px solid var(--gray-300);
   padding: 0.6em 1em;
   color: var(--gray-secundario);
   width: 60%;

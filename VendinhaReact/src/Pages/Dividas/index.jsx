@@ -73,7 +73,7 @@ export default function Dividas() {
                     />
                 </section>
 
-                <Paginacao limit={limit} total={totalDivida} exibindo={dividas.length} attPage={setPage} />
+                <Paginacao limit={limit} total={totalDivida} exibindo={dividas.length} attPage={setPage} page={page} setPage={setPage} />
 
                 {excluirAberto && (
                     <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={setPage} obj={true} />
@@ -180,6 +180,9 @@ function useDivida(StatusDivida, limit = 10) {
     }, [pagar]);
 
     useEffect(() => {
+        if (pesquisa) {
+            setPage(0);
+        }
         const timeout = setTimeout(() => chamaListagem(page), 400);
         return () => clearTimeout(timeout);
     }, [pesquisa, page]);

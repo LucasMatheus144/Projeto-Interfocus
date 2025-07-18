@@ -100,20 +100,21 @@ function TabelaDividas({ dividas }) {
                 <thead>
                     <tr>
                         <th>Valor</th>
-                        <th>Situação</th>
                         <th>Pagamento</th>
+                        <th>Situação</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {dividas.map((c, index) => (
                         <tr key={index} className={styles.frame}>
                             <td>{formatarValor(c.valor)}</td>
+                            <td>{formatarData(c.pagamento)}</td>
                             <td>
                                 <div className={c.situacao === StatusDivida.NAO_PAGO ? styles.devendo : styles.pago}>
                                     {c.situacao === StatusDivida.NAO_PAGO ? 'Não Pago' : 'Pago'}
                                 </div>
                             </td>
-                            <td>{formatarData(c.pagamento)}</td>
                         </tr>
                     ))}
                 </tbody>

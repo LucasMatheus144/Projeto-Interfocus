@@ -107,7 +107,7 @@ export default function HomePage() {
                     )}
                 </section>
                 <footer className={styles.lowerpage}>
-                    <Paginacao limit={limit} total={totalClientes} exibindo={clientes.length} attPage={identificaAlterarPagina} />
+                    <Paginacao limit={limit} total={totalClientes} exibindo={clientes.length} attPage={identificaAlterarPagina} page={page} setPage={setPage} />
                 </footer>
                 {loading && <Loading />}
             </PageProvider>

@@ -62,7 +62,7 @@ export default function Relatorio() {
                 <section className={styles.datatable}>
                     <Tabela dados={dados} />
                 </section>
-                <Paginacao limit={limit} total={totalClientes} exibindo={dados.detalhes?.length} attPage={identificaAlterarPagina} />
+                <Paginacao limit={limit} total={totalClientes} exibindo={dados.detalhes?.length} attPage={identificaAlterarPagina} page={page} setPage={setPage} />
             </PageProvider>
         </div>
     );

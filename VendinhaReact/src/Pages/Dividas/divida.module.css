@@ -1,10 +1,10 @@
-.topo{
+.topo {
     padding: 10px;
     width: 240px;
 }
 
-.topo h3{
-     color: var(--primario-blue);
+.topo h3 {
+    color: var(--primario-blue);
     font-size: var(--font-titulo);
     font-weight: 700;
 }
@@ -21,7 +21,8 @@
     width: 100%;
 }
 
-.novadivida, .pagardivida {
+.novadivida,
+.pagardivida {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -37,17 +38,17 @@
     height: 40px;
 }
 
-.grupobtn{
+.grupobtn {
     display: flex;
     gap: 10px;
 }
 
-.grupobtn svg{
+.grupobtn svg {
     width: 20px;
     height: 20px;
 }
 
-.pagardivida.botaoDesativado{
+.pagardivida.botaoDesativado {
     opacity: 0;
 }
 
@@ -103,11 +104,11 @@ tbody td span svg {
     cursor: pointer;
 }
 
-tbody td span svg path:hover{
+tbody td span svg path:hover {
     fill: var(--black-800);
 }
 
-.pago{
+.pago {
     background-color: var(--green-v4);
     border-radius: 10px;
     padding: 5px;
@@ -115,7 +116,7 @@ tbody td span svg path:hover{
     color: var(--green-v5);
 }
 
-.devendo{
+.devendo {
     background-color: var(--red-v6);
     padding: 5px;
     max-width: 80px;
@@ -138,10 +139,3 @@ tbody .frame {
         transform: translateY(0);
     }
 }
-
-
-
-
-
-
-

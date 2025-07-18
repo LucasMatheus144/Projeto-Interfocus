@@ -187,6 +187,16 @@ namespace Venda.DOMAIN.Services
         }
 
         //Consultas
+        public List<Dividas> RetornaTodasDividas()
+        {
+            return db.Consulta<Dividas>().ToList();
+        }
+
+        public Cliente ListarClientePorId(int id)
+        {
+            return db.ConsultaId<Cliente>(id);
+        }
+
         public Dividas RetornaDividaPorId(int id)
         {
             return db.ConsultaId<Dividas>(id);
@@ -202,11 +212,11 @@ namespace Venda.DOMAIN.Services
             var consulta = db.Consulta<Dividas>().Where(x => x.cliente.Id == idcliente)
                 .Select(x => new DividaClienteViewDto
                 {
-                    IdCliente = x.cliente.Id,        
+                    IdCliente = x.cliente.Id,
                     Valor = x.Valor,
-                    Situacao = x.Situacao,                  
+                    Situacao = x.Situacao,
                     Pagamento = x.DataPagamento,
-                })
+                }).OrderBy(x => x.Situacao).ThenBy(x => x.Pagamento)
                 .ToList();
 
             return consulta;
@@ -249,7 +259,7 @@ namespace Venda.DOMAIN.Services
 
             return new RelatorioDto
             {
-                CountClientes = db.Consulta<Cliente>().Select(x => x.Id).Count(),
+                CountClientes = db.Consulta<Dividas>().Select(x => x.cliente.Id).Distinct().Count(),
                 AReceber = aReceber,
                 Recebido = recebido,
                 Detalhes = queryComClientes
@@ -286,16 +296,6 @@ namespace Venda.DOMAIN.Services
                 TotalRegistro = __count,
                 Result = result
             };
-        }
-
-        public List<Dividas> RetornaTodasDividas()
-        {
-            return db.Consulta<Dividas>().ToList();
-        }
-
-        public Cliente ListarClientePorId(int id)
-        {
-            return db.ConsultaId<Cliente>(id);
         }
 
         //Regra Geral para Divida

@@ -7,39 +7,30 @@ import styles from './paginacao.module.css';
  * @param {number} props.total - Total de registros disponíveis
  * @param {number} props.exibindo - Qntde de registros sendo exibidos
  * @param {Function} props.attPage - Callback para solicitar nova página
- */
-export default function Paginacao({ limit, total, exibindo, attPage }) {
-    const [page, setPage] = useState(0);
-    const [visualPage, setVisualPage] = useState(0);
-    const { paginaAtualRef } = usePaginaAtual();
+ * @param {page} props.page - Numero da Pagina
+ * @param {setPage} props.setPage - Atribuir valor da pagina
+ */export default function Paginacao({ limit, total, exibindo, attPage , page, setPage}) {
+    const { paginaAtualRef } = usePaginaAtual(); 
 
     const pageTotal = Math.ceil(total / limit);
     const isFirstPage = page === 0;
-    const isLastPage = (visualPage + 1) * limit >= total;
+    const isLastPage = (page + 1) * limit >= total;
 
-    const inicio = total === 0 || exibindo === 0 ? 0 : visualPage * limit + 1;
+    const inicio = total === 0 || exibindo === 0 ? 0 : page * limit + 1;
     const fim = inicio + exibindo - 1;
 
     const goNext = () => {
-        if (page < pageTotal - 1) {
-            setPage(page + 1);
-        }
+        if (!isLastPage) setPage(prev => prev + 1);
     };
 
     const goPrev = () => {
-        if (page > 0) {
-            setPage(page - 1);
-        }
+        if (!isFirstPage) setPage(prev => prev - 1);
     };
 
     useEffect(() => {
-        paginaAtualRef.current = page; // salvar a pagina para quando precisar dar algum PUT | POST  na api, assim volta sempre na pagina que foi feito a ação
+        paginaAtualRef.current = page;
         attPage?.(page);
     }, [page]);
-
-    useEffect(() => {
-        setVisualPage(page);
-    }, [exibindo]);
 
     return (
         <div className={styles.paginacao}>
