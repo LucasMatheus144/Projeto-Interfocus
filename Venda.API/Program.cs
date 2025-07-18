@@ -48,7 +48,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsDeploy", policy =>
     {
-        policy.WithOrigins("http://104.131.110.118")
+        policy.WithOrigins("https://104.131.110.118")
               .WithMethods("GET", "POST", "PUT", "DELETE")
               .AllowAnyHeader();
     });
