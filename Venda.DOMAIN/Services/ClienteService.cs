@@ -103,6 +103,13 @@ namespace Venda.DOMAIN.Services
 
             if (procura == null) return false;
 
+            //var possuiDivida = db.Consulta<Dividas>().Where(x => x.cliente.Id == id);
+            //// verificar se o cliente possui alguma divida para exclusão
+            //if(possuiDivida != null)
+            //{
+            //    return false;
+            //}
+
             try
             {
                 using var inicia = db.IniciarTransacao();

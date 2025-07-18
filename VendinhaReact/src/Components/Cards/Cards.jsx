@@ -43,7 +43,7 @@ export default function Cards({ cliente, onAtualizar, aberto, onAbrir }) {
             </div>
 
             <div className={styles.infodivida}>
-                <h3 className={styles.txtprincipal}>Devendo R$: {formatarValor(cliente.totalDivida)}</h3>
+                <h3 className={styles.txtprincipal}>Saldo Devedor R$: {formatarValor(cliente.totalDivida)}</h3>
                 <button onClick={onAbrir}>Adicionar Dívida</button>
             </div>
 

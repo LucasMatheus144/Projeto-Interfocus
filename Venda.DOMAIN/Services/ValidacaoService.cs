@@ -64,6 +64,7 @@ namespace Venda.DOMAIN.Services
         {
             erro = new List<ExceptionMsg>();
 
+            // EXEMPLO -> algum campo de data vier quebrado (01/01/19994 ou algo do tipo) todo o json vem null
             if(obj == null)
             {
                 erro.Add(new ExceptionMsg("Classe", "Objeto", "Algum campo do form veio quebrado"));
