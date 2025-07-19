@@ -53,6 +53,7 @@
 ###### Cadastro | Edição | Alteração de Foto
 
 <img width="1913" height="950" alt="image" src="https://github.com/user-attachments/assets/e9c8eeec-03b1-4f3f-8329-3986ca11c48b" />
+<img width="1868" height="924" alt="image" src="https://github.com/user-attachments/assets/e76fb440-6533-4dd7-8361-53952788674d" />
 <img width="1913" height="950" alt="image" src="https://github.com/user-attachments/assets/36114fcb-4da1-498b-85b8-645629196451" />
 <img width="1914" height="950" alt="image" src="https://github.com/user-attachments/assets/71c51f9e-b5c2-4faf-8cfc-a4673f033853" />
 obs: Alteração de imagem basta somente clicar na imagem na opção de edição.
@@ -60,8 +61,8 @@ obs: Alteração de imagem basta somente clicar na imagem na opção de edição
 ---
 
 ###### Paginação | Pesquisa
-<img width="1911" height="954" alt="image" src="https://github.com/user-attachments/assets/40c4416a-7311-46f4-8ac0-0c8bcff32777" />
-<img width="1911" height="953" alt="image" src="https://github.com/user-attachments/assets/aee7f913-d99f-4f4b-9ba1-9b83dc8362ea" />
+<img width="1868" height="929" alt="image" src="https://github.com/user-attachments/assets/96ddcd73-ed0f-4c2b-828c-5a4cd08597a4" />
+<img width="1870" height="927" alt="image" src="https://github.com/user-attachments/assets/824592b0-25cb-4795-80ac-1bb92de8ddb7" />
 
 ---
 
@@ -71,20 +72,20 @@ obs: Alteração de imagem basta somente clicar na imagem na opção de edição
 ---
 
 ###### Cadastro de uma nova divida por Cliente
-<img width="1916" height="949" alt="image" src="https://github.com/user-attachments/assets/588c121a-9d3b-486f-bbe8-19d430d3284a" />
+<img width="1871" height="930" alt="image" src="https://github.com/user-attachments/assets/e784f978-2424-4d9e-bc66-3bd9145f1db9" />
 
 ---
 
 ###### Dividas Page
-<img width="1917" height="1002" alt="image" src="https://github.com/user-attachments/assets/9e4885f4-6298-4cf6-be74-fc13a9562d6a" />
-<img width="1917" height="955" alt="image" src="https://github.com/user-attachments/assets/5e09f06a-cd02-4ad4-a876-052ef36658e1" />
+<img width="1869" height="927" alt="image" src="https://github.com/user-attachments/assets/6a72fc68-926e-4bc5-9121-3081436d693f" />
+<img width="1868" height="928" alt="image" src="https://github.com/user-attachments/assets/1684a42d-d3a9-4669-8207-eaab6b3d7e44" />
 
 ---
 ###### Cadastrar | Visualizar | Editar | Excluir
-<img width="1914" height="949" alt="image" src="https://github.com/user-attachments/assets/09071f93-a609-4a4d-87b0-0699c18c89a7" />
+<img width="1869" height="925" alt="image" src="https://github.com/user-attachments/assets/2394993f-0d0c-4837-9c3c-a5375a507906" />
 <img width="1918" height="954" alt="image" src="https://github.com/user-attachments/assets/f98336b5-3b4e-434e-b42d-3c12814a5070" />
 <img width="1916" height="952" alt="image" src="https://github.com/user-attachments/assets/86e82d9d-75dd-460e-bfca-2e02323b7c5f" />
-<img width="1914" height="953" alt="image" src="https://github.com/user-attachments/assets/c72e11bd-5e60-4cc6-92a6-9290706b28bd" />
+<img width="1869" height="930" alt="image" src="https://github.com/user-attachments/assets/37162f7e-809d-4990-a25b-229bac2f01a2" />
 <img width="1918" height="951" alt="image" src="https://github.com/user-attachments/assets/1850d02a-f35f-4a6a-a693-c90462c8c713" />
 
 ---
@@ -97,12 +98,13 @@ obs: Alteração de imagem basta somente clicar na imagem na opção de edição
 ---
 ###### NotaFiscal 
 <img width="1911" height="955" alt="image" src="https://github.com/user-attachments/assets/9948e552-02a1-4998-9547-f430ba50edb6" />
-<img width="1916" height="996" alt="image" src="https://github.com/user-attachments/assets/cbaadcaf-059e-45ed-ad3e-3d3adfe0fc2c" />
+<img width="1885" height="888" alt="image" src="https://github.com/user-attachments/assets/1792f1da-b324-46d0-81c5-14bc543d5138" />
 
 ---
 
 ###### Pagina de Relatorios
-<img width="1915" height="951" alt="image" src="https://github.com/user-attachments/assets/9d4f557d-882c-4a10-8095-74d9d3656b22" />
+<img width="1868" height="925" alt="image" src="https://github.com/user-attachments/assets/d5bc1780-82e5-4508-8d57-5bba54261400" />
+<img width="540" height="285" alt="image" src="https://github.com/user-attachments/assets/a4f41b47-720f-4ca1-9ee8-56c6b4c81d89" />
 
 </div>
 
