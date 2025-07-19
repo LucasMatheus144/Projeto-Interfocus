@@ -177,7 +177,6 @@ namespace Venda.DOMAIN.Services
     }
 
     // PROPRIEDADE da claasse CLIENTE para o atributo CPF
-    // Documentação da biblioteca -https://github.com/tallesl/net-Cpf
    public class ValidatorCpfAttribute : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -195,6 +194,7 @@ namespace Venda.DOMAIN.Services
         }
     }
 
+    // Documentação https://www.macoratti.net/11/09/c_val1.htm
     public static class CpfValidar
     {
         public static bool ValidarCpf(string cpf)
