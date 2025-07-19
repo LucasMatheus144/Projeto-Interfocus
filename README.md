@@ -128,7 +128,6 @@ obs: Alteração de imagem basta somente clicar na imagem na opção de edição
 
 | Biblioteca              | Versão     | Finalidade                                                                 |
 |-------------------------|------------|----------------------------------------------------------------------------|
-| 🔒 **Cpf**              | 2.1.0      | Validação de CPF conforme padrão brasileiro para autenticar cadastros.     |
 | 🧾 **QuestPDF**         | 2025.7.0   | Geração de documentos PDF com layout customizado.                          | 
 | 🧬 **NHibernate**       | 5.5.2      | ORM utilizado para fazer o mapeamento objeto-relacional de forma flexível. |
 | 🐘 **Npgsql**           | 9.0.3      | Pacote oficial ADO.NET utilizado para comunicação eficiente com PostgreSQL.|
