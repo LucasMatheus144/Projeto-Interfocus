@@ -1,4 +1,3 @@
-﻿using CpfLibrary;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Venda.DOMAIN.Entities;
