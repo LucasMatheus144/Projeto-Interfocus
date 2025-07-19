@@ -71,7 +71,7 @@ export default function Dividas() {
                 <Paginacao limit={limit} total={totalDivida} exibindo={dividas.length} attPage={setPage} page={page} setPage={setPage} />
 
                 {excluirAberto && (
-                    <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={setPage} obj={true} />
+                    <TemCerteza isAbrir={excluirAberto} onClose={() => setExcluirAberto(false)} id={dividaParaExcluir} attForm={() => chamaListagem(page)} obj={true} />
                 )}
 
                 {loading && <Loading />}

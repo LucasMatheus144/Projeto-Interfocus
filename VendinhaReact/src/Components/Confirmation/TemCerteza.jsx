@@ -20,8 +20,10 @@ export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
     const gerarExclusao = async () => {
         await (valida ? excluirCliente(id) : deletarDivida(id));
 
-        attForm(paginaAtualRef.current);
         onClose();
+        attForm(paginaAtualRef.current);
+        console.log(paginaAtualRef.current);
+
     }
     return (
         < div className={styles.componente} >
