@@ -10,10 +10,7 @@ import Paginacao from '../../Components/Paginacao/Paginacao';
 
 export default function Relatorio() {
     const [dados, setDados] = useState([]);
-
     const [page, setPage] = useState(0);
-    const [totalClientes, setTotal] = useState(0);
-
     const limit = 10;
 
     // Efeitos para atualização de componentes
@@ -23,15 +20,11 @@ export default function Relatorio() {
             const result = await gerarPersonalizado(limit, pageatual);
             if (result.status === 200) {
                 setDados(result);
-                setTotal(result.__count);
             }
         } catch (error) {
             console.error('Erro ao chamar API:', error);
         }
     };
-    function identificaAlterarPagina(pageatual) {
-        setPage(pageatual);
-    }
 
     useEffect(() => {
         chamaListagem(page);
@@ -62,7 +55,7 @@ export default function Relatorio() {
                 <section className={styles.datatable}>
                     <Tabela dados={dados} />
                 </section>
-                <Paginacao limit={limit} total={totalClientes} exibindo={dados.detalhes?.length} attPage={identificaAlterarPagina} page={page} setPage={setPage} />
+                <Paginacao limit={limit} total={dados.__count} exibindo={dados.detalhes?.length} attPage={setPage} page={page} setPage={setPage} />
             </PageProvider>
         </div>
     );

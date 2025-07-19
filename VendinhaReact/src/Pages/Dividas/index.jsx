@@ -8,9 +8,9 @@ import Search from '../../Components/InputSearch/Search';
 import Paginacao from "../../Components/Paginacao/Paginacao";
 import Alerta from "../../Components/Alertas/Alerta";
 import Loading from "../../Components/loading/loading";
+import TemCerteza from "../../Components/Confirmation/TemCerteza";
 
 const Divida = lazy(() => import('../../Components/FormDivida/Divida'));
-const TemCerteza = lazy(() => import('../../Components/Confirmation/TemCerteza'));
 
 const StatusDivida = {
     NAO_PAGO: 1,
@@ -36,7 +36,8 @@ export default function Dividas() {
         refTabela,
         refBotao,
         abrirFormulario,
-        chamaListagem, limit
+        chamaListagem,
+        limit
     } = useDivida(StatusDivida);
 
     return (
@@ -121,39 +122,8 @@ function useDivida(StatusDivida, limit = 10) {
         setModalOpen(true);
     };
 
-    const executaPagarDivida = async () => {
-        setLoading(true);
-        const res = await listarPorId(selecionado);
-        if (res.status === 200) {
-            const x = res.data;
-            const payload = {
-                idDivida: x.id,
-                clienteId: x.cliente.id,
-                valor: x.valor,
-                dataCadastro: x.dataCadastro,
-                dataPagamento: new Date(),
-                descricao: x.descricao,
-                situacao: x.situacao
-            };
-
-            const resultado = await salvarDivida(payload);
-            if (resultado.status === 200) {
-                chamaListagem(0);
-                setSelecionado(null);
-                setPop([{ exibir: true, status: true, mensagem: "Nota Fiscal emitida com sucesso!" }]);
-            } else {
-                const mensagens = resultado?.data ?? resultado;
-                const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
-                    ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
-                    : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
-                setPop(listaDeErros);
-            }
-        }
-        setLoading(false);
-    };
-
     useEffect(() => {
-        const handleClickOutside = (event) => {
+        const observaClickFora = (event) => {
             if (
                 refTabela.current && !refTabela.current.contains(event.target) &&
                 refBotao.current && !refBotao.current.contains(event.target)
@@ -161,8 +131,8 @@ function useDivida(StatusDivida, limit = 10) {
                 setSelecionado(null);
             }
         };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", observaClickFora);
+        return () => document.removeEventListener("mousedown", observaClickFora);
     }, []);
 
     useEffect(() => {
@@ -174,7 +144,35 @@ function useDivida(StatusDivida, limit = 10) {
 
     useEffect(() => {
         if (pagar && podePagar) {
-            executaPagarDivida();
+            (async () => {
+                setLoading(true);
+                const res = await listarPorId(selecionado);
+                if (res.status === 200) {
+                    const x = res.data;
+                    const payload = {
+                        idDivida: x.id,
+                        clienteId: x.cliente.id,
+                        valor: x.valor,
+                        dataCadastro: x.dataCadastro,
+                        dataPagamento: new Date(),
+                        descricao: x.descricao,
+                        situacao: x.situacao
+                    };
+                    const resultado = await salvarDivida(payload);
+                    if (resultado.status === 200) {
+                        chamaListagem(page);
+                        setSelecionado(null);
+                        setPop([{ exibir: true, status: true, mensagem: "Nota Fiscal emitida com sucesso!" }]);
+                    } else {
+                        const mensagens = resultado?.data ?? resultado;
+                        const listaDeErros = Array.isArray(mensagens) && mensagens.length > 0
+                            ? mensagens.map(msg => ({ exibir: true, status: false, mensagem: msg.mensagem }))
+                            : [{ exibir: true, status: false, mensagem: "Erro desconhecido." }];
+                        setPop(listaDeErros);
+                    }
+                }
+                setLoading(false);
+            })();
             setPagar(false);
         }
     }, [pagar]);
@@ -206,7 +204,7 @@ function useDivida(StatusDivida, limit = 10) {
         refBotao,
         abrirFormulario,
         chamaListagem,
-        executaPagarDivida, limit
+        limit
     };
 }
 

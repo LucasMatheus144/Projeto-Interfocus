@@ -6,15 +6,13 @@ import TemCerteza from "../../Confirmation/TemCerteza";
 import ViewCliente from "../../ViewCliente/_Cliente";
 import Alerta from "../../Alertas/Alerta";
 
-
 /**
- * @param {boolean} props.isOpen - Define se o modal está aberto.
- * @param {Function} props.onClose - Função chamada para fechar o modal.
- * @param {Function} props.attform - Função chamada para atualizar listagem de clientes após alguma ação dos  componentes renderizados pelo MESMO.
- * @param {Object} props.cliente - Objeto cliente para preencher todos os dados do cliente nescessario para os demais componentes.
+ * @param {boolean} props.isOpen
+ * @param {Function} props.onClose
+ * @param {Function} props.attform
+ * @param {Object} props.cliente
  */
 function Mais({ isOpen, onClose, attform, cliente }) {
-    // fiz isso pq não quero nem renderizar esse componente quando eu não selecionar]
     if (!isOpen) return null;
 
     const [formAberto, setFormAberto] = useState(false);
@@ -29,18 +27,11 @@ function Mais({ isOpen, onClose, attform, cliente }) {
     });
 
     const abrirSucesso = () => {
-        setAlerta({
-            isAbrir: true,
-            status: true,
-            txtError: "",
-        });
-
-        setTimeout(() => {
-            setAlerta(prev => ({ ...prev, isAbrir: false }));
-        }, 8000);
+        setAlerta({ isAbrir: true, status: true, txtError: "" });
+        setTimeout(() => setAlerta(prev => ({ ...prev, isAbrir: false })), 8000);
     };
-    const ref = useRef(null);
 
+    const ref = useRef(null);
 
     useEffect(() => {
         if (formAberto) {
@@ -53,7 +44,7 @@ function Mais({ isOpen, onClose, attform, cliente }) {
                 }
             })();
         }
-    }, [formAberto, !modoVisualizacao]);
+    }, [formAberto]); // <-- REMOVIDO "!modoVisualizacao" daqui
 
     useEffect(() => {
         function clicarForaEvento(event) {
@@ -66,15 +57,14 @@ function Mais({ isOpen, onClose, attform, cliente }) {
         }
         return () => {
             document.removeEventListener("mousedown", clicarForaEvento);
-            setFormAberto(null);
+            // ❌ REMOVIDO: setFormAberto(null) -- desnecessário
         };
     }, [isOpen]);
 
     return (
-
         <>
             <div id="agrupamento">
-                <Alerta isAbrir={alerta.isAbrir} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta((prev) => ({ ...prev, isAbrir: false }))} />
+                <Alerta isAbrir={alerta.isAbrir} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta(prev => ({ ...prev, isAbrir: false }))} />
             </div>
             <div ref={ref} className={styles.addmais}>
                 <ul>
@@ -88,6 +78,7 @@ function Mais({ isOpen, onClose, attform, cliente }) {
                         <button onClick={() => setExcluir(true)}>Excluir</button>
                     </li>
                 </ul>
+
                 {formAberto && modoVisualizacao && (
                     <ViewCliente obj={clienteData} />
                 )}
@@ -95,12 +86,11 @@ function Mais({ isOpen, onClose, attform, cliente }) {
                 {formAberto && !modoVisualizacao && (
                     <FormCliente isOpen={formAberto} onClose={() => setFormAberto(false)} onAttHomePage={attform} obj={clienteData} onAlertaSucesso={abrirSucesso} />
                 )}
+
                 <TemCerteza isAbrir={excluir} onClose={() => setExcluir(false)} id={cliente.id} attForm={attform} obj={false} />
             </div>
         </>
     );
 }
 
-export default React.memo(Mais); 
-
-// salva na memoria e renderiza somente quando o prop mudar
+export default React.memo(Mais);

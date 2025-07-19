@@ -43,7 +43,6 @@ export default function FormCliente({ isOpen, onClose, onAttHomePage, obj, onAle
         situacao: 1
     });
 
-
     const fluxoTela = () => {
         setCpf(null); // isso é para remover o CPF digitado do form ao dar o POST
         gatilhoClosePop();

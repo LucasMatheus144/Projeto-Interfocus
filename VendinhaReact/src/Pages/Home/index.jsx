@@ -34,6 +34,7 @@ export default function HomePage() {
     const [loading, setLoading] = useState(false);
 
     const chamaListagem = async (pageAtual) => {
+        setLoading(true);
         const result = await listarClientes(pesquisa, limit, pageAtual);
         if (result.status === 200) {
             setTotal(result.__count);
@@ -67,37 +68,29 @@ export default function HomePage() {
         }, 8000);
     };
 
-    function identificaAlterarPagina(paginaAtual) {
-        setPage(paginaAtual);
-        setLoading(true);
-    }
-
     useEffect(() => {
-        var timeout = setTimeout(() => {
+        const timeout = setTimeout(() => {
             chamaListagem(page);
         }, 600);
-
-        return () => {
-            clearTimeout(timeout);
-        }
+        return () => clearTimeout(timeout);
     }, [pesquisa, page]);
 
     return (
         <>
-            <PageProvider>
-                <div id="agrupamento">
-                    {alerta.isAbrir && (
-                        <Alerta isAbrir={true} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta(prev => ({ ...prev, isAbrir: false }))} />
-                    )}
-                </div>
-                <header className={styles.container}>
-                    <div className={styles.pesquisa}>
-                        <Search observavdorPesquisa={disparaPesquisa}></Search>
-                        <div>
-                            <button className={styles.novocliente} onClick={() => setOpen(true)} ><FaPlus /> Novo Cliente</button>
-                        </div>
+            <div id="agrupamento">
+                {alerta.isAbrir && (
+                    <Alerta isAbrir={true} status={alerta.status} txtError={alerta.txtError} isFechar={() => setAlerta(prev => ({ ...prev, isAbrir: false }))} />
+                )}
+            </div>
+            <header className={styles.container}>
+                <div className={styles.pesquisa}>
+                    <Search observavdorPesquisa={disparaPesquisa}></Search>
+                    <div>
+                        <button className={styles.novocliente} onClick={() => setOpen(true)} ><FaPlus /> Novo Cliente</button>
                     </div>
-                </header>
+                </div>
+            </header>
+            <PageProvider>
                 {abrir && (
                     <FormCliente isOpen={true} onClose={() => setOpen(false)} onAttHomePage={atualizarPagePaginacao} obj={null} onAlertaSucesso={abrirSucesso} />
                 )}
@@ -107,10 +100,11 @@ export default function HomePage() {
                     )}
                 </section>
                 <footer className={styles.lowerpage}>
-                    <Paginacao limit={limit} total={totalClientes} exibindo={clientes.length} attPage={identificaAlterarPagina} page={page} setPage={setPage} />
+                    <Paginacao limit={limit} total={totalClientes} exibindo={clientes.length} attPage={setPage} page={page} setPage={setPage} />
                 </footer>
-                {loading && <Loading />}
             </PageProvider>
+            {loading && <Loading />}
+
         </>
     )
 }
