@@ -1,5 +1,7 @@
 import { excluirCliente } from '../../services/clienteService';
 import { deletarDivida } from '../../services/dividaService';
+import { usePaginaAtual } from "../../Contexts/PageContext";
+
 import styles from './temcerteza.module.css';
 
 /**
@@ -13,16 +15,13 @@ export default function TemCerteza({ isAbrir, onClose, id, attForm, obj }) {
     if (!isAbrir) return null;
     var valida = obj === false;
 
-    const gerarExclusao = async () => {
-        const status = await (valida ? excluirCliente(id) : deletarDivida(id));
+    const { paginaAtualRef } = usePaginaAtual();
 
-        if (status.status === 200) {
-            onClose();
-            attForm(0);
-        } else {
-            onClose();
-            attForm(0);
-        }
+    const gerarExclusao = async () => {
+        await (valida ? excluirCliente(id) : deletarDivida(id));
+
+        attForm(paginaAtualRef.current);
+        onClose();
     }
     return (
         < div className={styles.componente} >

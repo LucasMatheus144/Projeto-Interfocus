@@ -1,6 +1,5 @@
 
 export var URL_API = "https://104.131.110.118"
-
 //export var URL_API = "http://localhost:5200"
 
 export function formatarData(dataString) {
