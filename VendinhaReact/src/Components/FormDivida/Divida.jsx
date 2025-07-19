@@ -88,11 +88,11 @@ export default function Divida({ isOpen, onClose, onAtualizar, obj, view }) {
     return (
         <>
             <GrupoAlerta popup={popup} setPopup={setPopup} />
-            <Model isOpen={isOpen} onClose={onClose}>
-                <Formulario
-                    handleSubmit={handleSubmit} dados={dados} obj={obj} clienteIdSelecionado={clienteIdSelecionado}
-                    setClienteIdSelecionado={setClienteIdSelecionado} onClose={onClose} view={view} />
-            </Model>
+                <Model isOpen={isOpen} onClose={onClose}>
+                    <Formulario
+                        handleSubmit={handleSubmit} dados={dados} obj={obj} clienteIdSelecionado={clienteIdSelecionado}
+                        setClienteIdSelecionado={setClienteIdSelecionado} onClose={onClose} view={view} />
+                </Model>
             {loading && <Loading />}
         </>
     );

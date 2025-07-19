@@ -58,13 +58,7 @@ export default function Dividas() {
                 </header>
 
                 {modalOpen && (
-                    <Divida
-                        isOpen={modalOpen}
-                        onClose={() => setModalOpen(false)}
-                        onAtualizar={chamaListagem}
-                        obj={dividaSelecionada}
-                        view={viewMode}
-                    />
+                    <Divida isOpen={modalOpen} onClose={() => setModalOpen(false)} onAtualizar={chamaListagem} obj={dividaSelecionada} view={viewMode} />
                 )}
 
                 <section className={styles.datatable}>
