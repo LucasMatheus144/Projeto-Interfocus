@@ -14,7 +14,7 @@ namespace Venda.DOMAIN.Services
     {
         private readonly IRepository db;
         private readonly ValidacaoService validar;
-        private string url_aws = "https://arquivopdfsbucks.s3.us-east-1.amazonaws.com";
+        private string url_aws = "SEU URL DO BUCKET AWS DE IMAGENS";
 
         public DividaService(IRepository db, ValidacaoService validar)
         {
